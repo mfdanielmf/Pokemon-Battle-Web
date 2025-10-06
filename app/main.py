@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, current_app
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
 with open("data/pokemon.json", encoding="utf-8") as f:
     app.config["DATA"] = json.load(f)
