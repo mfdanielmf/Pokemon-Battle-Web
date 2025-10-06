@@ -2,6 +2,8 @@ from datetime import datetime
 from flask import Flask, render_template, jsonify, current_app
 import json
 
+current_year = datetime.now().year
+
 app = Flask(__name__, static_folder="static")
 
 with open("data/pokemon.json", encoding="utf-8") as f:
@@ -20,11 +22,12 @@ def index():
 
 @app.route("/test-base")
 def base():
-    return render_template("base.html", year=datetime.today().year)
+    return render_template("base.html", year=current_year)
+
 
 @app.route("/lista_pokemon/")
 def lista():
-    return render_template("lista_pokemon.html", pokemons = current_app.config["DATA"])
+    return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year)
 
 
 if __name__ == "__main__":
