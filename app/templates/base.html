@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PokeWarriors - Bienvenida</title>
+    <!-- Cambiar título para cada página aquí -->
+    <title>{% block title %}PokeWarriors{% endblock %}</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
-    <header class="p-[1rem_2rem] fixed w-screen">
+    <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
             <ul class="flex justify-end items-center text-white gap-5 font-bold">
                 <li class="relative group p-1 hover:scale-105">
@@ -36,10 +37,13 @@
     </header>
 
     <main class="bg-[url(static/media/img/fondo-bienvenida.png)] bg-cover min-h-screen">
+        {% block main %}
+        <!-- Insertar contenido principal aquí -->
+        {% endblock %}
 
     </main>
 
-    <footer class="absolute bottom-0 bg-transparent text-center text-white w-screen font-bold">
+    <footer class="fixed bottom-0 bg-transparent text-center text-white w-screen font-bold">
         <p>{{year}} - POKEWARRIORS® - TODOS LOS DERECHOS RESERVADOS</p>
     </footer>
 </body>
