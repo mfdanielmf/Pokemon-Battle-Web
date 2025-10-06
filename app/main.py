@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, jsonify, current_app
 import json
 
@@ -19,7 +20,7 @@ def index():
 
 @app.route("/test-base")
 def bienvenida():
-    return render_template("base.html")
+    return render_template("base.html", year=datetime.today().year)
 
 
 if __name__ == "__main__":
