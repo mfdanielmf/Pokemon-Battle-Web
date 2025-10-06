@@ -7,14 +7,19 @@ with open("data/pokemon.json", encoding="utf-8") as f:
     app.config["DATA"] = json.load(f)
 
 
-@app.route("/")
-def bienvenida():
-    return render_template("index.html")
-
-
 @app.route("/data")
 def home():
     return jsonify(current_app.config["DATA"])
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/test-base")
+def bienvenida():
+    return render_template("base.html")
 
 
 if __name__ == "__main__":
