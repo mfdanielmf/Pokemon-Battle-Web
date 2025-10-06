@@ -22,6 +22,10 @@ def index():
 def base():
     return render_template("base.html", year=datetime.today().year)
 
+@app.route("/lista_pokemon/")
+def lista():
+    return render_template("lista_pokemon.html", pokemons = current_app.config["DATA"])
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 8080, debug=True)
