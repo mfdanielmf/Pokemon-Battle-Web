@@ -19,7 +19,7 @@ def index():
 
 
 @app.route("/test-base")
-def bienvenida():
+def base():
     return render_template("base.html", year=datetime.today().year)
 
 
