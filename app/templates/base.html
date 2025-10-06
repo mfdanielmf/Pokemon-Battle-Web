@@ -36,7 +36,7 @@
         </nav>
     </header>
 
-    <main class="bg-[url(static/media/img/fondo-bienvenida.png)] bg-cover min-h-screen">
+    <main class="bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.png') }}')] bg-cover min-h-screen">
         {% block main %}
         <!-- Insertar contenido principal aquí -->
         {% endblock %}
