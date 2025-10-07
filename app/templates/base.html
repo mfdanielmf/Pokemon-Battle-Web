@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body class="bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.png') }}')] bg-cover min-h-screen">
     <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
             <ul class="flex justify-end items-center text-white gap-5 font-bold">
@@ -39,7 +39,7 @@
         </nav>
     </header>
 
-    <main class="bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.png') }}')] bg-cover min-h-screen">
+    <main>
         {% block main %}
         <!-- Insertar contenido principal aquí -->
         {% endblock %}
