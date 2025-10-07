@@ -4,31 +4,20 @@
 
 {% block main %}
 
-    <h2>Listado de pokemon</h2>
+     <h2>Listado de pokemon</h2>
 
-    {% for pokemon in pokemons %}
-        <div>
-            {{pokemon.name}}
-            <img src="{{pokemon.sprites.front_default}}" alt="{{pokemon.sprites}}">
-            {% for elemento in pokemon.types %}
-                {% if elemento == "fire" %}
-                    <p>Tipo de pokemon: {{ elemento }} </p> 
-                {% elif elemento == "flying" %}
-                    <p>Tipo de pokemon: {{ elemento }} </p>
-                {% elif elemento == "grass" %}
-                    <p>Tipo de pokemon: {{ elemento }} </p>
-                {% elif elemento == "poison" %}
-                    <p>Tipo de pokemon: {{ elemento }} </p>
-                {% elif elemento == "water" %}
-                    <p>Tipo de pokemon: {{ elemento }} </p>
-                {% elif elemento == "electric" %}
-                    <p>Tipo de pokemon: {{ elemento }} </p>
+    <div class="pokemon-container">
+        {% for pokemon in pokemons %}
+            <div class="pokemon-card">
+                <h3>{{pokemon.name}}</h3>
+                <img src="{{pokemon.sprites.front_default}}" alt="{{pokemon.sprites}}">
+                {% for elemento in pokemon.types %}
+                    <p class="tipo-{{ elemento }}">{{ elemento }}</p>
+                    
                 
-
-                {% endif %}
-            
-            {% endfor %}
-        </div>
-    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}

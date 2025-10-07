@@ -1,0 +1,67 @@
+
+h2 {
+    text-align: center;
+    margin: 30px 0;
+    color: #ffffff;
+}
+
+/* === Contenedor general === */
+.pokemon-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* === Cada carta === */
+.pokemon-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* === Imagen del Pokémon === */
+.pokemon-card img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+    margin: auto;
+    
+}
+
+/* === Nombre === */
+.pokemon-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #222;
+    text-transform: capitalize;
+}
+
+/* === Tipos === */
+.pokemon-card p {
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 5px 3px;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* === Colores según tipo === */
+.tipo-fire { background: #f08030; }
+.tipo-water { background: #6890f0; }
+.tipo-grass { background: #78c850; }
+.tipo-electric { background: #f8d030; color: #333; }
+.tipo-poison { background: #a040a0; }
+.tipo-flying { background: #78cfee; }
