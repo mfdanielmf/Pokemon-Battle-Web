@@ -10,15 +10,22 @@
 
 <div class="pokemon-container">
     {% for pokemon in pokemons %}
-        <a href="{{ url_for('pokemon_detalles', id = pokemon.id) }}">
+    <a href="{{ url_for('pokemon_detalles', id = pokemon.id) }}">
         <div class="pokemon-card">
-        <h3>{{pokemon.name}}</h3>
-        <img src="{{pokemon.sprites.front_default}}" alt="{{pokemon.sprites}}">
-        {% for elemento in pokemon.types %}
+            <h3>{{pokemon.name}}</h3>
+            {% for tipo in pokemon.types%}
+            <img src="{{url_for('static', filename='media/img/tipos-pokemon/' + tipo + '.webp')}}"
+                alt="Tipo de pokemon">
+            {% endfor %}
+
+            <img src="{{pokemon.sprites.front_default}}" alt="{{pokemon.sprites}}">
+
+            {% for elemento in pokemon.types %}
             <p class="tipo-{{ elemento }}">{{ elemento }}</p>
-        {% endfor %}
+            {% endfor %}
+
         </div>
-        </a>
+    </a>
     {% endfor %}
 </div>
 

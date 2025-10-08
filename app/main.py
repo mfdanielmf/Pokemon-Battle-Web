@@ -29,16 +29,17 @@ def base():
 def lista():
     return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year)
 
+
 @app.route("/pokemon_detallado/<int:id>")
 def pokemon_detalles(id):
-    lista_pokemons = current_app.config["DATA"]  #DATA para pasar la lista de pokemon y recorrerla para buscar el pokemon
+    # DATA para pasar la lista de pokemon y recorrerla para buscar el pokemon
+    lista_pokemons = current_app.config["DATA"]
     pokemon = None
     for p in lista_pokemons:
         if p["id"] == id:
             pokemon = p
-           
 
-    return render_template("pokemon_detallado.html", pokemon_recibir = pokemon)
+    return render_template("pokemon_detallado.html", pokemon_recibir=pokemon)
 
 
 if __name__ == "__main__":
