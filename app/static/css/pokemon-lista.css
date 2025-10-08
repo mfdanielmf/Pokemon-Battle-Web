@@ -77,3 +77,21 @@
 .tipo-flying {
     background: #78cfee;
 }
+
+/* === Formato iconons tipo === */
+.pokemon-card .img-tipo {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.img-iconos-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.title-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -12,11 +12,16 @@
     {% for pokemon in pokemons %}
     <a href="{{ url_for('pokemon_detalles', id = pokemon.id) }}">
         <div class="pokemon-card">
-            <h3>{{pokemon.name}}</h3>
-            {% for tipo in pokemon.types%}
-            <img src="{{url_for('static', filename='media/img/tipos-pokemon/' + tipo + '.webp')}}"
-                alt="Tipo de pokemon">
-            {% endfor %}
+            <div class="title-img-container">
+                <h3>{{pokemon.name}}</h3>
+
+                <section class="img-iconos-container">
+                    {% for tipo in pokemon.types%}
+                    <img src="{{url_for('static', filename='media/img/tipos-pokemon/' + tipo + '.webp')}}"
+                        alt="Tipo de pokemon" class="img-tipo">
+                    {% endfor %}
+                </section>
+            </div>
 
             <img src="{{pokemon.sprites.front_default}}" alt="{{pokemon.sprites}}">
 
