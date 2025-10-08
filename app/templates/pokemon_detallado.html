@@ -2,6 +2,10 @@
 
 {% block title %}Pokemons{% endblock %}
 
+{% block link %}
+<link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-lista.css')}}">
+{% endblock %}
+
 {% block main %}
 
     <div class="pokemon-container">
