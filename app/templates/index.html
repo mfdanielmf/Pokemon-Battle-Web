@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokemon battle web</title>
-</head>
+{% block title %} PokeWarrior {% endblock %}
 
-<body>
-    <h1>BATALLAS POKEMON</h1>
-    <footer>Batallas pokemon • Daniel • Francisco • 2025 - 2026</footer>
-</body>
+{% block link %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
+rel="stylesheet">
+{% endblock %}
 
-</html>
+{% block main %}
+
+<section>
+    <h1 class="text-yellow-300 text-center text-[100px]" style="font-family: bangers;">POKEWARRIORS</h1>
+    <h3 class="text-center font-bold text-3xl text-cyan-300" style="font-family: Annie Use Your Telescope">
+        ¿Comenzamos la
+        aventura?
+    </h3>
+
+</section>
+
+
+
+{% endblock %}
