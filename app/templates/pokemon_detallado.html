@@ -3,20 +3,63 @@
 {% block title %}Pokemons{% endblock %}
 
 {% block link %}
-<link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-lista.css')}}">
+<link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-detallado.css')}}">
 {% endblock %}
 
 {% block main %}
 
-    <div class="pokemon-container">
-        <div class="pokemon-card">
-            <h3>{{pokemon_recibir.name}}</h3>
-            <img src="{{pokemon_recibir.sprites.front_default}}" alt="{{pokemon_recibir.sprites}}">
-            {% for elemento in pokemon_recibir.types %}
-                <p class="tipo-{{ elemento }}">{{ elemento }}</p>
+  <div class="pokemon-container">
+    <div class="pokemon-card">
+
+        <div class="title-img-container">
+                <h3>{{pokemon_recibir.name.capitalize()}}</h3>
+
+                <section class="img-iconos-container">
+                    {% for tipo in pokemon_recibir.types%}
+                    <img src="{{url_for('static', filename='media/img/tipos-pokemon/' + tipo + '.webp')}}"
+                        alt="Tipo de pokemon" class="img-tipo">
+                    {% endfor %}
+                </section>
+            </div>
+
+        <div class="pokemon-image">
+            <img src="{{ pokemon_recibir.sprites.front_default }}" alt="{{ pokemon_recibir.name }}" class="default">
+            <img src="{{ pokemon_recibir.sprites.front_shiny }}" alt="{{ pokemon_recibir.name }}" class="shiny">
+        </div>
+        <div class="pokemon-types">
+            {% for tipo in pokemon_recibir.types %}
+                <div class="tipo tipo-{{ tipo }}">{{ tipo }}</div>
             {% endfor %}
-            
+        </div>
+        <div class="pokemon-stats">
+            {% set max_stat = 150 %} {# Maximo valor de stat para normalizar #}
+            {% for stat in pokemon_recibir.stats %}
+                {% set stat_width = (stat.value / max_stat * 100) %}
+                <div class="stat">
+                    <div class="stat-name">{{ stat.name }}</div>
+                    <div class="stat-value">{{ stat.value }}</div>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: {{ stat_width }}%"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="height">{{ pokemon_recibir.height }} altura</div>
+
+        <div class="weight">
+            {% if pokemon_recibir.weight < 50 %}
+                <p>{{ pokemon_recibir.weight }} Poco pesado</p>
+            {% elif pokemon_recibir.weight > 51 and pokemon_recibir.weight < 120 %}
+                <p>{{ pokemon_recibir.weight }} Peso intermedio</p>
+            {% elif pokemon_recibir.weight > 121 and pokemon_recibir.weight < 400 %}
+                <p>{{ pokemon_recibir.weight }} Muy pesado</p>
+            {% else %}
+                <p>{{ pokemon_recibir.weight }} Super pesado</p>
+            {% endif %}
+
         </div>
     </div>
+</div>
 
 {% endblock %}

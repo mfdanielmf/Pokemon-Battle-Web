@@ -1,0 +1,136 @@
+/* Contenedor principal */
+.pokemon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    
+    font-family: 'Arial', sans-serif;
+}
+
+/* Card Pokémon */
+.pokemon-card {
+    background: linear-gradient(135deg, #f8f8f8, #ffffff);
+    border-radius: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    width: 500px;
+    padding: 20px;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+/* Nombre del Pokémon y tipo */
+.img-iconos-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.title-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 26px;
+    color: #000000;
+}
+
+/* Imagen del Pokémon */
+.pokemon-image{
+    position: relative;
+    width: 220px;
+    height: 220px;
+}
+.pokemon-image img {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    transition: ease 0.2s;
+}
+
+.pokemon-image .shiny {
+    opacity: 0;
+}
+.pokemon-image:hover .shiny {
+    opacity: 1;
+    transform: scale(1.15);    
+}
+.pokemon-image:hover .default{
+    opacity: 0;
+}
+
+
+.tipo {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 15px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/* === Colores según tipo === */
+.tipo-fire {
+    background: #f08030;
+}
+
+.tipo-water {
+    background: #6890f0;
+}
+
+.tipo-grass {
+    background: #78c850;
+}
+
+.tipo-electric {
+    background: #f8d030;
+    color: #333;
+}
+
+.tipo-poison {
+    background: #a040a0;
+}
+
+.tipo-flying {
+    background: #78cfee;
+}
+
+/* Stats del Pokémon */
+.pokemon-stats {
+    margin-top: 20px;   
+}
+
+.stat {
+    margin-bottom: 10px;
+}
+
+.stat-name {
+    display: inline-block;
+    width: 120px;
+    text-transform: capitalize;
+}
+
+.stat-value {
+    display: inline-block;
+    width: 30px;
+}
+
+.stat-bar {
+    display: inline-block;
+    width: 150px;
+    height: 12px;
+    background: #ddd;
+    border-radius: 6px;
+    vertical-align: middle;
+    margin-left: 5px;
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    background: #4CAF50;
+    border-radius: 6px 0 0 6px;
+}
