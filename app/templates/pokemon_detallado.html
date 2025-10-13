@@ -57,8 +57,17 @@
             {% else %}
                 <p>{{ pokemon_recibir.weight }} Super pesado</p>
             {% endif %}
-
         </div>
+
+        <div class="moves">
+            {% for move in pokemon_recibir.moves %}
+                <div class="move-name">Name: {{move.name}}</div>
+                <div class="move-accuracy">Accuracy: {{move.accuracy}}</div>
+                <div class="move-power">Power: {{move.power}}</div>
+                <div class="move-type">Type: {{move.type}}</div>
+            {% endfor %}
+        </div>
+
     </div>
 </div>
 
