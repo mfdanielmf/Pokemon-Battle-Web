@@ -9,6 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap" rel="stylesheet">
 {% endblock %}
 
+<!-- Estilo background -->
+
+{% block body_class %}bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.jpeg') }}')] bg-cover
+bg-no-repeat{% endblock %}
+
 {% block main %}
 
 <section class="flex flex-col">

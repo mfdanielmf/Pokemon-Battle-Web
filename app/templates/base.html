@@ -17,7 +17,9 @@
 
 </head>
 
-<body class="bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.jpeg') }}')] bg-cover min-h-screen">
+<!-- Bloque para añadir clases a body (principalmente para el background) -->
+
+<body class="{% block body_class %} {% endblock %}min-h-screen">
     <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
             <ul class="flex justify-end items-center text-white gap-5 font-bold">
