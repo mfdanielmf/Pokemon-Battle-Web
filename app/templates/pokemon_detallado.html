@@ -1,39 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Pokemons{% endblock %}
-
 {% block link %}
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-detallado.css')}}">
 {% endblock %}
 
 {% block main %}
 
-  <div class="pokemon-container">
+<div class="pokemon-container">
     <div class="pokemon-card">
 
         <div class="title-img-container">
-                <h3>{{pokemon_recibir.name.capitalize()}}</h3>
+            <h3>{{pokemon_recibir.name.capitalize()}}</h3>
 
-                <section class="img-iconos-container">
-                    {% for tipo in pokemon_recibir.types%}
-                    <img src="{{url_for('static', filename='media/img/tipos-pokemon/' + tipo + '.webp')}}"
-                        alt="Tipo de pokemon" class="img-tipo">
-                    {% endfor %}
-                </section>
+            <section class="img-iconos-container">
+                {% for tipo in pokemon_recibir.types%}
+                <img src="{{url_for('static', filename='media/img/tipos-pokemon/' + tipo + '.webp')}}"
+                    alt="Tipo de pokemon" class="img-tipo">
+                {% endfor %}
+            </section>
+        </div>
+        
+        <div class="imagen-stats">
+            <div class="pokemon-image">
+                <img src="{{ pokemon_recibir.sprites.front_default }}" alt="{{ pokemon_recibir.name }}" class="default">
+                <img src="{{ pokemon_recibir.sprites.front_shiny }}" alt="{{ pokemon_recibir.name }}" class="shiny">
             </div>
 
-        <div class="pokemon-image">
-            <img src="{{ pokemon_recibir.sprites.front_default }}" alt="{{ pokemon_recibir.name }}" class="default">
-            <img src="{{ pokemon_recibir.sprites.front_shiny }}" alt="{{ pokemon_recibir.name }}" class="shiny">
-        </div>
-        <div class="pokemon-types">
-            {% for tipo in pokemon_recibir.types %}
-                <div class="tipo tipo-{{ tipo }}">{{ tipo }}</div>
-            {% endfor %}
-        </div>
-        <div class="pokemon-stats">
-            {% set max_stat = 150 %} {# Maximo valor de stat para normalizar #}
-            {% for stat in pokemon_recibir.stats %}
+
+            <div class="pokemon-stats">
+                {% set max_stat = 150 %} {# Maximo valor de stat para normalizar #}
+                {% for stat in pokemon_recibir.stats %}
                 {% set stat_width = (stat.value / max_stat * 100) %}
                 <div class="stat">
                     <div class="stat-name">{{ stat.name }}</div>
@@ -42,33 +38,52 @@
                         <div class="stat-fill" style="width: {{ stat_width }}%"></div>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
 
-        <div class="height">{{ pokemon_recibir.height }} altura</div>
+        <div class="linea-elementos">
+            <div class="height">{{ pokemon_recibir.height }} altura</div>
 
-        <div class="weight">
-            {% if pokemon_recibir.weight < 50 %}
-                <p>{{ pokemon_recibir.weight }} Poco pesado</p>
-            {% elif pokemon_recibir.weight > 51 and pokemon_recibir.weight < 120 %}
-                <p>{{ pokemon_recibir.weight }} Peso intermedio</p>
-            {% elif pokemon_recibir.weight > 121 and pokemon_recibir.weight < 400 %}
-                <p>{{ pokemon_recibir.weight }} Muy pesado</p>
-            {% else %}
-                <p>{{ pokemon_recibir.weight }} Super pesado</p>
-            {% endif %}
+            <div class="pokemon-types">
+                {% for tipo in pokemon_recibir.types %}
+                <div class="tipo tipo-{{ tipo }}">{{ tipo }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="weight">
+                {% if pokemon_recibir.weight <= 50 %} <p>{{ pokemon_recibir.weight }} Poco pesado</p>
+                    {% elif pokemon_recibir.weight > 51 and pokemon_recibir.weight <= 120 %} <p>{{ pokemon_recibir.weight }}
+                        Peso intermedio</p>
+                        {% elif pokemon_recibir.weight > 121 and pokemon_recibir.weight <= 400 %} <p>{{
+                            pokemon_recibir.weight }} Muy pesado</p>
+                            {% else %}
+                            <p>{{ pokemon_recibir.weight }} Super pesado</p>
+                            {% endif %}
+
+            </div>
         </div>
 
-        <div class="moves">
-            {% for move in pokemon_recibir.moves %}
-                <div class="move-name">Name: {{move.name}}</div>
-                <div class="move-accuracy">Accuracy: {{move.accuracy}}</div>
-                <div class="move-power">Power: {{move.power}}</div>
-                <div class="move-type">Type: {{move.type}}</div>
-            {% endfor %}
+        <div class="moves-container">
+            <h3>Movimientos</h3>
+            <div class="moves">
+                {% for move in pokemon_recibir.moves %}
+                <div class="moves-pokemon tipo-{{pokemon_recibir.type}}">
+                    <div class="nombre-tipo">
+                        <div class="move-name">{{move.name | capitalize}}</div>
+                        <img class="move-type img-tipo" src="{{url_for('static', filename='media/img/tipos-pokemon/' + move.type + '.webp')}}"
+                        alt="Tipo de pokemon">
+                    </div>
+                    <div class="move-accuracy">{{move.accuracy}}</div>
+                    <div class="move-power">{{move.power}}</div>
+                    
+                
+                </div>
+                {% endfor %}
+            </div>
         </div>
-
-    </div>
+    </div>    
 </div>
+
 
 {% endblock %}
