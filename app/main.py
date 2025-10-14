@@ -39,7 +39,7 @@ def pokemon_detalles(id):
         if p["id"] == id:
             pokemon = p
 
-    return render_template("pokemon_detallado.html", pokemon_recibir=pokemon)
+    return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year)
 
 
 if __name__ == "__main__":
