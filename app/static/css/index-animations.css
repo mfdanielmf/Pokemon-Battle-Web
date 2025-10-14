@@ -1,0 +1,13 @@
+.aparecer {
+    animation: aparecer 0.5s;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

@@ -53,29 +53,98 @@
 }
 
 /* === Colores según tipo === */
+.pokemon-card>p {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tipo-normal {
+    background: linear-gradient(135deg, #B8B8A9, #DCDCC3);
+    color: #222;
+}
+
 .tipo-fire {
-    background: #f08030;
+    background: linear-gradient(135deg, #FF6B3D, #FFB347);
+    color: #fff;
 }
 
 .tipo-water {
-    background: #6890f0;
-}
-
-.tipo-grass {
-    background: #78c850;
+    background: linear-gradient(135deg, #4C7DF0, #6EDBFF);
+    color: #fff;
 }
 
 .tipo-electric {
-    background: #f8d030;
+    background: linear-gradient(135deg, #FFD43B, #FFF6A1);
     color: #333;
 }
 
+.tipo-grass {
+    background: linear-gradient(135deg, #5FD068, #A7F0A2);
+    color: #111;
+}
+
+.tipo-ice {
+    background: linear-gradient(135deg, #A8E6FF, #E0FFFF);
+    color: #0b2545;
+}
+
+.tipo-fighting {
+    background: linear-gradient(135deg, #C23030, #F06060);
+    color: #fff;
+}
+
 .tipo-poison {
-    background: #a040a0;
+    background: linear-gradient(135deg, #B14DC6, #E598F4);
+    color: #fff;
+}
+
+.tipo-ground {
+    background: linear-gradient(135deg, #C68C53, #E7C39A);
+    color: #222;
 }
 
 .tipo-flying {
-    background: #78cfee;
+    background: linear-gradient(135deg, #8EA6FF, #C8E2FF);
+    color: #0b2545;
+}
+
+.tipo-psychic {
+    background: linear-gradient(135deg, #FF5F9E, #FFB5D8);
+    color: #fff;
+}
+
+.tipo-bug {
+    background: linear-gradient(135deg, #A2C23A, #D9E97E);
+    color: #111;
+}
+
+.tipo-rock {
+    background: linear-gradient(135deg, #C4B18B, #E4D5A3);
+    color: #222;
+}
+
+.tipo-ghost {
+    background: linear-gradient(135deg, #6B4D9C, #A083D2);
+    color: #fff;
+}
+
+.tipo-dragon {
+    background: linear-gradient(135deg, #5B3DF2, #9B80FF);
+    color: #fff;
+}
+
+.tipo-dark {
+    background: linear-gradient(135deg, #3C2C2E, #6E5A57);
+    color: #fff;
+}
+
+.tipo-steel {
+    background: linear-gradient(135deg, #BFC5CE, #E2E6EB);
+    color: #111;
+}
+
+.tipo-fairy {
+    background: linear-gradient(135deg, #F4A6C1, #FFD5EC);
+    color: #4a1f2b;
 }
 
 /* === Formato iconons tipo === */
@@ -94,4 +163,11 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+}
+
+/*=== Pequeña animación para la imagen del pokemon === */
+
+.pokemon-card:hover>img {
+    transform: scale(1.06);
+    transition: ease-in-out 0.3s;
 }
