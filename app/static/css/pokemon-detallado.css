@@ -32,6 +32,10 @@
     font-weight: bold;
 }
 
+.title-img-container h3 {
+    font-size: x-large;
+}
+
 .img-iconos-container {
     display: flex;
     gap: 5px
@@ -81,6 +85,7 @@
 /* === STATS === */
 .pokemon-stats {
     width: 300px;
+    font-size: 0.85rem;
 }
 
 .stat {
@@ -91,8 +96,8 @@
     display: inline-block;
     width: 110px;
     text-transform: capitalize;
-
     color: #333;
+    font-weight: bold;
 }
 
 .stat-value {
@@ -132,6 +137,11 @@
     font-size: 15px;
     font-weight: 500;
     color: #333;
+}
+
+.height,
+.weight {
+    font-weight: bold;
 }
 
 /* === TIPOS === */
@@ -253,7 +263,7 @@
 
 }
 
-/* Cuadrícula de movimientos */
+/* Movimientos */
 .moves {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -281,10 +291,31 @@
     font-weight: 700;
 }
 
+.moves-pokemon>.accuracy-move,
+.moves-pokemon>.power-move {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.moves-pokemon>.accuracy-move>svg,
+.moves-pokemon>.power-move>svg {
+    width: 15px;
+    height: 15px;
+}
+
 .nombre-tipo {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 5px;
     font-weight: bold;
+}
+
+.accuracy-move svg {
+    stroke: blue;
+}
+
+.power-move svg {
+    stroke: red;
 }
