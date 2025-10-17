@@ -17,17 +17,12 @@ def home():
 
 @app.route("/")
 def index():
-    return render_template("index.html", year=current_year)
-
-
-@app.route("/test-base")
-def base():
-    return render_template("base.html", year=current_year)
+    return render_template("index.html", year=current_year, footer_text_color="white")
 
 
 @app.route("/lista_pokemon/")
 def lista():
-    return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year)
+    return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year, footer_text_color="black")
 
 
 @app.route("/pokemon_detallado/<int:id>")
@@ -39,7 +34,7 @@ def pokemon_detalles(id):
         if p["id"] == id:
             pokemon = p
 
-    return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year)
+    return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year, footer_text_color="black")
 
 
 if __name__ == "__main__":
