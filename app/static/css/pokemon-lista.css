@@ -16,7 +16,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 .pokemon-card:hover {
@@ -30,7 +30,11 @@
     height: 120px;
     margin-bottom: 10px;
     margin: auto;
+    transition: transform 0.5s ease;
+}
 
+.pokemon-card:hover>img {
+    transform: scale(1.06);
 }
 
 /* === Nombre === */
@@ -50,6 +54,35 @@
     color: rgb(0, 0, 0);
     font-weight: bold;
     font-size: 13px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.pokemon-card:hover>p {
+    transform: translateY(-1px);
+}
+
+/* === Formato iconons tipo === */
+.pokemon-card .img-tipo {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.img-iconos-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.title-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/*=== Pequeña animación para la imagen del pokemon === */
+.pokemon-card:hover>img {
+    transform: scale(1.06);
+    transition: transform 0.5s ease;
 }
 
 /* === Colores según tipo === */
@@ -147,27 +180,9 @@
     color: #4a1f2b;
 }
 
-/* === Formato iconons tipo === */
-.pokemon-card .img-tipo {
-    width: 1.25rem;
-    height: 1.25rem;
-}
-
-.img-iconos-container {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.title-img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-/*=== Pequeña animación para la imagen del pokemon === */
-
-.pokemon-card:hover>img {
-    transform: scale(1.06);
-    transition: ease-in-out 0.3s;
+/* === Animaciones suaves === */
+.pokemon-card,
+.pokemon-card img,
+.pokemon-card p {
+    transition: all 0.5s ease;
 }
