@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-lista.css')}}">
 {% endblock %}
 
+<!-- Variables base para que resalte la navbar -->
+
+{% set nav_text_color = "text-indigo-800 drop-shadow-sm" %}
+{% set nav_link_class = "hover:text-yellow-500 transition-all duration-300" %}
+{% set nav_underline_color = "bg-yellow-500" %}
+{% set play_button_class = "bg-indigo-600 text-white rounded py-2 px-4 hover:bg-indigo-800 italic font-bold shadow-md
+transition-all duration-300 ease-in-out" %}
+{% set footer_text_color = "text-indigo-800" %}
+
 {% block main %}
 
 <div class="pokemon-container">
