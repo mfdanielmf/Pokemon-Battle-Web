@@ -19,7 +19,7 @@
 
 <!-- Bloque para añadir clases a body (principalmente para el background) -->
 
-<body class="min-h-screen {% block body_class %}{% endblock %}">
+<body class="relative min-h-screen {% block body_class %}{% endblock %}">
     <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
             <ul class="flex justify-end items-center text-white gap-5 font-bold">
@@ -48,7 +48,7 @@
 
     </main>
 
-    <footer class="fixed bottom-0 bg-transparent text-center text-{{ footer_text_color }} w-screen font-bold">
+    <footer class="absolute bottom-0 bg-transparent text-center text-{{ footer_text_color }} w-full font-bold">
         <p>{{year}} - POKEWARRIORS® - TODOS LOS DERECHOS RESERVADOS</p>
     </footer>
 </body>
