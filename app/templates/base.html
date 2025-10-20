@@ -58,7 +58,8 @@
 
     </main>
 
-    <footer class="absolute bottom-0 bg-transparent text-center text-{{ footer_text_color }} w-full font-bold">
+    <footer
+        class="absolute bottom-0 bg-transparent text-center text-{{ footer_text_color | default('white') }} w-full font-bold">
         <p>{{year}} - POKEWARRIORS® - TODOS LOS DERECHOS RESERVADOS</p>
     </footer>
 </body>
