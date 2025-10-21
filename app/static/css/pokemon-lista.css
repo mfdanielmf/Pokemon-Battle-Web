@@ -186,3 +186,147 @@
 .pokemon-card p {
     transition: all 0.5s ease;
 }
+
+/* ====Responsive ====== */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    header {
+        position: static;
+        top: 0;
+    }
+
+    header nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    main {
+        padding-top: 0;
+    }
+
+    footer {
+        position: static;
+        max-width: 95%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    footer p {
+        margin: 1rem 0;
+        font-size: 14px;
+    }
+
+    .pokemon-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .pokemon-card {
+        height: 240px;
+        padding: 15px 10px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .pokemon-card img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .pokemon-card h3 {
+        font-size: 15px;
+        margin: 6px 0;
+    }
+
+    .pokemon-card p {
+        padding: 4px 10px;
+        margin: 3px 2px;
+        font-size: 11px;
+        border-radius: 16px;
+        max-width: 80px;
+        word-break: break-word;
+        text-align: center;
+    }
+
+    .title-img-container {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .title-img-container h3 {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .img-iconos-container {
+        gap: 4px;
+    }
+
+    .img-tipo {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    header {
+        position: static;
+    }
+
+    header nav ul {
+        justify-content: center;
+    }
+
+    .pokemon-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 20px;
+        max-width: 95%;
+        margin: 0 auto;
+    }
+
+    .pokemon-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .pokemon-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    main {
+        padding-top: 0;
+    }
+
+    footer {
+        position: static;
+        max-width: 90%;
+        justify-self: center;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    footer p {
+        margin: 1rem 0;
+    }
+
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .pokemon-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
