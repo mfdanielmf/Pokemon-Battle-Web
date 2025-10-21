@@ -88,7 +88,8 @@
 
 /* === STATS === */
 .pokemon-stats {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     font-size: 0.85rem;
 }
 
@@ -337,7 +338,7 @@ main {
 
 /* ====Responsive ====== */
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
     footer {
         position: static;
         max-width: 90%;
@@ -366,9 +367,20 @@ main {
         flex-direction: column;
         align-items: center;
     }
+
+    .stat-bar {
+        display: block;
+        margin: 0;
+    }
+
+    .imagen-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
 }
 
-@media (min-width: 481px) and (max-width: 788px) {
+@media (min-width: 501px) and (max-width: 788px) {
     .nombre-tipo {
         display: flex;
         flex-direction: column;
@@ -396,7 +408,31 @@ main {
 
     .stat {
         display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .imagen-stats {
         flex-direction: column;
+        gap: 0;
         align-items: center;
     }
+}
+
+@media(min-width: 789px) {
+    .pokemon-stats {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
 }
