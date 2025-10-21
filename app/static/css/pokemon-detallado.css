@@ -336,7 +336,36 @@ main {
 
 /* ====Responsive ====== */
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+    footer {
+        position: static;
+        max-width: 90%;
+        justify-self: center;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    header nav ul {
+        justify-content: center;
+    }
+
+    .pokemon-types {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .moves {
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
 @media (min-width: 481px) and (max-width: 788px) {
     .nombre-tipo {
@@ -362,5 +391,11 @@ main {
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
