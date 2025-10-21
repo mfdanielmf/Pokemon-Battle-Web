@@ -283,7 +283,6 @@
 @media (min-width: 481px) and (max-width: 768px) {
     header {
         position: static;
-        top: 0;
     }
 
     header nav ul {
@@ -292,6 +291,20 @@
 
     .pokemon-container {
         grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 20px;
+        max-width: 95%;
+        margin: 0 auto;
+    }
+
+    .pokemon-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .pokemon-card img {
+        width: 100px;
+        height: 100px;
     }
 
     main {
@@ -302,6 +315,8 @@
         position: static;
         max-width: 90%;
         justify-self: center;
+        margin: 20px auto;
+        text-align: center;
     }
 
     footer p {
