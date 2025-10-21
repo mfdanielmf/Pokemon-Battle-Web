@@ -23,6 +23,8 @@ def index():
 @app.route("/lista_pokemon/", methods=["POST", "GET"])
 def lista():
     entrenador = request.form.get("entrenador")
+    if len(entrenador) < 3 or len(entrenador) > 15:  #entrenador = NONE ahora mismo
+        return "El nombre debe de tener entre 3 y 15 caracteres", 400
     return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year)
 
 
