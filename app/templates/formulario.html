@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block body_class %}bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.jpeg') }}')] bg-cover
+bg-no-repeat{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{{  url_for('static', filename = 'css/formulario.css')}}">
+{% endblock %}
+
+{% block main %}
+<section>
+    <form action="/lista_pokemon/" method="post, get">
+        <label for="entrenador" title="entrenador">Trainer:</label>
+        <input type="text" id="entrenador" name="entrenador" required pattern="[A-Za-z]{3,15}">
+
+        <button class="submit" title="Enviar los datos del formulario">Continuar</button>
+    </form>
+</section>
+
+
+{% endblock %}
