@@ -323,3 +323,16 @@
 .power-move svg {
     stroke: red;
 }
+
+/* ====Responsive ====== */
+
+@media (max-width: 480px) {}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .nombre-tipo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+}
