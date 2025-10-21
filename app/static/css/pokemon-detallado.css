@@ -1,136 +1,325 @@
-/* Contenedor principal */
+/* === Color de fondo para todo el body === */
+.body-background {
+    background: radial-gradient(circle at top, #f0f8ff, #e0e7ff);
+}
+
+/* === CONTENEDOR PRINCIPAL === */
 .pokemon-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
-    
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Card Pokémon */
+/* === TARJETA PRINCIPAL === */
 .pokemon-card {
-    background: linear-gradient(135deg, #f8f8f8, #ffffff);
+    background: linear-gradient(145deg, #ffffff, #f7f7f7);
     border-radius: 25px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-    width: 500px;
-    padding: 20px;
-    transition: transform 0.3s;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 850px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    gap: 1.5rem;
+
 }
 
-/* Nombre del Pokémon y tipo */
+/* === NOMBRE + TIPOS === */
+.title-img-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.title-img-container h3 {
+    font-size: x-large;
+}
+
 .img-iconos-container {
     display: flex;
-    gap: 0.5rem;
+    gap: 5px
 }
 
-.title-img-container {
+.img-tipo {
+    width: 20px;
+    height: 20px;
+
+}
+
+/* === IMAGEN + STATS === */
+.imagen-stats {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 26px;
-    color: #000000;
+    gap: 3rem;
+    flex-wrap: wrap;
 }
 
-/* Imagen del Pokémon */
-.pokemon-image{
+.pokemon-image {
     position: relative;
-    width: 220px;
-    height: 220px;
+    width: 230px;
+    height: 230px;
 }
+
 .pokemon-image img {
     position: absolute;
-    width: 220px;
-    height: 220px;
-    transition: ease 0.2s;
+    width: 230px;
+    height: 230px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .pokemon-image .shiny {
     opacity: 0;
 }
+
 .pokemon-image:hover .shiny {
     opacity: 1;
-    transform: scale(1.15);    
+    transform: scale(1.1);
 }
-.pokemon-image:hover .default{
+
+.pokemon-image:hover .default {
     opacity: 0;
 }
 
-
-.tipo {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 15px;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-    margin: 0 5px;
-    font-size: 14px;
-}
-
-/* === Colores según tipo === */
-.tipo-fire {
-    background: #f08030;
-}
-
-.tipo-water {
-    background: #6890f0;
-}
-
-.tipo-grass {
-    background: #78c850;
-}
-
-.tipo-electric {
-    background: #f8d030;
-    color: #333;
-}
-
-.tipo-poison {
-    background: #a040a0;
-}
-
-.tipo-flying {
-    background: #78cfee;
-}
-
-/* Stats del Pokémon */
+/* === STATS === */
 .pokemon-stats {
-    margin-top: 20px;   
+    width: 300px;
+    font-size: 0.85rem;
 }
 
 .stat {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .stat-name {
     display: inline-block;
-    width: 120px;
+    width: 110px;
     text-transform: capitalize;
+    color: #333;
+    font-weight: bold;
 }
 
 .stat-value {
     display: inline-block;
     width: 30px;
+    text-align: right;
+    color: #222;
 }
 
 .stat-bar {
     display: inline-block;
-    width: 150px;
-    height: 12px;
-    background: #ddd;
+    width: 140px;
+    height: 10px;
+    background: #e0e0e0;
     border-radius: 6px;
     vertical-align: middle;
-    margin-left: 5px;
+    margin-left: 8px;
     overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .stat-fill {
     height: 100%;
-    background: #4CAF50;
+    background: linear-gradient(90deg, #4CAF50, #81c784);
     border-radius: 6px 0 0 6px;
+}
+
+/* === ALTURA - TIPO - PESO === */
+.linea-elementos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background: #f5f7ff;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+.height,
+.weight {
+    font-weight: bold;
+}
+
+/* === TIPOS === */
+.tipo {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: bold;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+.tipo-normal {
+    background: linear-gradient(135deg, #B8B8A9, #DCDCC3);
+    color: #222;
+}
+
+.tipo-fire {
+    background: linear-gradient(135deg, #FF6B3D, #FFB347);
+    color: #fff;
+}
+
+.tipo-water {
+    background: linear-gradient(135deg, #4C7DF0, #6EDBFF);
+    color: #fff;
+}
+
+.tipo-electric {
+    background: linear-gradient(135deg, #FFD43B, #FFF6A1);
+    color: #333;
+}
+
+.tipo-grass {
+    background: linear-gradient(135deg, #5FD068, #A7F0A2);
+    color: #111;
+}
+
+.tipo-ice {
+    background: linear-gradient(135deg, #A8E6FF, #E0FFFF);
+    color: #0b2545;
+}
+
+.tipo-fighting {
+    background: linear-gradient(135deg, #C23030, #F06060);
+    color: #fff;
+}
+
+.tipo-poison {
+    background: linear-gradient(135deg, #B14DC6, #E598F4);
+    color: #fff;
+}
+
+.tipo-ground {
+    background: linear-gradient(135deg, #C68C53, #E7C39A);
+    color: #222;
+}
+
+.tipo-flying {
+    background: linear-gradient(135deg, #8EA6FF, #C8E2FF);
+    color: #0b2545;
+}
+
+.tipo-psychic {
+    background: linear-gradient(135deg, #FF5F9E, #FFB5D8);
+    color: #fff;
+}
+
+.tipo-bug {
+    background: linear-gradient(135deg, #A2C23A, #D9E97E);
+    color: #111;
+}
+
+.tipo-rock {
+    background: linear-gradient(135deg, #C4B18B, #E4D5A3);
+    color: #222;
+}
+
+.tipo-ghost {
+    background: linear-gradient(135deg, #6B4D9C, #A083D2);
+    color: #fff;
+}
+
+.tipo-dragon {
+    background: linear-gradient(135deg, #5B3DF2, #9B80FF);
+    color: #fff;
+}
+
+.tipo-dark {
+    background: linear-gradient(135deg, #3C2C2E, #6E5A57);
+    color: #fff;
+}
+
+.tipo-steel {
+    background: linear-gradient(135deg, #BFC5CE, #E2E6EB);
+    color: #111;
+}
+
+.tipo-fairy {
+    background: linear-gradient(135deg, #F4A6C1, #FFD5EC);
+    color: #4a1f2b;
+}
+
+/* === SECCIÓN DE MOVIMIENTOS === */
+.moves-container {
+    margin-top: 1.5rem;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.moves-container>h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    font-size: 1.6rem;
+
+}
+
+/* Movimientos */
+.moves {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+}
+
+/* Tarjetas individuales */
+.moves-pokemon {
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.moves-pokemon>.move-name {
+    text-transform: capitalize;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.moves-pokemon>.accuracy-move,
+.moves-pokemon>.power-move {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.moves-pokemon>.accuracy-move>svg,
+.moves-pokemon>.power-move>svg {
+    width: 15px;
+    height: 15px;
+}
+
+.nombre-tipo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.accuracy-move svg {
+    stroke: blue;
+}
+
+.power-move svg {
+    stroke: red;
 }
