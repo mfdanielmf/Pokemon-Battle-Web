@@ -324,15 +324,43 @@
     stroke: red;
 }
 
+/* Header fijo en la parte superior */
+
+header {
+    position: static;
+}
+
+main {
+    padding-top: 0;
+}
+
 /* ====Responsive ====== */
 
 @media (max-width: 480px) {}
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 788px) {
     .nombre-tipo {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0;
+    }
+
+    footer {
+        position: static;
+        max-width: 90%;
+        justify-self: center;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    header nav ul {
+        justify-content: center;
+    }
+
+    .pokemon-types {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
     }
 }
