@@ -6,44 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Cambiar título para cada página aquí -->
     <title>{% block title %}PokeWarriors{% endblock %}</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='media/img/pokeball.ico')}}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Importar fuente -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/index-animations.css')}}">
+    <!-- Linkear css aquí -->
+    {% block link %}
+
+    {% endblock %}
+
 </head>
 
-<body>
+<!-- Bloque para añadir clases a body (principalmente para el background) -->
+
+<body class="relative min-h-screen {% block body_class %}{% endblock %}">
     <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
-            <ul class="flex justify-end items-center text-white gap-5 font-bold">
+            <ul class="flex justify-end items-center gap-5 font-bold {{ nav_text_color | default('text-white') }}">
                 <li class="relative group p-1 hover:scale-105">
-                    <a href="#" class="hover:text-yellow-400 transition duration-300">Inicio</a>
+                    <a href="{{url_for('index')}}"
+                        class="{{ nav_link_class | default('hover:text-yellow-400 transition-all duration-300') }}">
+                        Inicio
+                    </a>
                     <span
-                        class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                        class="absolute left-0 -bottom-1 w-0 h-0.5 {{ nav_underline_color | default('bg-yellow-400') }} transition-all duration-300 group-hover:w-full"></span>
                 </li>
+
                 <li class="relative group p-1 hover:scale-105">
-                    <a href="#" class="hover:text-yellow-400 transition duration-300">Pokemons</a>
+                    <a href="{{url_for('lista')}}"
+                        class="{{ nav_link_class | default('hover:text-yellow-400 transition duration-300') }}">
+                        Pokemons
+                    </a>
                     <span
-                        class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                        class="absolute left-0 -bottom-1 w-0 h-0.5 {{ nav_underline_color | default('bg-yellow-400') }} transition-all duration-300 group-hover:w-full"></span>
                 </li>
-                <li class="relative group p-1 hover:scale-105">
-                    <a href="#" class="hover:text-yellow-400 transition duration-300">Sobre nosotros</a>
-                    <span
-                        class="absolute left-0 -bottom-1 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                </li>
+
                 <li class="p-1 hover:scale-105">
-                    <a href="#" class="bg-green-500 rounded py-2 px-4 hover:bg-green-700 italic font-bold transition-all duration-300 ease-in-out
-                    ">Jugar</a>
+                    <a href="#"
+                        class="{{ play_button_class | default('bg-green-500 rounded py-2 px-4 hover:bg-green-700 italic font-bold transition-all duration-300 ease-in-out') }}">
+                        Jugar
+                    </a>
                 </li>
             </ul>
         </nav>
     </header>
 
-    <main class="bg-[url(static/media/img/fondo-bienvenida.png)] bg-cover min-h-screen">
+    <main class="pt-20 aparecer">
         {% block main %}
         <!-- Insertar contenido principal aquí -->
         {% endblock %}
 
     </main>
 
-    <footer class="fixed bottom-0 bg-transparent text-center text-white w-screen font-bold">
+    <footer
+        class="absolute bottom-0 bg-transparent text-center text-{{ footer_text_color | default('white') }} w-full font-bold">
         <p>{{year}} - POKEWARRIORS® - TODOS LOS DERECHOS RESERVADOS</p>
     </footer>
 </body>
