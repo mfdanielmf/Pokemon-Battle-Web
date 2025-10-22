@@ -44,10 +44,14 @@ transition-all duration-300 ease-in-out" %}
                 {% for stat in pokemon_recibir.stats %}
                 {% set stat_width = (stat.value / max_stat * 100) %}
                 <div class="stat">
-                    <div class="stat-name">{{ stat.name }}</div>
-                    <div class="stat-value">{{ stat.value }}</div>
-                    <div class="stat-bar">
-                        <div class="stat-fill" style="width: {{ stat_width }}%"></div>
+                    <div class="stat-row">
+                        <div class="stat-name">{{ stat.name }}</div>
+                        <div class="stat-value">{{ stat.value }}</div>
+                    </div>
+                    <div class="stat-row">
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: {{ stat_width }}%"></div>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}

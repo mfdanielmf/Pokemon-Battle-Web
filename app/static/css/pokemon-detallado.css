@@ -88,7 +88,8 @@
 
 /* === STATS === */
 .pokemon-stats {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     font-size: 0.85rem;
 }
 
@@ -322,4 +323,116 @@
 
 .power-move svg {
     stroke: red;
+}
+
+/* Header fijo en la parte superior */
+
+header {
+    width: 100%;
+    position: static;
+}
+
+main {
+    padding-top: 0;
+}
+
+/* ====Responsive ====== */
+
+@media (max-width: 500px) {
+    footer {
+        position: static;
+        max-width: 90%;
+        justify-self: center;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    header nav ul {
+        justify-content: center;
+    }
+
+    .pokemon-types {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .moves {
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-bar {
+        display: block;
+        margin: 0;
+    }
+
+    .imagen-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 788px) {
+    .nombre-tipo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer {
+        position: static;
+        max-width: 90%;
+        justify-self: center;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    header nav ul {
+        justify-content: center;
+    }
+
+    .pokemon-types {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .imagen-stats {
+        flex-direction: column;
+        gap: 0;
+        align-items: center;
+    }
+}
+
+@media(min-width: 789px) {
+    .pokemon-stats {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stat {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
 }
