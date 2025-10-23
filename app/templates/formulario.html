@@ -6,14 +6,20 @@ bg-no-repeat{% endblock %}
 
 {% block link %}
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/formulario.css')}}">
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
 {% endblock %}
 
 {% block main %}
 <section>
     <form action="/lista_pokemon/" method="get">
-        <label for="entrenador" title="entrenador">Trainer:</label>
-        <input type="text" id="entrenador" name="entrenador" required pattern="[A-Za-z]{3,15}">
-
+        <label for="entrenador" title="entrenador">Entrenador</label>
+        <div class="icon-item-container">
+            <span class="material-symbols-outlined ">
+                person
+            </span>
+            <input type="text" id="entrenador" name="entrenador" required pattern="[A-Za-z]{3,15}">
+        </div>
         <button class="submit" title="Enviar los datos del formulario">Continuar</button>
     </form>
 </section>
