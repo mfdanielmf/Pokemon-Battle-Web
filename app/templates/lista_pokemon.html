@@ -15,6 +15,10 @@
 transition-all duration-300 ease-in-out" %}
 {% set footer_text_color = "indigo-800" %}
 
+{% block nav %}
+{{super()}}
+{% endblock %}
+
 {% block main %}
 
 <div class="pokemon-container">

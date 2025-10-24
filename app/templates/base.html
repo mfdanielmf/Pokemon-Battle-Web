@@ -22,6 +22,7 @@
 <body class="relative min-h-screen {% block body_class %}{% endblock %}">
     <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
+            {% block nav%}
             <ul class="flex justify-end items-center gap-5 font-bold {{ nav_text_color | default('text-white') }}">
                 <li class="relative group p-1 hover:scale-105">
                     <a href="{{url_for('index')}}"
@@ -48,6 +49,7 @@
                     </a>
                 </li>
             </ul>
+            {% endblock %}
         </nav>
     </header>
 
