@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-detallado.css')}}">
 {% endblock %}
 
+{% block title %}PokeWarriors - {{pokemon_recibir.name.capitalize()}}{% endblock %}
+
 <!-- Ponemos la clase body-background en el class del body (para darle un color de fondo con el css) -->
 {% block body_class %}body-background{% endblock %}
 
