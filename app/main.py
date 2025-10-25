@@ -20,13 +20,16 @@ def index():
     return render_template("index.html", year=current_year)
 
 
-@app.route("/lista_pokemon/", methods=["GET"])
+@app.route("/lista_pokemon/", methods=["POST", "GET"])
 def lista():
-    entrenador = request.args.get("entrenador")
+    if request.method == "POST":
+        entrenador = request.form.get("entrenador")
+    else:
+        entrenador = None
 
-    # Si no mandamos entrenador, cargamos la lista
+    # Si no mandamos entrenador, cargamos la lista y pasamos entrenador como None
     if (entrenador is None):
-        return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year)
+        return render_template("lista_pokemon.html", pokemons=current_app.config["DATA"], year=current_year, entrenador=None)
 
     # Validamos longitud del nombre y que no tenga espacios ni caracteres especiales
     if len(entrenador) < 3 or len(entrenador) > 15 or not entrenador.isalpha():

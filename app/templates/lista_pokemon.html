@@ -4,6 +4,8 @@
 
 {% block link %}
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-lista.css')}}">
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
 {% endblock %}
 
 <!-- Variables base para que resalte la navbar -->
@@ -14,6 +16,26 @@
 {% set play_button_class = "bg-indigo-600 text-white rounded py-2 px-4 hover:bg-indigo-800 italic font-bold shadow-md
 transition-all duration-300 ease-in-out" %}
 {% set footer_text_color = "indigo-800" %}
+
+
+{% block nav %}
+{% if entrenador%}
+<div class="flex items-center justify-between gap-4">
+    <div
+        class="flex items-center justify-center gap-2 flex-wrap px-3 py-1 bg-indigo-100 bg-opacity-20 rounded-full shadow-sm">
+        <span class="material-symbols-outlined text-indigo-800">
+            person
+        </span>
+        <p class="font-semibold">{{entrenador}}</p>
+    </div>
+
+    {{super()}}
+</div>
+{%else%}
+{{super()}}
+{% endif %}
+{% endblock %}
+
 
 {% block main %}
 
