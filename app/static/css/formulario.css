@@ -46,7 +46,9 @@ form input:focus {
 .icon-item-container {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
+    max-width: 100%;
 }
 
 .submit {
@@ -64,4 +66,24 @@ form input:focus {
 .submit:hover {
     background-color: #0f52cf;
     cursor: pointer;
+}
+
+@media (max-width: 450px) {
+
+    form input,
+    .icon-item-container span {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    header {
+        position: static;
+        top: 0;
+    }
+
+    header nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 }
