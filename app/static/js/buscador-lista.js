@@ -25,7 +25,7 @@ search.addEventListener("input", () => {
             card.style.opacity = 1;
             link.style.pointerEvents = "auto";
         } else {
-            card.style.opacity = 0;
+            card.style.opacity = 0.2;
             link.style.pointerEvents = "none";
         }
 
