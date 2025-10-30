@@ -1,7 +1,7 @@
 const search = document.getElementById("default-search");
 const cards = document.querySelectorAll(".pokemon-card");
 
-search.addEventListener("input", (valor) => {
+search.addEventListener("input", () => {
     const searchValue = search.value.toLowerCase();
     let mostrarTodos = false;
 
