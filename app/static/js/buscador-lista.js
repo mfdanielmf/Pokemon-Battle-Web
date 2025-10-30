@@ -12,17 +12,21 @@ search.addEventListener("input", () => {
     for (let card of cards) {
         const title = card.querySelector(".title-img-container h3");
         const pokemon = title.textContent.toLowerCase();
+        const link = card.parentElement;
 
         if (mostrarTodos) {
             card.style.opacity = 1;
+            link.style.pointerEvents = "auto";
 
             continue;
         }
 
         if (pokemon.startsWith(searchValue)) {
             card.style.opacity = 1;
+            link.style.pointerEvents = "auto";
         } else {
             card.style.opacity = 0;
+            link.style.pointerEvents = "none";
         }
 
     }
