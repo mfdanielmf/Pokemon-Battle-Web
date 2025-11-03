@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block link %}
+  <link rel="stylesheet" href="{{  url_for('static', filename = 'css/battle.css')}}">
+{% endblock %}
+
+{% block main %}
+<div class="battle-screen">
+
+    <!-- Entrenador Rival -->
+    <div class="rival-trainer">
+        <img src="https://archives.bulbagarden.net/media/upload/4/49/Spr_B2W2_Colress.png" alt="Entrenador rival">
+        <p>Dani</p>
+    </div>
+
+    <!-- Pokémon Rival -->
+    <div class="rival-area">
+        <div class="rival-info">
+        <h3>{{pokemon_rival.name}}</h3>
+        <div class="hp-bar">
+            <div class="hp-fill"></div>
+        </div>
+        {% for hp in pokemon_rival.stats %}
+            {% if hp.name == "hp" %}
+            <p>{{hp.name | capitalize}}: {{hp.value}}</p>
+            {% endif%}
+        {% endfor %}
+        </div>
+        <img src="{{pokemon_rival.sprites.front_default}}" alt="{{pokemon_rival.sprites}}">
+    </div>
+
+    <!-- Pokémon Jugador -->
+    <div class="player-area">
+        <img src="{{pokemon_elegido.sprites.back_default}}" alt="{{pokemon_elegido.sprites}}">
+        <div class="player-info">
+        <h3>{{pokemon_elegido.name | capitalize}}</h3>
+        <div class="hp-bar">
+            <div class="hp-fill"></div>
+        </div>
+        {% for hp in pokemon_elegido.stats %}
+            {% if hp.name == "hp" %}
+            <p>{{hp.name | capitalize}}: {{hp.value}}</p>
+            {% endif%}
+        {% endfor %}
+        </div>
+    </div>
+
+    <!-- Entrenador Jugador -->
+    <div class="player-trainer">
+        <img src="https://archives.bulbagarden.net/media/upload/d/d9/Spr_HGSS_Red.png" alt="Entrenador jugador">
+        <p>Fran</p>
+    </div>
+
+    <!-- Cuadro de opciones -->
+    <div class="battle-options">
+        <div class="battle-text">
+        <p>¿Qué hará {{pokemon_elegido.name | capitalize}}?</p>  
+        </div>
+        <div class="options-grid">
+            {% for movimiento in moves_elegido %}
+            <button class="fight">{{movimiento.name}}</button>
+            {% endfor%}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
