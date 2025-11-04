@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, render_template, jsonify, current_app, request
+from flask import Flask, redirect, render_template, jsonify, current_app, request, url_for
 import json
 import random
 
@@ -59,20 +59,68 @@ def formulario():
 @app.route("/battle", methods=["POST", "GET"])
 def battle():
     lista_pokemons = current_app.config["DATA"]
-    pokemon = None
-    for p in lista_pokemons:
-        if p["id"] == 6:
-            pokemon = p
 
-    moves = []
-    while len(moves) < 4:
-        movimiento_random = random.choice(pokemon["moves"])
-        if movimiento_random not in moves:
-            moves.append(movimiento_random)
+    # POST
+    if request.method == "POST":
+        pokemon_name = request.form.get("pokemon", "").strip().lower()
 
-    pokemon_random = random.choice(lista_pokemons)
+        # Buscamos si el pokemon existe
+        pokemon_elegido = None
+        for p in lista_pokemons:
+            if p["name"].lower() == pokemon_name:
+                pokemon_elegido = p
+                break
 
-    return render_template("battle.html", year=current_year, pokemon_elegido=pokemon, moves_elegido=moves, pokemon_rival=pokemon_random)
+        # Si el pokemon no existe
+        if not pokemon_elegido:
+            return render_template(
+                "lista_pokemon.html",
+                pokemons=lista_pokemons,
+                year=current_year,
+                mensaje_error="No has introducido un pokemon válido"
+            )
+
+        pokemon_rival = random.choice(lista_pokemons)
+        moves_elegido = random.sample(
+            pokemon_elegido["moves"], min(4, len(pokemon_elegido["moves"])))
+
+        # Redirigir al GET de /battle con los datos
+        return redirect(url_for(
+            "battle",
+            year=current_year,
+            pokemon_name=pokemon_name
+        ))
+
+    # GET
+    if request.method == "GET":
+        pokemon_name = request.args.get("pokemon_name")
+        year = request.args.get("year", current_year)
+
+        # Si no recibimos un nombre de pokemon
+        if not pokemon_name:
+            return redirect(url_for("lista"))
+
+        pokemon_elegido = None
+        for p in lista_pokemons:
+            if p["name"].lower() == pokemon_name:
+                pokemon_elegido = p
+                break
+
+        if not pokemon_elegido:
+            return redirect(url_for("lista"))
+
+        moves_elegido = random.sample(
+            pokemon_elegido["moves"], min(4, len(pokemon_elegido["moves"])))
+
+        pokemon_rival = random.choice(lista_pokemons)
+
+        return render_template(
+            "battle.html",
+            year=year,
+            pokemon_elegido=pokemon_elegido,
+            moves_elegido=moves_elegido,
+            pokemon_rival=pokemon_rival
+        )
 
 
 if __name__ == "__main__":
