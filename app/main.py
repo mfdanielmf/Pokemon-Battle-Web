@@ -55,24 +55,25 @@ def pokemon_detalles(id):
 def formulario():
     return render_template("formulario.html", year=current_year)
 
-@app.route("/battle")
+
+@app.route("/battle", methods=["POST", "GET"])
 def battle():
     lista_pokemons = current_app.config["DATA"]
     pokemon = None
     for p in lista_pokemons:
         if p["id"] == 6:
             pokemon = p
-            
+
     moves = []
     while len(moves) < 4:
         movimiento_random = random.choice(pokemon["moves"])
         if movimiento_random not in moves:
             moves.append(movimiento_random)
-            
+
     pokemon_random = random.choice(lista_pokemons)
-    
-    
+
     return render_template("battle.html", year=current_year, pokemon_elegido=pokemon, moves_elegido=moves, pokemon_rival=pokemon_random)
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 8080, debug=True)
