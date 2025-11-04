@@ -53,6 +53,9 @@ body{
   flex-direction: column;
   align-items: center;
 }
+.rival-area img{
+  width: 150px;
+}
 .rival-info {
   background: #fff;
   border: 3px solid #333;
@@ -77,10 +80,7 @@ body{
   height: 100%;
   background: linear-gradient(to right, #66bb6a, #388e3c);
 }
-.rival-pokemon {
-  width: 150px;
-  image-rendering: pixelated;
-}
+
 
 /* Jugador */
 .player-area {
@@ -90,6 +90,10 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.player-area img{
+  width: 200px;
 }
 .player-info {
   background: #fff;
@@ -101,10 +105,7 @@ body{
   font-size: 0.7rem;
   margin-top: 5px;
 }
-.player-pokemon {
-  width: 180px;
-  image-rendering: pixelated;
-}
+
 
 /* Cuadro de texto y opciones */
 .battle-options {
