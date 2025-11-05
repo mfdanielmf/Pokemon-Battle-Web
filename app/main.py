@@ -63,6 +63,7 @@ def battle():
     # POST
     if request.method == "POST":
         pokemon_name = request.form.get("pokemon", "").strip().lower()
+        entrenador = request.form.get("entrenador")
 
         # Buscamos si el pokemon existe
         pokemon_elegido = None
@@ -80,6 +81,9 @@ def battle():
                 mensaje_error="No has introducido un pokemon válido"
             )
 
+        if not entrenador:
+            return redirect(url_for("formulario"))
+
         pokemon_rival = random.choice(lista_pokemons)
         moves_elegido = random.sample(
             pokemon_elegido["moves"], min(4, len(pokemon_elegido["moves"])))
@@ -88,13 +92,15 @@ def battle():
         return redirect(url_for(
             "battle",
             year=current_year,
-            pokemon_name=pokemon_name
+            pokemon_name=pokemon_name,
+            entrenador=entrenador
         ))
 
     # GET
     if request.method == "GET":
         pokemon_name = request.args.get("pokemon_name")
         year = request.args.get("year", current_year)
+        entrenador = request.args.get("entrenador")
 
         # Si no recibimos un nombre de pokemon
         if not pokemon_name:
@@ -119,7 +125,8 @@ def battle():
             year=year,
             pokemon_elegido=pokemon_elegido,
             moves_elegido=moves_elegido,
-            pokemon_rival=pokemon_rival
+            pokemon_rival=pokemon_rival,
+            entrenador=entrenador
         )
 
 
