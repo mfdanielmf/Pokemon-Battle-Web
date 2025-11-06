@@ -8,7 +8,7 @@ current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
 
 
-@battle_bp.route("/battle", methods=["GET", "POST"])
+@battle_bp.route("/", methods=["GET", "POST"])
 def battle():
     lista_pokemons = listar_pokemon()
 
@@ -20,7 +20,7 @@ def battle():
         # Buscamos si el pokemon existe
         pokemon_elegido = None
         for p in lista_pokemons:
-            if p["name"].lower() == pokemon_name:
+            if p.name.lower() == pokemon_name:
                 pokemon_elegido = p
                 break
 
@@ -34,15 +34,15 @@ def battle():
             )
 
         if not entrenador:
-            return redirect(url_for("formulario"))
+            return redirect(url_for("home.formulario"))
 
         pokemon_rival = random.choice(lista_pokemons)
         moves_elegido = random.sample(
-            pokemon_elegido["moves"], min(4, len(pokemon_elegido["moves"])))
+            pokemon_elegido.moves, min(4, len(pokemon_elegido.moves)))
 
         # Redirigir al GET de /battle con los datos
         return redirect(url_for(
-            "battle",
+            "battle.battle",
             year=current_year,
             pokemon_name=pokemon_name,
             entrenador=entrenador
@@ -56,19 +56,19 @@ def battle():
 
         # Si no recibimos un nombre de pokemon
         if not pokemon_name:
-            return redirect(url_for("lista"))
+            return redirect(url_for("pokemon.lista"))
 
         pokemon_elegido = None
         for p in lista_pokemons:
-            if p["name"].lower() == pokemon_name:
+            if p.name.lower() == pokemon_name:
                 pokemon_elegido = p
                 break
 
         if not pokemon_elegido:
-            return redirect(url_for("lista"))
+            return redirect(url_for("pokemon.lista"))
 
         moves_elegido = random.sample(
-            pokemon_elegido["moves"], min(4, len(pokemon_elegido["moves"])))
+            pokemon_elegido.moves, min(4, len(pokemon_elegido.moves)))
 
         pokemon_rival = random.choice(lista_pokemons)
 
