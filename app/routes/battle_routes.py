@@ -1,7 +1,7 @@
 import random
 from flask import Blueprint, redirect, render_template, request, url_for
 
-from app.services.pokemon_service import listar_pokemon
+from app.services.pokemon_service import listar_pokemon, pokemon_existe
 from app.services.current_year_service import get_current_year
 
 current_year = get_current_year()
@@ -18,11 +18,7 @@ def battle():
         entrenador = request.form.get("entrenador")
 
         # Buscamos si el pokemon existe
-        pokemon_elegido = None
-        for p in lista_pokemons:
-            if p.name.lower() == pokemon_name:
-                pokemon_elegido = p
-                break
+        pokemon_elegido = pokemon_existe(pokemon_name)
 
         # Si el pokemon no existe
         if not pokemon_elegido:
@@ -58,11 +54,7 @@ def battle():
         if not pokemon_name:
             return redirect(url_for("pokemon.lista"))
 
-        pokemon_elegido = None
-        for p in lista_pokemons:
-            if p.name.lower() == pokemon_name:
-                pokemon_elegido = p
-                break
+        pokemon_elegido = pokemon_existe(pokemon_name)
 
         if not pokemon_elegido:
             return redirect(url_for("pokemon.lista"))
