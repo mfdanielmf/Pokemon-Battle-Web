@@ -1,3 +1,9 @@
+:root {
+  --negro-from: #34495e;
+  --negro: #2c3e50;
+  --blanco: #fff;
+}
+
 body>main {
   display: flex;
   justify-content: center;
@@ -5,11 +11,12 @@ body>main {
 }
 
 body {
-  background-color: #ccc;
+  background-color: #f7f0f0;
 }
 
 .battle-screen {
-  background: linear-gradient(to top, #f5deb3, #fdf5e6);
+  /*Le añadimos color negro abajo para que cubra la altura de las opciones*/
+  background: linear-gradient(to top, var(--negro) 0%, var(--negro) 120px, #f5deb3 120px, #fdf5e6 60%, #e3f2fd 100%);
   font-family: 'Press Start 2P', monospace;
   display: flex;
   justify-content: center;
@@ -18,12 +25,17 @@ body {
 
 /* Contenedor principal */
 .battle-screen {
-  width: 900px;
+  width: 90%;
+  max-width: 900px;
   height: 600px;
-  border: 4px solid #000;
-  border-radius: 8px;
+  margin: 30px auto;
+  border: 6px solid var(--negro);
+  border-radius: 12px;
   position: relative;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 /* Entrenadores */
@@ -33,9 +45,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   font-size: 0.8rem;
   color: #000;
-  text-shadow: 1px 1px 0 #fff;
+  text-shadow: 1px 1px 0 var(--blanco);
+}
+
+.rival-trainer img,
+.player-trainer img {
+  height: 100px;
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
 }
 
 .rival-trainer {
@@ -50,6 +69,22 @@ body {
   left: 10px;
 }
 
+.player-trainer p,
+.rival-trainer p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
+}
+
+.player-trainer p {
+  color: blue;
+}
+
+.rival-trainer p {
+  color: red;
+}
+
 /* Rival */
 .rival-area {
   position: absolute;
@@ -58,21 +93,37 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: aparecerPokemon 0.6s ease-out;
 }
 
-.rival-area img {
+.rival-area img,
+.player-area img {
   width: 150px;
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
+  image-rendering: pixelated;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.05) translateY(-5px);
+  }
 }
 
-.rival-info {
-  background: #fff;
-  border: 3px solid #333;
-  padding: 8px;
-  border-radius: 6px;
+.rival-info,
+.player-info {
+  background: var(--blanco);
+  border: 3px solid var(--negro);
+  padding: 12px;
+  border-radius: 10px;
   width: 160px;
   text-align: left;
   font-size: 0.7rem;
   margin-bottom: 5px;
+}
+
+.rival-info h3,
+.player-info h3 {
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .hp-bar {
@@ -91,7 +142,6 @@ body {
   background: linear-gradient(to right, #66bb6a, #388e3c);
 }
 
-
 /* Jugador */
 .player-area {
   position: absolute;
@@ -100,23 +150,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: aparecerPokemon 0.6s ease-out 0.2s backwards;
 }
 
 .player-area img {
   width: 200px;
 }
-
-.player-info {
-  background: #fff;
-  border: 3px solid #333;
-  padding: 8px;
-  border-radius: 6px;
-  width: 160px;
-  text-align: left;
-  font-size: 0.7rem;
-  margin-top: 5px;
-}
-
 
 /* Cuadro de texto y opciones */
 .battle-options {
@@ -124,14 +163,12 @@ body {
   bottom: 0;
   width: 100%;
   height: 120px;
-  /*zona de ataques para que no aparesca tan arriba*/
-  background: #f8f8f8;
-  border-top: 3px solid #000;
+  background: linear-gradient(to bottom, var(--negro-from) 0%, var(--negro) 100%);
+  border-top: 3px solid var(--negro);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .battle-text {
@@ -140,26 +177,68 @@ body {
   display: flex;
   align-items: center;
   font-size: 0.8rem;
+  color: var(--blanco);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
 }
 
 .options-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-button {
-  background: #fff;
-  border: 3px solid #000;
+button.fight {
+  background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
+  color: var(--blanco);
+  border: 3px solid #b71c1c;
   border-radius: 8px;
   padding: 10px;
   font-family: 'Press Start 2P', monospace;
   font-size: 0.7rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  /*Para q no se salga el efecto del hover*/
+  overflow: hidden;
 }
 
-button:hover {
-  transform: scale(1.05);
+button.fight:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+}
+
+/*Efecto botones*/
+button.fight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+button.fight:hover::before {
+  left: 100%;
+}
+
+button.fight:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+@keyframes aparecerPokemon {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
