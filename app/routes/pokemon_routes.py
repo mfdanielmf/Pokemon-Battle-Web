@@ -3,7 +3,8 @@ from datetime import datetime
 from app.services import pokemon_service
 
 current_year = datetime.now().year
-pokemon_bp = Blueprint('pokemon', __name__, template_folder= 'templates')
+pokemon_bp = Blueprint('pokemon', __name__)
+
 
 @pokemon_bp.route("/lista_pokemon/", methods=["POST", "GET"])
 def lista():
@@ -20,7 +21,7 @@ def lista():
     if len(entrenador) < 3 or len(entrenador) > 15 or not entrenador.isalpha():
         return "El nombre debe de tener entre 3 y 15 letras sin espacios ni caracteres especiales", 400
 
-    return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, entrenador=entrenador )
+    return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, entrenador=entrenador)
 
 
 @pokemon_bp.route("/pokemon_detallado/<int:id>")
