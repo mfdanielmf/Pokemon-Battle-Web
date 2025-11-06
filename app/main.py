@@ -1,13 +1,8 @@
-from datetime import datetime
-from flask import Flask, redirect, render_template, jsonify, current_app, request, url_for
-import random
+from flask import Flask
 
 from app.routes.battle_routes import battle_bp
 from app.routes.pokemon_routes import pokemon_bp
 from app.routes.home_routes import home_bp
-
-
-# current_year = datetime.now().year
 
 app = Flask(__name__, static_folder="static")
 
