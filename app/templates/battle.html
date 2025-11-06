@@ -4,19 +4,26 @@
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/battle.css')}}">
 {% endblock %}
 
+{% set nav_text_color = "text-indigo-800 drop-shadow-sm" %}
+{% set nav_link_class = "hover:text-yellow-500 transition-all duration-300" %}
+{% set nav_underline_color = "bg-yellow-500" %}
+{% set play_button_class = "bg-indigo-600 text-white rounded py-2 px-4 hover:bg-indigo-800 italic font-bold shadow-md
+transition-all duration-300 ease-in-out" %}
+{% set footer_text_color = "indigo-800" %}
+
 {% block main %}
 <div class="battle-screen">
 
     <!-- Entrenador Rival -->
     <div class="rival-trainer">
-        <img src="https://archives.bulbagarden.net/media/upload/4/49/Spr_B2W2_Colress.png" alt="Entrenador rival">
-        <p>Dani</p>
+        <img src="{{url_for('static', filename='media/img/team_rocket.webp')}}" alt="Entrenador rival">
+        <p>Team Rocket</p>
     </div>
 
     <!-- Pokémon Rival -->
     <div class="rival-area">
         <div class="rival-info">
-            <h3>{{pokemon_rival.name}}</h3>
+            <h3>{{pokemon_rival.name.upper()}}</h3>
             <div class="hp-bar">
                 <div class="hp-fill"></div>
             </div>
@@ -33,7 +40,7 @@
     <div class="player-area">
         <img src="{{pokemon_elegido.sprites.back_default}}" alt="{{pokemon_elegido.sprites}}">
         <div class="player-info">
-            <h3>{{pokemon_elegido.name | capitalize}}</h3>
+            <h3>{{pokemon_elegido.name.upper()}}</h3>
             <div class="hp-bar">
                 <div class="hp-fill"></div>
             </div>
@@ -47,7 +54,7 @@
 
     <!-- Entrenador Jugador -->
     <div class="player-trainer">
-        <img src="https://archives.bulbagarden.net/media/upload/d/d9/Spr_HGSS_Red.png" alt="Entrenador jugador">
+        <img src="{{url_for('static', filename='media/img/entrenador_ash.webp')}}" alt="Entrenador jugador">
         <p>{{entrenador}}</p>
     </div>
 
@@ -58,7 +65,7 @@
         </div>
         <div class="options-grid">
             {% for movimiento in moves_elegido %}
-            <button class="fight">{{movimiento.name}}</button>
+            <button class="fight">{{movimiento.name.upper()}}</button>
             {% endfor%}
         </div>
     </div>
