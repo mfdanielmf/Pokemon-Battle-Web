@@ -3,12 +3,17 @@ from flask import Flask, redirect, render_template, jsonify, current_app, reques
 import json
 import random
 
+from app.routes.home_routes import home_bp
+from app.routes.pokemon_routes import pokemon_bp
+from app.routes.battle_routes import battle_bp
+
 current_year = datetime.now().year
 
 app = Flask(__name__, static_folder="static")
 
-with open("data/pokemon.json", encoding="utf-8") as f:
-    app.config["DATA"] = json.load(f)
+app.register_blueprint(home_bp, url_prefix="/")
+app.register_blueprint(pokemon_bp, url_prefix="/pokemons")
+app.register_blueprint(battle_bp, url_prefix="/battle")
 
 
 @app.route("/data")
