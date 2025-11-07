@@ -9,5 +9,17 @@ class Pokemon:
         self.moves = moves
         self.types = types
 
+    def to_dict(self):
+        return {
+            "height": self.height,
+            "id": self.id,
+            "name": self.name,
+            "weight": self.weight,
+            "stats": self.stats,
+            "sprites": self.sprites,
+            "moves": self.moves,
+            "types": self.types
+        }
+
     def __str__(self):
         return f"{self.name.capitalize()} ID: {self.id}"
