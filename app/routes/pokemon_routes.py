@@ -27,8 +27,6 @@ def lista():
 
 @pokemon_bp.route("/pokemon_detallado/<int:id>")
 def pokemon_detalles(id):
-    # DATA para pasar la lista de pokemon y recorrerla para buscar el pokemon
-    lista_pokemons = current_app.config["DATA"]
     pokemon = pokemon_service.obtener_pokemon_por_id(id)
     if pokemon is None:
         abort(404)

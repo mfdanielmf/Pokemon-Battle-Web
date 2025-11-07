@@ -7,7 +7,7 @@ def listar_pokemon():
 
 def obtener_pokemon_por_id(id):
     if id < 0 or id is None:
-        return None  # o lanzar una excepcion
+        return None
     return pokemon_repo.buscar_por_id(id)
 
 
@@ -19,5 +19,3 @@ def pokemon_existe(nombre):
             return p
 
     return False
-
-# gacer la logica de buscar copkemon para combatir
