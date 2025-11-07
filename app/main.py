@@ -6,6 +6,8 @@ from app.routes.home_routes import home_bp
 
 app = Flask(__name__, static_folder="static")
 
+app.secret_key = "no se me ocurre que poner"
+
 app.register_blueprint(home_bp, url_prefix="/")
 app.register_blueprint(pokemon_bp, url_prefix="/pokemons")
 app.register_blueprint(battle_bp, url_prefix="/battle")
