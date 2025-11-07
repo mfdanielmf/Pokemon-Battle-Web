@@ -11,11 +11,6 @@ app.register_blueprint(pokemon_bp, url_prefix="/pokemons")
 app.register_blueprint(battle_bp, url_prefix="/battle")
 
 
-# @app.route("/data")
-# def home():
-#     return jsonify(current_app.config["DATA"])
-
-
 # @app.route("/formulario")
 # def formulario():
 #     return render_template("formulario.html", year=current_year)
