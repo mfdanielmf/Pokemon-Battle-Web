@@ -12,10 +12,4 @@ def obtener_pokemon_por_id(id):
 
 
 def pokemon_existe(nombre):
-    lista_pokemons = listar_pokemon()
-
-    for p in lista_pokemons:
-        if p.name.lower() == nombre.lower():
-            return p
-
-    return False
+    return pokemon_repo.buscar_por_nombre(nombre)

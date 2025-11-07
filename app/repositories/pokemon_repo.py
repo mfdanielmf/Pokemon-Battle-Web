@@ -5,12 +5,15 @@ from pathlib import Path
 with open(Path("data/pokemon.json"), encoding="utf-8") as fichero:
     _POKEMONS = json.load(fichero)
 
+
 def obtener_pokemons():
     pokemons = []
     for p in _POKEMONS:
-        pokemon = Pokemon(**p)  #mete todo por clave valor, esto le pasa el diccionario entero, sino de puede id= p["id"]
+        # mete todo por clave valor, esto le pasa el diccionario entero, sino de puede id= p["id"]
+        pokemon = Pokemon(**p)
         pokemons.append(pokemon)
     return pokemons
+
 
 def buscar_por_id(id):
     pokemons = obtener_pokemons()
@@ -21,5 +24,10 @@ def buscar_por_id(id):
             break
     return pokemon_a_buscar
 
-#buscarpokemon por nombre
-        
+
+def buscar_por_nombre(nombre):
+    lista_pokemons = obtener_pokemons()
+
+    for p in lista_pokemons:
+        if p.name.lower() == nombre.lower():
+            return p
