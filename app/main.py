@@ -16,18 +16,6 @@ app.register_blueprint(battle_bp, url_prefix="/battle")
 #     return jsonify(current_app.config["DATA"])
 
 
-# @app.route("/pokemon_detallado/<int:id>")
-# def pokemon_detalles(id):
-#     # DATA para pasar la lista de pokemon y recorrerla para buscar el pokemon
-#     lista_pokemons = current_app.config["DATA"]
-#     pokemon = None
-#     for p in lista_pokemons:
-#         if p["id"] == id:
-#             pokemon = p
-
-#     return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year)
-
-
 # @app.route("/formulario")
 # def formulario():
 #     return render_template("formulario.html", year=current_year)
