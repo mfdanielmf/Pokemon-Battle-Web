@@ -1,14 +1,11 @@
-import random
 from flask import Blueprint, abort, redirect, render_template, request, url_for
 
 from app.services import pokemon_service
 from app.services.current_year_service import get_current_year
 from app.forms.pokemon_select_form import PokemonSelectForm
-from app.services.pokemon_service import listar_pokemon
 
 current_year = get_current_year()
 pokemon_bp = Blueprint('pokemon', __name__)
-lista_pokemons = listar_pokemon()
 
 
 @pokemon_bp.route("/lista_pokemon/", methods=["GET", "POST"])
@@ -31,15 +28,8 @@ def lista():
             return redirect(url_for("home.formulario"))
 
         # Si pasamos las validaciones anteriores, vamos a la batalla
-        moves_elegido = random.sample(
-            pokemon_elegido.moves, min(4, len(pokemon_elegido.moves)))
-
-        pokemon_rival = random.choice(lista_pokemons)
-
         return redirect(url_for("battle.battle",
-                                pokemon_elegido=pokemon_elegido,
-                                moves_elegido=moves_elegido,
-                                pokemon_rival=pokemon_rival,
+                                pokemon_elegido=pokemon_elegido.name,
                                 entrenador=entrenador
                                 )
                         )
