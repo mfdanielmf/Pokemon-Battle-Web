@@ -13,9 +13,8 @@ app.register_blueprint(pokemon_bp, url_prefix="/pokemons")
 app.register_blueprint(battle_bp, url_prefix="/battle")
 
 
-# @app.route("/formulario")
-# def formulario():
-#     return render_template("formulario.html", year=current_year)
+# TODO: PASAR FORMULARIO ELEGIR POKEMON A FLASK WTF
+# TODO: VALIDAR POKEMON FUERA DE LA RUTA DE BATALLA
 
 
 if __name__ == "__main__":
