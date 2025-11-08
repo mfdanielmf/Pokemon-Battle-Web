@@ -1,5 +1,5 @@
 import random
-from app.services.pokemon_service import pokemon_existe, listar_pokemon
+from app.services.pokemon_service import listar_pokemon
 
 
 def random_moves(pokemon):
