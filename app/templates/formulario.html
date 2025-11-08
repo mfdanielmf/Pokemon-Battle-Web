@@ -14,16 +14,17 @@ bg-no-repeat{% endblock %}
 
 {% block main %}
 <section>
-    <form action="/pokemons/lista_pokemon/" method="post">
-        <label for="entrenador" title="entrenador">Entrenador</label>
+    <form action="" method="post">
+        {{form.hidden_tag()}}
+
+        {{form.entrenador.label(title="entrenador")}}
         <div class="icon-item-container">
-            <span class="material-symbols-outlined ">
+            <span class="material-symbols-outlined">
                 person
             </span>
-            <input type="text" id="entrenador" name="entrenador" placeholder="Introduce nombre" required
-                pattern="[A-Za-z]{3,15}" title="Solo letras A-Z, a-z">
+            {{form.entrenador()}}
         </div>
-        <button class="submit" title="Enviar los datos del formulario">Continuar</button>
+        {{form.enviar()}}
     </form>
 </section>
 
