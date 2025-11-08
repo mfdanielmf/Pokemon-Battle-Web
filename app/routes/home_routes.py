@@ -1,8 +1,8 @@
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, redirect, render_template, url_for
 
 from app.services.pokemon_service import listar_pokemon
 from app.services.current_year_service import get_current_year
-# from app.forms.trainer_form import TrainerForm
+from app.forms.trainer_form import TrainerForm
 
 home_bp = Blueprint('home', __name__)
 
@@ -21,11 +21,13 @@ def data():
     return jsonify([p.to_dict() for p in pokemons])
 
 
-@home_bp.route("/formulario")
+@home_bp.route("/formulario", methods=["GET", "POST"])
 def formulario():
-    # form = TrainerForm()
-    # if form.validate_on_submit():
-    #     entrenador = form.entrenador.data
-    return render_template("formulario.html", year=year)
+    form = TrainerForm()
 
-    # return render_template("formulario.html", form=form)
+    if form.validate_on_submit():
+        entrenador = form.entrenador.data
+
+        return redirect(url_for("pokemon.lista", entrenador=entrenador))
+
+    return render_template("formulario.html", year=year, form=form)
