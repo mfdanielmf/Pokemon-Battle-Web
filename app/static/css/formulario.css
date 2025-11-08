@@ -43,6 +43,11 @@ form #entrenador:focus {
     background-color: whitesmoke;
 }
 
+form .errores-container .error {
+    color: red;
+    font-weight: bold;
+}
+
 .icon-item-container {
     display: flex;
     align-items: center;

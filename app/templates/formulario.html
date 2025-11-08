@@ -25,6 +25,11 @@ bg-no-repeat{% endblock %}
             {{form.entrenador()}}
         </div>
         {{form.enviar()}}
+        <div class="errores-container">
+            {% for error in form.entrenador.errors%}
+            <div class="error">{{error}}</div>
+            {% endfor %}
+        </div>
     </form>
 </section>
 
