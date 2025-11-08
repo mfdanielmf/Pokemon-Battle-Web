@@ -1,13 +1,16 @@
 import random
-from app.services.pokemon_service import pokemon_existe
-
-# hacer le buscaodor de random pokemon y enemigo igual q su imgen
+from app.services.pokemon_service import pokemon_existe, listar_pokemon
 
 
-def random_moves(nombre):
-    pokemon = pokemon_existe(nombre)
-
-    movimientos = random.sample(
-        pokemon.moves, min(4, len(pokemon.moves)))
+def random_moves(pokemon):
+    movimientos = random.sample(pokemon.moves, min(4, len(pokemon.moves)))
 
     return movimientos
+
+
+def random_pokemon():
+    lista_pokemons = listar_pokemon()
+
+    pokemon = random.choice(lista_pokemons)
+
+    return pokemon
