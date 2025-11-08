@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, current_app, render_template, request
+from flask import Blueprint, abort, render_template, request
 
 from app.services import pokemon_service
 from app.services.current_year_service import get_current_year
@@ -7,20 +7,13 @@ current_year = get_current_year()
 pokemon_bp = Blueprint('pokemon', __name__)
 
 
-@pokemon_bp.route("/lista_pokemon/", methods=["POST", "GET"])
+@pokemon_bp.route("/lista_pokemon/", methods=["GET"])
 def lista():
-    if request.method == "POST":
-        entrenador = request.form.get("entrenador")
-    else:
-        entrenador = None
+    entrenador = request.args.get("entrenador", None)
 
     # Si no mandamos entrenador, cargamos la lista y pasamos entrenador como None
     if (entrenador is None):
         return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, entrenador=None)
-
-    # Validamos longitud del nombre y que no tenga espacios ni caracteres especiales
-    if len(entrenador) < 3 or len(entrenador) > 15 or not entrenador.isalpha():
-        return "El nombre debe de tener entre 3 y 15 letras sin espacios ni caracteres especiales", 400
 
     return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, entrenador=entrenador)
 
