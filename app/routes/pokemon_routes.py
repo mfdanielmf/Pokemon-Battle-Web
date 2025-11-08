@@ -22,6 +22,8 @@ def lista():
         if pokemon_elegido is None:
             form.pokemon.errors.append(
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
+            # Para que no se quede el valor introducido en el input
+            form.pokemon.data = ""
             return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), entrenador=entrenador, form=form, year=current_year)
 
         if not entrenador:
