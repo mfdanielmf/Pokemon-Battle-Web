@@ -36,14 +36,13 @@ def lista():
 
         pokemon_rival = random.choice(lista_pokemons)
 
-        return render_template(
-            "battle.html",
-            year=current_year,
-            pokemon_elegido=pokemon_elegido,
-            moves_elegido=moves_elegido,
-            pokemon_rival=pokemon_rival,
-            entrenador=entrenador
-        )
+        return redirect(url_for("battle.battle",
+                                pokemon_elegido=pokemon_elegido,
+                                moves_elegido=moves_elegido,
+                                pokemon_rival=pokemon_rival,
+                                entrenador=entrenador
+                                )
+                        )
 
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
     entrenador = request.args.get("entrenador", None)
