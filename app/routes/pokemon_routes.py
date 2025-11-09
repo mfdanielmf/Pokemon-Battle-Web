@@ -8,7 +8,7 @@ current_year = get_current_year()
 pokemon_bp = Blueprint('pokemon', __name__)
 
 
-@pokemon_bp.route("/lista_pokemon/", methods=["GET", "POST"])
+@pokemon_bp.route("/", methods=["GET", "POST"])
 def lista():
     form = PokemonSelectForm()
 
@@ -48,7 +48,7 @@ def lista():
     return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, entrenador=entrenador, form=form)
 
 
-@pokemon_bp.route("/pokemon_detallado/<int:id>")
+@pokemon_bp.route("/<int:id>")
 def pokemon_detalles(id):
     pokemon = pokemon_service.obtener_pokemon_por_id(id)
     if pokemon is None:
