@@ -8,13 +8,13 @@
 
 Se trata de una página web con el objetivo de simular un campo de batalla al estilo Pokémon.
 
-**INSTRUCCIONES**
+**TECNOLOGÍAS**
 
 **1. Frontend**: HTML, CSS, JavaScript  
 **2. Backend**: Pyhon + Flask  
 **3. Templates:** Jinja2
 
-**INSTALACIÓN**
+**INSTALACIÓN Y LANZAMIENTO**
 
 **1. Clonar repositorio:**
 
@@ -42,12 +42,12 @@ Ejecutar el siguiente comando para descar los requirements:
 Ejecutar el siguiente comando para lanzar el servidor local:
 
 ```
-.\.venv\Scripts\python.exe .\app\main.py
+.\.venv\Scripts\python.exe -m app.main
 ```
 
 **5. Abrir en el navegador**
 
-Esto abrirá el servidor en el siguiente puerto:
+Esto abrirá el servidor en la siguiente dirección:
 ```
 http://127.0.0.1:8080
 ```
