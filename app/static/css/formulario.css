@@ -29,7 +29,7 @@ form label {
     color: lightyellow;
 }
 
-form input {
+form #entrenador {
     border: none;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -39,8 +39,13 @@ form input {
     padding: 4px 6px;
 }
 
-form input:focus {
+form #entrenador:focus {
     background-color: whitesmoke;
+}
+
+form .errores-container .error {
+    color: red;
+    font-weight: bold;
 }
 
 .icon-item-container {
@@ -58,7 +63,6 @@ form input:focus {
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 1rem;
-    transition: transform 0.2s;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
@@ -70,7 +74,7 @@ form input:focus {
 
 @media (max-width: 450px) {
 
-    form input,
+    form #entrenador,
     .icon-item-container span {
         width: 90%;
         margin: 0 auto;

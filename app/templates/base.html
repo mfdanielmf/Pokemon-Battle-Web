@@ -25,7 +25,7 @@
             {% block nav%}
             <ul class="flex justify-end items-center gap-5 font-bold {{ nav_text_color | default('text-white') }}">
                 <li class="relative group p-1 hover:scale-105">
-                    <a href="{{url_for('index')}}"
+                    <a href="{{url_for('home.index')}}"
                         class="{{ nav_link_class | default('hover:text-yellow-400 transition-all duration-300') }}">
                         Inicio
                     </a>
@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="relative group p-1 hover:scale-105">
-                    <a href="{{url_for('lista')}}"
+                    <a href="{{url_for('pokemon.lista')}}"
                         class="{{ nav_link_class | default('hover:text-yellow-400 transition duration-300') }}">
                         Pokemons
                     </a>
@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="p-1 hover:scale-105">
-                    <a href="{{url_for('formulario')}}"
+                    <a href="{{url_for('home.formulario')}}"
                         class="{{ play_button_class | default('bg-green-500 rounded py-2 px-4 hover:bg-green-700 italic font-bold transition-all duration-300 ease-in-out') }}">
                         Jugar
                     </a>
