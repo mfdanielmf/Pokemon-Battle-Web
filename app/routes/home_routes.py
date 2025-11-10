@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, redirect, render_template, url_for
+from flask import Blueprint, jsonify, redirect, render_template, session, url_for
 
 from app.services.pokemon_service import listar_pokemon
 from app.services.current_year_service import get_current_year
@@ -25,9 +25,16 @@ def data():
 def formulario():
     form = TrainerForm()
 
+    # POST (venimos de introducir entrenador)
     if form.validate_on_submit():
         entrenador = form.entrenador.data
+        session["entrenador"] = entrenador
+        pokemon = session.get("pokemon_elegido")
 
-        return redirect(url_for("pokemon.lista", entrenador=entrenador))
+        if entrenador and pokemon:
+            return redirect(url_for("battle.battle"))
 
+        return redirect(url_for("pokemon.lista"))
+
+    # GET
     return render_template("formulario.html", year=year, form=form)

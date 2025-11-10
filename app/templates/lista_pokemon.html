@@ -20,14 +20,14 @@ transition-all duration-300 ease-in-out" %}
 
 
 {% block nav %}
-{% if entrenador%}
+{% if session.entrenador%}
 <div class="flex items-center justify-between gap-4">
     <div
         class="flex items-center justify-center gap-2 flex-wrap px-3 py-1 bg-indigo-100 bg-opacity-20 rounded-full shadow-sm">
         <span class="material-symbols-outlined text-indigo-800">
             person
         </span>
-        <p class="font-semibold">{{entrenador}}</p>
+        <p class="font-semibold">{{session.entrenador}}</p>
     </div>
 
     {{super()}}
@@ -42,8 +42,6 @@ transition-all duration-300 ease-in-out" %}
 
 <form action="" method="post" class="max-w-md mx-auto mb-4 mt-4">
     {{form.hidden_tag()}}
-
-    {{form.entrenador()}}
 
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
     <div class="relative">

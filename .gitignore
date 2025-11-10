@@ -27,3 +27,6 @@ Thumbs.db
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Flask-Session
+.flask_session/
