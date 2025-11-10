@@ -3,6 +3,7 @@ from flask import Blueprint, redirect, render_template, session, url_for
 from app.services.pokemon_service import pokemon_existe
 from app.services.current_year_service import get_current_year
 from app.services.battle_service import random_moves, random_pokemon
+from app.models.battle import Battle
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -27,5 +28,7 @@ def battle():
     # Obtenemos rival y movimientos aleatorios
     pokemon_rival = random_pokemon()
     moves_elegido = random_moves(pokemon_elegido)
+
+    battle = Battle
 
     return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival)
