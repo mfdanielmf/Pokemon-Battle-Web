@@ -1,11 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import HiddenField, StringField, SubmitField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 
 class PokemonSelectForm(FlaskForm):
-    entrenador = HiddenField()
-
     pokemon = StringField(
         validators=[DataRequired(
             message="No has introducido un pokemon válido")],
