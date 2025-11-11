@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, session, url_for
+from flask import Blueprint, redirect, render_template, request, session, url_for
 
 from app.services.pokemon_service import pokemon_existe
 from app.services.current_year_service import get_current_year
@@ -44,3 +44,33 @@ def battle():
     session["battle"] = battle.__dict__
 
     return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival, moves_rival=moves_rival, battle=session.get("battle"))
+
+
+@battle_bp.route("/ataque", methods=["GET", "POST"])
+def atacar():
+    # GET (venimos directamente por la url)
+    if request.method == "GET":
+        return redirect(url_for("lista"))
+
+    # POST (seleccionamos ataque en battle)
+
+    # Obtenemos el pokemon para acceder a sus ataques
+    pokemon_name = session.get("pokemon_elegido")
+    pokemon = pokemon_existe(pokemon_name)
+
+    if pokemon:
+        ataque_name = request.form.get("ataque_name")
+
+        damage = None
+        accuracy = None
+
+        for ataque in pokemon.moves:
+            if ataque["name"] == ataque_name:
+                damage = ataque["power"]
+                accuracy = ataque["accuracy"]
+
+        test = [damage * 0.20, accuracy]
+
+        return test
+
+    return "Test"
