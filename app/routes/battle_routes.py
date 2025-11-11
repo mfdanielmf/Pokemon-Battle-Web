@@ -69,8 +69,10 @@ def atacar():
                 damage = ataque["power"]
                 accuracy = ataque["accuracy"]
 
-        test = [damage * 0.20, accuracy]
-
-        return test
+         # TODO: cambiar vida al objeto battle de la session y volver a cargar la template battle con el nuevo objeto actualizado
+         # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon)
+         # TODO: hacer que se decida random que pokemon empieza a atacar
+         # TODO: hacer que al lanzar un ataque el rival también responda con un ataque aleatorio
+         # TODO: hacer que los ataques puedan fallar segundo el valor de precisión
 
     return "Test"
