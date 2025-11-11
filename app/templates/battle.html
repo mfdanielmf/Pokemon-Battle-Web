@@ -67,15 +67,19 @@ transition-all duration-300 ease-in-out" %}
         </div>
         <div class="options-grid">
             {% for movimiento in moves_elegido %}
-            <button class="fight">Name:{{movimiento.name.upper()}} Power: {{movimiento.power * 0.20}} Accuracy:{{movimiento.accuracy}}</button>
+            <form action="/battle/ataque" method="post">
+                <button class="fight" name="ataque_name" type="submit"
+                    value="{{movimiento.name}}">Name:{{movimiento.name.upper()}} Power: {{movimiento.power * 0.20}}
+                    Accuracy:{{movimiento.accuracy}}</button>
+            </form>
             {% endfor%}
         </div>
     </div>
 </section>
 <section class="container-log">
-    
+
     <h1>Transcurso de la Batalla</h1>
-    
+
     <div class="log">
         {{battle.turno}}
         {{battle.datos_pokemon_rival}}
@@ -83,7 +87,7 @@ transition-all duration-300 ease-in-out" %}
         {{battle.vida_rival}}
 
         {% for log in session.battle.log%}
-            <p>{{log}}</p>
+        <p>{{log}}</p>
         {% endfor%}
     </div>
 </section>
