@@ -70,7 +70,8 @@ def atacar():
                 damage = ataque["power"]
                 accuracy = ataque["accuracy"]
 
-                battle_object["vida_rival"] -= damage * 0.20
+                battle_object["vida_rival"] = round(
+                    battle_object["vida_rival"] - (damage * 0.20), 2)
 
                 if battle_object["vida_rival"] <= 0:
                     session.pop("battle")
