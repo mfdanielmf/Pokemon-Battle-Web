@@ -6,7 +6,7 @@
 
 body>main {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -24,7 +24,6 @@ body {
   width: 90%;
   max-width: 900px;
   height: 750px;
-  margin: 30px auto;
   border: 6px solid var(--negro);
   border-radius: 12px;
   position: relative;
@@ -240,9 +239,5 @@ button.fight:active {
 }
 
 .log{
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  text-align: center;
+  background-color: white;
 }

@@ -44,6 +44,8 @@ def battle():
         ataques_rival=moves_rival
     )
     
+    battle.log.append("test")
+
     session["battle"] = battle.__dict__
 
     return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival, moves_rival=moves_rival, battle = session.get("battle"))
