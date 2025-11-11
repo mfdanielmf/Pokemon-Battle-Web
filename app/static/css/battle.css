@@ -8,6 +8,7 @@ body>main {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 20px;
 }
 
 body {
@@ -238,6 +239,26 @@ button.fight:active {
   }
 }
 
-.log{
+.container-log{
+  width: 90%;
+  max-width: 400px;
+  height: 750px;
+  border: 6px solid var(--negro);
+  border-radius: 12px;
+  position: relative;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   background-color: white;
+  text-align: center;
+}
+
+.container-log h1{
+  background-color: #ffbbbb;
+  border-bottom: 1px solid rgb(255, 105, 105);
+}
+
+.log{
+  margin-top: 10px;
 }
