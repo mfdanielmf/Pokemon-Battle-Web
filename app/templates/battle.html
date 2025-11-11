@@ -67,10 +67,13 @@ transition-all duration-300 ease-in-out" %}
         </div>
         <div class="options-grid">
             {% for movimiento in moves_elegido %}
-            <button class="fight">{{movimiento.name.upper()}}</button>
+            <button class="fight">Name:{{movimiento.name.upper()}} Power: {{movimiento.power}} Accuracy:{{movimiento.accuracy}}</button>
             {% endfor%}
         </div>
     </div>
-
+{{battle.turno}}
+{{battle.datos_pokemon_rival}}
+{{battle.vida_jugador}}
+{{battle.vida_rival}}
 </div>
 {% endblock %}

@@ -28,7 +28,22 @@ def battle():
     # Obtenemos rival y movimientos aleatorios
     pokemon_rival = random_pokemon()
     moves_elegido = random_moves(pokemon_elegido)
+    moves_rival = random_moves(pokemon_rival)
 
-    battle = Battle
+    def get_stat_value(pokemon, stat_name):  #para poder conseguir el atributo hp en el json
+        for stat in pokemon.stats:
+            if stat["name"] == stat_name:
+                return stat["value"] 
 
-    return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival)
+    battle = Battle(
+        datos_pokemon_jugador=pokemon_elegido,
+        datos_pokemon_rival=pokemon_rival,
+        vida_jugador=get_stat_value(pokemon_elegido,"hp"), 
+        vida_rival=get_stat_value(pokemon_rival,"hp"),
+        ataques_jugador=moves_elegido,
+        ataques_rival=moves_rival
+    )
+    
+    session["battle"] = battle.__dict__
+
+    return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival, moves_rival=moves_rival, battle = session.get("battle"))
