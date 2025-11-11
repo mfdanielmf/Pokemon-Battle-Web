@@ -26,14 +26,16 @@ transition-all duration-300 ease-in-out" %}
     <div class="rival-area">
         <div class="rival-info">
             <h3>{{pokemon_rival.name.upper()}}</h3>
-            <div class="hp-bar">
-                <div class="hp-fill"></div>
+
+            <div class="hp-fill">
+                {% for hp in pokemon_rival.stats %}
+                {% if hp.name == "hp" %}
+                <progress value="{{session.battle.vida_rival*1/hp.value}}"></progress>
+                <p>{{hp.name | capitalize}}: {{session.battle.vida_rival}}</p>
+                {% endif%}
+                {% endfor %}
             </div>
-            {% for hp in pokemon_rival.stats %}
-            {% if hp.name == "hp" %}
-            <p>{{hp.name | capitalize}}: {{hp.value}}</p>
-            {% endif%}
-            {% endfor %}
+
         </div>
         <img src="{{pokemon_rival.sprites.front_default}}" alt="{{pokemon_rival.sprites}}">
     </div>
