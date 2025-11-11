@@ -14,3 +14,10 @@ def random_pokemon():
     pokemon = random.choice(lista_pokemons)
 
     return pokemon
+
+
+# para poder conseguir el atributo hp en el json data
+def get_stat_value(pokemon, stat_name):
+    for stat in pokemon.stats:
+        if stat["name"] == stat_name:
+            return stat["value"]

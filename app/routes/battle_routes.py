@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, session, url_for
 
 from app.services.pokemon_service import pokemon_existe
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_moves, random_pokemon
+from app.services.battle_service import random_moves, random_pokemon, get_stat_value
 from app.models.battle import Battle
 
 current_year = get_current_year()
@@ -30,22 +30,17 @@ def battle():
     moves_elegido = random_moves(pokemon_elegido)
     moves_rival = random_moves(pokemon_rival)
 
-    def get_stat_value(pokemon, stat_name):  #para poder conseguir el atributo hp en el json
-        for stat in pokemon.stats:
-            if stat["name"] == stat_name:
-                return stat["value"] 
-
     battle = Battle(
         datos_pokemon_jugador=pokemon_elegido,
         datos_pokemon_rival=pokemon_rival,
-        vida_jugador=get_stat_value(pokemon_elegido,"hp"), 
-        vida_rival=get_stat_value(pokemon_rival,"hp"),
+        vida_jugador=get_stat_value(pokemon_elegido, "hp"),
+        vida_rival=get_stat_value(pokemon_rival, "hp"),
         ataques_jugador=moves_elegido,
         ataques_rival=moves_rival
     )
-    
+
     battle.log.append("test")
 
     session["battle"] = battle.__dict__
 
-    return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival, moves_rival=moves_rival, battle = session.get("battle"))
+    return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival, moves_rival=moves_rival, battle=session.get("battle"))
