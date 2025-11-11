@@ -72,11 +72,20 @@ def atacar():
 
                 battle_object["vida_rival"] -= damage * 0.20
 
+                if battle_object["vida_rival"] <= 0:
+                    session.pop("battle")
+                    session.pop("pokemon_elegido")
+                    return "Has ganado"
+
+                if battle_object["vida_jugador"] <= 0:
+                    session.pop("battle")
+                    session.pop("pokemon_elegido")
+                    return "Has perdido"
+
                 session["battle"] = battle_object
 
                 return render_template("battle.html", year=current_year, pokemon_elegido=pokemon, moves_elegido=battle_object["ataques_jugador"], pokemon_rival=battle_object["datos_pokemon_rival"], moves_rival=battle_object["ataques_rival"], battle=session.get("battle"))
 
-         # TODO: cambiar vida al objeto battle de la session y volver a cargar la template battle con el nuevo objeto actualizado
          # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon)
          # TODO: hacer que se decida random que pokemon empieza a atacar
          # TODO: hacer que al lanzar un ataque el rival también responda con un ataque aleatorio
