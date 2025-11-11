@@ -1,3 +1,5 @@
+import random
+
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
 from app.services.pokemon_service import pokemon_existe
@@ -39,8 +41,6 @@ def battle():
         ataques_rival=moves_rival
     )
 
-    battle.log.append("test")
-
     session["battle"] = battle.__dict__
 
     return render_template("battle.html", year=current_year)
@@ -70,18 +70,30 @@ def atacar():
                 damage = ataque["power"]
                 accuracy = ataque["accuracy"]
 
-                battle_object["vida_rival"] = round(
-                    battle_object["vida_rival"] - (damage * 0.20), 2)
+                # Para la precisión
+                acierta = random.randint(1, 100) <= accuracy
+                if acierta:
+                    battle_object["vida_rival"] = round(
+                        battle_object["vida_rival"] - (damage * 0.20), 2)
 
-                if battle_object["vida_rival"] <= 0:
-                    session.pop("battle")
-                    session.pop("pokemon_elegido")
-                    return "Has ganado"
+                    if battle_object["vida_rival"] <= 0:
+                        session.pop("battle")
+                        session.pop("pokemon_elegido")
+                        return "Has ganado"
 
-                if battle_object["vida_jugador"] <= 0:
-                    session.pop("battle")
-                    session.pop("pokemon_elegido")
-                    return "Has perdido"
+                    if battle_object["vida_jugador"] <= 0:
+                        session.pop("battle")
+                        session.pop("pokemon_elegido")
+                        return "Has perdido"
+
+                    nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
+                    )
+
+                    battle_object["log"].append(
+                        f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival} pierde {damage*0.20} puntos de salud. PS restantes: {battle_object['vida_rival']}")
+                else:
+                    battle_object["log"].append(
+                        f"{pokemon_name.capitalize()} falla su ataque...")
 
                 session["battle"] = battle_object
 
@@ -90,7 +102,6 @@ def atacar():
          # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon) - FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
          # TODO: hacer que se decida random que pokemon empieza a atacar
          # TODO: hacer que al lanzar un ataque el rival también responda con un ataque aleatorio
-         # TODO: hacer que los ataques puedan fallar segundo el valor de precisión
          # TODO: añadir logs al atacar y eso
 
     return "Test"
