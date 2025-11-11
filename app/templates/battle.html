@@ -27,7 +27,7 @@ transition-all duration-300 ease-in-out" %}
         <div class="rival-info">
             <h3>{{pokemon_rival.name.upper()}}</h3>
 
-            <div class="hp-fill">
+            <div class="hp-bar">
                 {% for hp in pokemon_rival.stats %}
                 {% if hp.name == "hp" %}
                 <progress value="{{session.battle.vida_rival*1/hp.value}}"></progress>
@@ -45,14 +45,17 @@ transition-all duration-300 ease-in-out" %}
         <img src="{{pokemon_elegido.sprites.back_default}}" alt="{{pokemon_elegido.sprites}}">
         <div class="player-info">
             <h3>{{pokemon_elegido.name.upper()}}</h3>
+
             <div class="hp-bar">
-                <div class="hp-fill"></div>
+                {% for hp in pokemon_elegido.stats %}
+                {% if hp.name == "hp" %}
+                <progress value="{{session.battle.vida_jugador*1/hp.value}}"></progress>
+                <p>{{hp.name | capitalize}}: {{session.battle.vida_jugador}}</p>
+                {% endif%}
+                {% endfor %}
             </div>
-            {% for hp in pokemon_elegido.stats %}
-            {% if hp.name == "hp" %}
-            <p>{{hp.name | capitalize}}: {{hp.value}}</p>
-            {% endif%}
-            {% endfor %}
+
+
         </div>
     </div>
 
