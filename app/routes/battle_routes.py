@@ -83,5 +83,6 @@ def atacar():
          # TODO: hacer que los ataques puedan fallar segundo el valor de precisión
          # TODO: añadir logs al atacar y eso
          # TODO: arreglar barra de vida y vida pokemon jugador
+         # TODO: pasar plantilla battle para que use session
 
     return "Test"
