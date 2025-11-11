@@ -25,10 +25,10 @@ transition-all duration-300 ease-in-out" %}
     <!-- Pokémon Rival -->
     <div class="rival-area">
         <div class="rival-info">
-            <h3>{{pokemon_rival.name.upper()}}</h3>
+            <h3>{{session.battle.datos_pokemon_rival.name.upper()}}</h3>
 
             <div class="hp-bar">
-                {% for hp in pokemon_rival.stats %}
+                {% for hp in session.battle.datos_pokemon_rival.stats %}
                 {% if hp.name == "hp" %}
                 <progress value="{{session.battle.vida_rival*1/hp.value}}"></progress>
                 <p>{{hp.name | capitalize}}: {{session.battle.vida_rival}}</p>
@@ -37,17 +37,19 @@ transition-all duration-300 ease-in-out" %}
             </div>
 
         </div>
-        <img src="{{pokemon_rival.sprites.front_default}}" alt="{{pokemon_rival.sprites}}">
+        <img src="{{session.battle.datos_pokemon_rival.sprites.front_default}}"
+            alt="{{session.battle.datos_pokemon_rival.sprites}}">
     </div>
 
     <!-- Pokémon Jugador -->
     <div class="player-area">
-        <img src="{{pokemon_elegido.sprites.back_default}}" alt="{{pokemon_elegido.sprites}}">
+        <img src="{{session.battle.datos_pokemon_jugador.sprites.back_default}}"
+            alt="{{session.battle.datos_pokemon_jugador.sprites}}">
         <div class="player-info">
-            <h3>{{pokemon_elegido.name.upper()}}</h3>
+            <h3>{{session.battle.datos_pokemon_jugador.name.upper()}}</h3>
 
             <div class="hp-bar">
-                {% for hp in pokemon_elegido.stats %}
+                {% for hp in session.battle.datos_pokemon_jugador.stats %}
                 {% if hp.name == "hp" %}
                 <progress value="{{session.battle.vida_jugador*1/hp.value}}"></progress>
                 <p>{{hp.name | capitalize}}: {{session.battle.vida_jugador}}</p>
@@ -68,10 +70,10 @@ transition-all duration-300 ease-in-out" %}
     <!-- Cuadro de opciones -->
     <div class="battle-options">
         <div class="battle-text">
-            <p>¿Qué hará {{pokemon_elegido.name | capitalize}}?</p>
+            <p>¿Qué hará {{session.battle.datos_pokemon_jugador.name | capitalize}}?</p>
         </div>
         <div class="options-grid">
-            {% for movimiento in moves_elegido %}
+            {% for movimiento in session.battle.ataques_jugador %}
             <form action="/battle/ataque" method="post">
                 <button class="fight" name="ataque_name" type="submit"
                     value="{{movimiento.name}}">Name:{{movimiento.name.upper()}} Power: {{movimiento.power * 0.20}}
@@ -86,10 +88,10 @@ transition-all duration-300 ease-in-out" %}
     <h1>Transcurso de la Batalla</h1>
 
     <div class="log">
-        {{battle.turno}}
-        {{battle.datos_pokemon_rival}}
-        {{battle.vida_jugador}}
-        {{battle.vida_rival}}
+        {{session.battle.turno}}
+        {{session.battle.datos_pokemon_rival}}
+        {{session.battle.vida_jugador}}
+        {{session.battle.vida_rival}}
 
         {% for log in session.battle.log%}
         <p>{{log}}</p>

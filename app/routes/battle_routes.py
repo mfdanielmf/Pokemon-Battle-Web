@@ -43,7 +43,7 @@ def battle():
 
     session["battle"] = battle.__dict__
 
-    return render_template("battle.html", year=current_year, pokemon_elegido=pokemon_elegido, moves_elegido=moves_elegido, pokemon_rival=pokemon_rival, moves_rival=moves_rival, battle=session.get("battle"))
+    return render_template("battle.html", year=current_year)
 
 
 @battle_bp.route("/ataque", methods=["GET", "POST"])
@@ -84,13 +84,12 @@ def atacar():
 
                 session["battle"] = battle_object
 
-                return render_template("battle.html", year=current_year, pokemon_elegido=pokemon, moves_elegido=battle_object["ataques_jugador"], pokemon_rival=battle_object["datos_pokemon_rival"], moves_rival=battle_object["ataques_rival"], battle=session.get("battle"))
+                return render_template("battle.html", year=current_year)
 
-         # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon)
+         # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon) - FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
          # TODO: hacer que se decida random que pokemon empieza a atacar
          # TODO: hacer que al lanzar un ataque el rival también responda con un ataque aleatorio
          # TODO: hacer que los ataques puedan fallar segundo el valor de precisión
          # TODO: añadir logs al atacar y eso
-         # TODO: pasar plantilla battle para que use session
 
     return "Test"
