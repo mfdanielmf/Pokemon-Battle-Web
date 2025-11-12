@@ -92,9 +92,9 @@ def atacar():
                     battle_object.get("ataques_rival"))
 
                 accuracy_rival = ataque_rival["accuracy"]
-                acierta = random.randint(1, 100) <= accuracy_rival
+                acierta_rival = random.randint(1, 100) <= accuracy_rival
 
-                if acierta:
+                if acierta_rival:
                     damage_rival = ataque_rival["power"]
                     battle_object["vida_jugador"] = round(
                         battle_object["vida_jugador"] - (damage_rival*0.20), 2)
