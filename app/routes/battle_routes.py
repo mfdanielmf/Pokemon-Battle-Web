@@ -74,7 +74,7 @@ def atacar():
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
-                return "Batalla acabada"
+                return "Has ganado"
 
             # TURNO RIVAL
             ataque_rival = random_atacar(
@@ -88,13 +88,12 @@ def atacar():
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
-                return "Batalla acabada"
+                return "Has perdido"
 
             return render_template("battle.html", year=current_year)
 
     return redirect(url_for("pokemon.lista"))
 
 
-# TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon) - FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
+# TODO: FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
 # TODO: hacer que se decida random que pokemon empieza a atacar
-# TODO: crear servicio para el ataque tanto del rival como del jugador (para limpiar un poco la ruta)
