@@ -246,6 +246,7 @@ button.fight:active {
   overflow: hidden;
   background-color: white;
   text-align: center;
+  overflow-y: auto;
 }
 
 .container-log h1 {
