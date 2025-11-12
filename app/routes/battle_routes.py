@@ -1,5 +1,3 @@
-import random
-
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
 from app.services.pokemon_service import pokemon_existe
@@ -74,7 +72,7 @@ def atacar():
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
-                return "Has ganado"
+                return redirect(url_for("battle.resultado"))
 
             # TURNO RIVAL
             ataque_rival = random_atacar(
@@ -88,12 +86,25 @@ def atacar():
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
-                return "Has perdido"
+                return redirect(url_for("battle.resultado"))
 
             return render_template("battle.html", year=current_year)
 
     return redirect(url_for("pokemon.lista"))
 
 
-# TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon) - FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
-# TODO: hacer que se decida random que pokemon empieza a atacar
+@battle_bp.route("/resultado")
+def resultado():
+    # Obtenemos los datos antes de quitarlos de la sesión
+    battle_object = session.get("battle")
+    pokemon_name = session.get("pokemon_elegido")
+
+    if not battle_object or not pokemon_name:
+        return redirect(url_for("pokemon.lista"))
+
+    session.pop("battle")
+    session.pop("pokemon_elegido")
+
+    return render_template("resultado.html", year=current_year, battle=battle_object)
+
+# TODO: acabar pestaña de resultado de logs

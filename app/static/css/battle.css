@@ -256,17 +256,20 @@ button.fight:active {
   border-bottom: 1px solid rgb(163, 163, 163);
   font-weight: bold;
   font-size: 20px;
+  padding: 10px;
 }
-.log p{
+
+.log p {
   padding: 20px;
   font-weight: bold;
 }
-.log p:nth-child(2n-1){
+
+.log p:nth-child(2n-1) {
   background-color: rgb(190, 231, 255);
   color: blue;
 }
-.log p:nth-child(2n){
+
+.log p:nth-child(2n) {
   background-color: rgb(255, 198, 198);
   color: red;
-
 }

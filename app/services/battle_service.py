@@ -1,6 +1,6 @@
 import random
 
-from flask import render_template, session
+from flask import session
 from app.services.pokemon_service import listar_pokemon
 from app.services.current_year_service import get_current_year
 
@@ -53,8 +53,6 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name):
         if battle_object["vida_rival"] <= 0:
             battle_object["log"].append(
                 f"{nombre_rival.capitalize()} se ha debilitado")
-            session.pop("battle")
-            session.pop("pokemon_elegido")
 
             acabar_batalla = True
 
@@ -84,8 +82,8 @@ def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name):
             battle_object["vida_jugador"] - (damage*0.20), 2)
 
         if battle_object["vida_jugador"] <= 0:
-            session.pop("battle")
-            session.pop("pokemon_elegido")
+            battle_object["log"].append(
+                f"{pokemon_name.capitalize()} se ha debilitado")
 
             acabar_batalla = True
 
