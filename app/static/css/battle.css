@@ -252,10 +252,21 @@ button.fight:active {
 }
 
 .container-log h1 {
-  background-color: #ffbbbb;
-  border-bottom: 1px solid rgb(255, 105, 105);
+  background-color: #b3b3b3;
+  border-bottom: 1px solid rgb(163, 163, 163);
+  font-weight: bold;
+  font-size: 20px;
 }
+.log p{
+  padding: 20px;
+  font-weight: bold;
+}
+.log p:nth-child(2n-1){
+  background-color: rgb(190, 231, 255);
+  color: blue;
+}
+.log p:nth-child(2n){
+  background-color: rgb(255, 198, 198);
+  color: red;
 
-.log {
-  margin-top: 10px;
 }

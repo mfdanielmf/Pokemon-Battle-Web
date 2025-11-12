@@ -47,6 +47,8 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name):
             f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*0.20} puntos de salud. PS restantes: {battle_object['vida_rival']}")
 
         if battle_object["vida_rival"] <= 0:
+            battle_object["log"].append(
+            f"{nombre_rival.capitalize()} se ha debilitado")
             session.pop("battle")
             session.pop("pokemon_elegido")
 

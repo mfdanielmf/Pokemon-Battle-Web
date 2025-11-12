@@ -90,11 +90,7 @@ transition-all duration-300 ease-in-out" %}
     <h1>Transcurso de la Batalla</h1>
 
     <div class="log">
-        {{session.battle.turno}}
-        {{session.battle.datos_pokemon_rival}}
-        {{session.battle.vida_jugador}}
-        {{session.battle.vida_rival}}
-
+        
         {% for log in session.battle.log%}
         <p>{{log}}</p>
         {% endfor%}

@@ -4,7 +4,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.services.pokemon_service import pokemon_existe
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_moves, random_pokemon, get_stat_value, random_atacar, atacar_jugador, atacar_rival
+from app.services.battle_service import random_moves, random_pokemon, get_stat_value, random_atacar
 from app.models.battle import Battle
 
 current_year = get_current_year()
@@ -53,48 +53,69 @@ def atacar():
         return redirect(url_for("pokemon.lista"))
 
     # POST (seleccionamos ataque en battle)
+
     # Obtenemos el pokemon para acceder a sus ataques
     pokemon_name = session.get("pokemon_elegido")
     pokemon = pokemon_existe(pokemon_name)
 
-    if not pokemon:
-        return redirect(url_for("pokemon.lista"))
+    if pokemon:
+        ataque_name = request.form.get("ataque_name")
+        battle_object = session.get("battle")
 
-    ataque_name = request.form.get("ataque_name")
-    battle_object = session.get("battle")
+        for ataque in pokemon.moves:
+            if ataque["name"] == ataque_name:
+                damage = ataque["power"]
+                accuracy = ataque["accuracy"]
 
-    for ataque in pokemon.moves:
-        if ataque["name"] == ataque_name:
-            # TURNO JUGADOR
-            acabar_batalla = atacar_jugador(damage=ataque["power"],
-                                            accuracy=ataque["accuracy"],
-                                            battle_object=battle_object,
-                                            pokemon_name=pokemon_name,
-                                            ataque_name=ataque_name)
+                # TURNO JUGADOR
+                acierta = random.randint(1, 100) <= accuracy
+                nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
+                )
 
-            # Si el pokemon tiene 0 de vida, acabamos
-            if acabar_batalla:
-                return "Has ganado"
+                if acierta:
+                    battle_object["vida_rival"] = round(
+                        battle_object["vida_rival"] - (damage * 0.20), 2)
 
-            # TURNO RIVAL
-            ataque_rival = random_atacar(
-                battle_object.get("ataques_rival"))
+                    battle_object["log"].append(
+                        f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*0.20} puntos de salud. PS restantes: {battle_object['vida_rival']}")
 
-            acabar_batalla = atacar_rival(damage=ataque_rival["power"],
-                                          accuracy=ataque_rival["accuracy"],
-                                          battle_object=battle_object,
-                                          pokemon_name=pokemon_name,
-                                          ataque_name=ataque_rival["name"])
+                    if battle_object["vida_rival"] <= 0:
+                        session.pop("battle")
+                        session.pop("pokemon_elegido")
+                        return "Has ganado"
+                else:
+                    battle_object["log"].append(
+                        f"{pokemon_name.capitalize()} falla su ataque...")
 
-            # Si el pokemon tiene 0 de vida, acabamos
-            if acabar_batalla:
-                return "Has perdido"
+                 # TURNO RIVAL
+                ataque_rival = random_atacar(
+                    battle_object.get("ataques_rival"))
 
-            return render_template("battle.html", year=current_year)
+                accuracy_rival = ataque_rival["accuracy"]
+                acierta_rival = random.randint(1, 100) <= accuracy_rival
 
-    return redirect(url_for("pokemon.lista"))
+                if acierta_rival:
+                    damage_rival = ataque_rival["power"]
+                    battle_object["vida_jugador"] = round(
+                        battle_object["vida_jugador"] - (damage_rival*0.20), 2)
 
+                    if battle_object["vida_jugador"] <= 0:
+                        session.pop("battle")
+                        session.pop("pokemon_elegido")
+                        return "Has perdido"
 
-# TODO: FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
-# TODO: hacer que se decida random que pokemon empieza a atacar
-# TODO: verificar que no pete (hay veces que peta porque no se le pasa un ataque rival)
+                    battle_object["log"].append(
+                        f"{nombre_rival.capitalize()} utilizó {ataque_rival['name'].upper()}. {pokemon_name.capitalize()} pierde {damage_rival*0.20} puntos de salud. PS restantes: {battle_object['vida_jugador']}")
+                else:
+                    battle_object["log"].append(
+                        f"{nombre_rival.capitalize()} falla su ataque...")
+
+                session["battle"] = battle_object
+
+                return render_template("battle.html", year=current_year)
+
+         # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon) - FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
+         # TODO: hacer que se decida random que pokemon empieza a atacar
+         # TODO: crear servicio para el ataque tanto del rival como del jugador (para limpiar un poco la ruta)
+
+    return "Test"
