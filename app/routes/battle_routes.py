@@ -116,7 +116,6 @@ def atacar():
 
          # TODO: implementar lógica finalizar batalla (cuando uno muera, limpiar session y volver a lista de pokemon) - FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
          # TODO: hacer que se decida random que pokemon empieza a atacar
-         # TODO: hacer que al lanzar un ataque el rival también responda con un ataque aleatorio
-         # TODO: añadir logs al atacar y eso
+         # TODO: crear servicio para el ataque tanto del rival como del jugador (para limpiar un poco la ruta)
 
     return "Test"
