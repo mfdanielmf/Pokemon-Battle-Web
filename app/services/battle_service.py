@@ -16,6 +16,10 @@ def random_pokemon():
     return pokemon
 
 
+def random_atacar(ataques):
+    return random.choice(ataques)
+
+
 # para poder conseguir el atributo hp en el json data
 def get_stat_value(pokemon, stat_name):
     for stat in pokemon.stats:
