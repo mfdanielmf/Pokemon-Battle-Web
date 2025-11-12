@@ -4,7 +4,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.services.pokemon_service import pokemon_existe
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_moves, random_pokemon, get_stat_value
+from app.services.battle_service import random_moves, random_pokemon, get_stat_value, random_atacar
 from app.models.battle import Battle
 
 current_year = get_current_year()
@@ -62,38 +62,53 @@ def atacar():
         ataque_name = request.form.get("ataque_name")
         battle_object = session.get("battle")
 
-        damage = None
-        accuracy = None
-
         for ataque in pokemon.moves:
             if ataque["name"] == ataque_name:
                 damage = ataque["power"]
                 accuracy = ataque["accuracy"]
 
-                # Para la precisión
+                # TURNO JUGADOR
                 acierta = random.randint(1, 100) <= accuracy
+                nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
+                )
+
                 if acierta:
                     battle_object["vida_rival"] = round(
                         battle_object["vida_rival"] - (damage * 0.20), 2)
+
+                    battle_object["log"].append(
+                        f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*0.20} puntos de salud. PS restantes: {battle_object['vida_rival']}")
 
                     if battle_object["vida_rival"] <= 0:
                         session.pop("battle")
                         session.pop("pokemon_elegido")
                         return "Has ganado"
+                else:
+                    battle_object["log"].append(
+                        f"{pokemon_name.capitalize()} falla su ataque...")
+
+                 # TURNO RIVAL
+                ataque_rival = random_atacar(
+                    battle_object.get("ataques_rival"))
+
+                accuracy_rival = ataque_rival["accuracy"]
+                acierta = random.randint(1, 100) <= accuracy_rival
+
+                if acierta:
+                    damage_rival = ataque_rival["power"]
+                    battle_object["vida_jugador"] = round(
+                        battle_object["vida_jugador"] - (damage_rival*0.20), 2)
 
                     if battle_object["vida_jugador"] <= 0:
                         session.pop("battle")
                         session.pop("pokemon_elegido")
                         return "Has perdido"
 
-                    nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
-                    )
-
                     battle_object["log"].append(
-                        f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival} pierde {damage*0.20} puntos de salud. PS restantes: {battle_object['vida_rival']}")
+                        f"{nombre_rival.capitalize()} utilizó {ataque_rival['name'].upper()}. {pokemon_name.capitalize()} pierde {damage_rival*0.20} puntos de salud. PS restantes: {battle_object['vida_jugador']}")
                 else:
                     battle_object["log"].append(
-                        f"{pokemon_name.capitalize()} falla su ataque...")
+                        f"{nombre_rival.capitalize()} falla su ataque...")
 
                 session["battle"] = battle_object
 
