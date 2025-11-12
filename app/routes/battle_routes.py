@@ -97,3 +97,4 @@ def atacar():
 
 # TODO: FALTA PENSAR A DONDE LLEVAR EL USUARIO Y QUE HACER AL ACABAR LA BATALLA
 # TODO: hacer que se decida random que pokemon empieza a atacar
+# TODO: verificar que no pete (hay veces que peta porque no se le pasa un ataque rival)
