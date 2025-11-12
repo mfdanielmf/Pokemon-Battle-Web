@@ -78,7 +78,11 @@ transition-all duration-300 ease-in-out" %}
                 <button class="fight" name="ataque_name" type="submit" value="{{movimiento.name}}">
                     Name:{{movimiento.name.upper()}}<br>
                     Power: {{movimiento.power * 0.20}}<br>
+                    {% if not movimiento.accuracy%}
+                    Accuracy: 100
+                    {% else %}
                     Accuracy:{{movimiento.accuracy}}
+                    {% endif %}
                 </button>
             </form>
             {% endfor%}
@@ -90,7 +94,7 @@ transition-all duration-300 ease-in-out" %}
     <h1>Transcurso de la Batalla</h1>
 
     <div class="log">
-        
+
         {% for log in session.battle.log%}
         <p>{{log}}</p>
         {% endfor%}

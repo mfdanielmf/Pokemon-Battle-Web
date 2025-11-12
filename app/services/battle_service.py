@@ -33,6 +33,10 @@ def get_stat_value(pokemon, stat_name):
 
 
 def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name):
+    # Serperior tiene un ataque con accuracy null
+    if not accuracy:
+        accuracy = 100
+
     acierta = random.randint(1, 100) <= accuracy
     nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
     )
@@ -48,7 +52,7 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name):
 
         if battle_object["vida_rival"] <= 0:
             battle_object["log"].append(
-            f"{nombre_rival.capitalize()} se ha debilitado")
+                f"{nombre_rival.capitalize()} se ha debilitado")
             session.pop("battle")
             session.pop("pokemon_elegido")
 
@@ -65,6 +69,10 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name):
 
 
 def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name):
+    # Serperior tiene un ataque con accuracy null
+    if not accuracy:
+        accuracy = 100
+
     acierta = random.randint(1, 100) <= accuracy
     nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
     )
