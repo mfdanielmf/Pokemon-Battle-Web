@@ -75,9 +75,11 @@ transition-all duration-300 ease-in-out" %}
         <div class="options-grid">
             {% for movimiento in session.battle.ataques_jugador %}
             <form action="/battle/ataque" method="post">
-                <button class="fight" name="ataque_name" type="submit"
-                    value="{{movimiento.name}}">Name:{{movimiento.name.upper()}} Power: {{movimiento.power * 0.20}}
-                    Accuracy:{{movimiento.accuracy}}</button>
+                <button class="fight" name="ataque_name" type="submit" value="{{movimiento.name}}">
+                    Name:{{movimiento.name.upper()}}<br>
+                    Power: {{movimiento.power * 0.20}}<br>
+                    Accuracy:{{movimiento.accuracy}}
+                </button>
             </form>
             {% endfor%}
         </div>

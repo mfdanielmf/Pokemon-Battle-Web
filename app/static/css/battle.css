@@ -194,6 +194,8 @@ button.fight {
   position: relative;
   /*Para q no se salga el efecto del hover*/
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 button.fight:hover {
