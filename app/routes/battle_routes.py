@@ -106,5 +106,3 @@ def resultado():
     session.pop("pokemon_elegido")
 
     return render_template("resultado.html", year=current_year, battle=battle_object)
-
-# TODO: acabar pestaña de resultado de logs
