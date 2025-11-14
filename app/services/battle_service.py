@@ -1,6 +1,5 @@
 import random
 
-from flask import session
 from app.services.pokemon_service import listar_pokemon
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
@@ -56,14 +55,13 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name) -
 
             acabar_batalla = True
 
-            return acabar_batalla
+            return acabar_batalla,battle_object
     else:
         battle_object["log"].append(
             f"{pokemon_name.capitalize()} falla su ataque...")
 
-    session["battle"] = battle_object
-
-    return acabar_batalla
+    
+    return acabar_batalla,battle_object
 
 
 def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> bool:
@@ -87,7 +85,7 @@ def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> 
 
             acabar_batalla = True
 
-            return acabar_batalla
+            return acabar_batalla,battle_object
 
         battle_object["log"].append(
             f"{nombre_rival.capitalize()} utilizó {ataque_name.upper()}. {pokemon_name.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object['vida_jugador']}")
@@ -95,6 +93,5 @@ def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> 
         battle_object["log"].append(
             f"{nombre_rival.capitalize()} falla su ataque...")
 
-    session["battle"] = battle_object
 
-    return acabar_batalla
+    return acabar_batalla,battle_object

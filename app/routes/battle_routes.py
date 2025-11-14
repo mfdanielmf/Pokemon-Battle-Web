@@ -64,11 +64,13 @@ def atacar():
     for ataque in pokemon.moves:
         if ataque["name"] == ataque_name:
             # TURNO JUGADOR
-            acabar_batalla = atacar_jugador(damage=ataque["power"],
+            acabar_batalla,battle_object_service = atacar_jugador(damage=ataque["power"],
                                             accuracy=ataque["accuracy"],
                                             battle_object=battle_object,
                                             pokemon_name=pokemon_name,
                                             ataque_name=ataque_name)
+
+            session["battle"] = battle_object_service
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
@@ -78,11 +80,13 @@ def atacar():
             ataque_rival = random_atacar(
                 battle_object.get("ataques_rival"))
 
-            acabar_batalla = atacar_rival(damage=ataque_rival["power"],
+            acabar_batalla,battle_object_service = atacar_rival(damage=ataque_rival["power"],
                                           accuracy=ataque_rival["accuracy"],
                                           battle_object=battle_object,
                                           pokemon_name=pokemon_name,
                                           ataque_name=ataque_rival["name"])
+
+            session["battle"] = battle_object_service
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
