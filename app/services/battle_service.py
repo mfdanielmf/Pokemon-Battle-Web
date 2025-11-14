@@ -1,6 +1,7 @@
 import random
 
 from app.services.pokemon_service import listar_pokemon
+from app.models.battle import Battle
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
 MULTIPLICADOR_DAÑO = 0.20
@@ -95,3 +96,19 @@ def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> 
 
 
     return acabar_batalla,battle_object
+
+def inicializar_batalla(pokemon_elegido):
+    pokemon_rival = random_pokemon()
+    moves_elegido = random_moves(pokemon_elegido)
+    moves_rival = random_moves(pokemon_rival)
+
+    battle = Battle(
+        datos_pokemon_jugador=pokemon_elegido,
+        datos_pokemon_rival=pokemon_rival,
+        vida_jugador=get_stat_value(pokemon_elegido, "hp"),
+        vida_rival=get_stat_value(pokemon_rival, "hp"),
+        ataques_jugador=moves_elegido,
+        ataques_rival=moves_rival
+    )
+
+    return battle

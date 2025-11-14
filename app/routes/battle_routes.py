@@ -2,8 +2,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.services.pokemon_service import pokemon_existe
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_moves, random_pokemon, get_stat_value, random_atacar, atacar_jugador, atacar_rival
-from app.models.battle import Battle
+from app.services.battle_service import random_atacar, atacar_jugador, atacar_rival, inicializar_batalla
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -25,21 +24,10 @@ def battle():
     if not pokemon_elegido:
         return redirect(url_for("pokemon.lista"))
 
-    # Obtenemos rival y movimientos aleatorios
-    pokemon_rival = random_pokemon()
-    moves_elegido = random_moves(pokemon_elegido)
-    moves_rival = random_moves(pokemon_rival)
-
-    battle = Battle(
-        datos_pokemon_jugador=pokemon_elegido,
-        datos_pokemon_rival=pokemon_rival,
-        vida_jugador=get_stat_value(pokemon_elegido, "hp"),
-        vida_rival=get_stat_value(pokemon_rival, "hp"),
-        ataques_jugador=moves_elegido,
-        ataques_rival=moves_rival
-    )
-
-    session["battle"] = battle.__dict__
+    #para cuadno hacemos refresh no se carguen de nuevo el pokemon rival ni los ataques
+    if not session.get("battle"):
+        battle = inicializar_batalla(pokemon_elegido)
+        session["battle"] = battle.__dict__
 
     return render_template("battle.html", year=current_year)
 
