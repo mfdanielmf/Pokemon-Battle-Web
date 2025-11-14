@@ -11,5 +11,5 @@ def obtener_pokemon_por_id(id):
     return pokemon_repo.buscar_por_id(id)
 
 
-def pokemon_existe(nombre):
+def obtener_pokemon_por_nombre(nombre):
     return pokemon_repo.buscar_por_nombre(nombre)

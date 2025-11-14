@@ -17,7 +17,8 @@ def lista():
         entrenador = session.get("entrenador")
         pokemon_name = form.pokemon.data
 
-        pokemon_elegido = pokemon_service.pokemon_existe(pokemon_name)
+        pokemon_elegido = pokemon_service.obtener_pokemon_por_nombre(
+            pokemon_name)
 
         if pokemon_elegido is None:
             form.pokemon.errors.append(
