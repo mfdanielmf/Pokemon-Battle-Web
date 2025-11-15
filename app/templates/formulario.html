@@ -6,6 +6,9 @@
 {% block body_class %}bg-[url('{{ url_for('static', filename='media/img/fondo-bienvenida.jpeg') }}')] bg-cover
 bg-no-repeat{% endblock %}
 
+{% set bg_color_entrenador = "bg-indigo-300"%}
+{% set logout_text_color = "text-cyan-200"%}
+
 {% block link %}
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/formulario.css')}}">
 {% endblock %}

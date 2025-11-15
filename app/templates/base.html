@@ -25,12 +25,11 @@
 <body class="relative min-h-screen {% block body_class %}{% endblock %}">
     <header class="fixed p-[1rem_2rem] w-screen">
         <nav>
-            {% block nav%}
             {% if session.entrenador %}
             <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center justify-center gap-3">
                     <div
-                        class="flex items-center justify-center gap-2 flex-wrap px-3 py-1 bg-indigo-100 bg-opacity-20 rounded-full shadow-sm">
+                        class="flex items-center justify-center gap-2 flex-wrap px-3 py-1 bg-opacity-20 rounded-full shadow-sm {{bg_color_entrenador | default('bg-indigo-100')}}">
                         <span class="material-symbols-outlined text-indigo-800">
                             person
                         </span>
@@ -38,7 +37,7 @@
                     </div>
 
                     <a href="{{url_for('home.logout')}}"
-                        class="flex justify-center items-center text-blue-600 text-sm font-semibold transition-colors duration-100 hover:text-red-500">
+                        class="flex justify-center items-center text-sm font-semibold transition-colors duration-100 hover:text-red-500 {{logout_text_color | default('text-blue-600')}}">
                         <span class="material-symbols-outlined">
                             logout
                         </span>
@@ -73,7 +72,6 @@
                         </a>
                     </li>
                 </ul>
-                {% endblock %}
         </nav>
     </header>
 
