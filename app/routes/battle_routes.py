@@ -36,7 +36,7 @@ def battle():
 def atacar():
     # GET (venimos directamente por la url)
     if request.method == "GET":
-        return redirect(url_for("pokemon.lista"))
+        return redirect(url_for("battle.battle"))
 
     # POST (seleccionamos ataque en battle)
     # Obtenemos el pokemon para acceder a sus ataques
@@ -80,7 +80,7 @@ def atacar():
             if acabar_batalla:
                 return redirect(url_for("battle.resultado"))
 
-            return render_template("battle.html", year=current_year)
+            return redirect(url_for("battle.battle"))
 
     return redirect(url_for("pokemon.lista"))
 
