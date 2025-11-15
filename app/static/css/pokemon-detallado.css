@@ -349,6 +349,8 @@ main {
 
     header nav ul {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
     .pokemon-card {

@@ -236,16 +236,14 @@ button.fight:active {
 }
 
 .container-log {
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   height: 750px;
   border: 6px solid var(--negro);
   border-radius: 12px;
-  position: relative;
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.5),
     inset 0 -2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   background-color: white;
   text-align: center;
   overflow-y: auto;

@@ -38,3 +38,11 @@ def formulario():
 
     # GET
     return render_template("formulario.html", year=year, form=form)
+
+
+@home_bp.route("/logout")
+def logout():
+    if session.get("entrenador"):
+        session.clear()
+
+    return redirect(url_for("home.index"))
