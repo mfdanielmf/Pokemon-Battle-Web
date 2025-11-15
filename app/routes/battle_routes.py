@@ -58,11 +58,11 @@ def atacar():
                                                                    pokemon_name=pokemon_name,
                                                                    ataque_name=ataque_name)
 
-            session["battle"] = battle_object_service
-
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
                 return redirect(url_for("battle.resultado"))
+
+            session["battle"] = battle_object_service
 
             # TURNO RIVAL
             ataque_rival = random_atacar(
@@ -74,11 +74,11 @@ def atacar():
                                                                  pokemon_name=pokemon_name,
                                                                  ataque_name=ataque_rival["name"])
 
-            session["battle"] = battle_object_service
-
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
                 return redirect(url_for("battle.resultado"))
+
+            session["battle"] = battle_object_service
 
             return redirect(url_for("battle.battle"))
 
