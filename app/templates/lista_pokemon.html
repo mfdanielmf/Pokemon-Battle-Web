@@ -5,7 +5,7 @@
 {% block link %}
 <link rel="stylesheet" href="{{  url_for('static', filename = 'css/pokemon-lista.css')}}">
 <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=person" />
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <script src="{{url_for('static', filename = 'js/buscador-lista.js')}}" defer></script>
 {% endblock %}
 
@@ -22,12 +22,22 @@ transition-all duration-300 ease-in-out" %}
 {% block nav %}
 {% if session.entrenador%}
 <div class="flex items-center justify-between gap-4">
-    <div
-        class="flex items-center justify-center gap-2 flex-wrap px-3 py-1 bg-indigo-100 bg-opacity-20 rounded-full shadow-sm">
-        <span class="material-symbols-outlined text-indigo-800">
-            person
-        </span>
-        <p class="font-semibold">{{session.entrenador}}</p>
+    <div class="flex items-center justify-center gap-3">
+        <div
+            class="flex items-center justify-center gap-2 flex-wrap px-3 py-1 bg-indigo-100 bg-opacity-20 rounded-full shadow-sm">
+            <span class="material-symbols-outlined text-indigo-800">
+                person
+            </span>
+            <p class="font-semibold">{{session.entrenador}}</p>
+        </div>
+
+        <a href="{{url_for('home.logout')}}"
+            class="flex justify-center items-center text-blue-600 text-sm font-semibold transition-colors duration-100 hover:text-red-500">
+            <span class="material-symbols-outlined">
+                logout
+            </span>
+            <p>Cerrar sesión</p>
+        </a>
     </div>
 
     {{super()}}
