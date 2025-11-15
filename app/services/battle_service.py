@@ -1,7 +1,7 @@
 import random
 
-from flask import session
 from app.services.pokemon_service import listar_pokemon
+from app.models.battle import Battle
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
 MULTIPLICADOR_DAÑO = 0.20
@@ -47,23 +47,24 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name) -
         battle_object["vida_rival"] = round(
             battle_object["vida_rival"] - (damage * MULTIPLICADOR_DAÑO), 2)
 
-        battle_object["log"].append(
-            f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object['vida_rival']}")
-
         if battle_object["vida_rival"] <= 0:
+            battle_object["log"].append(
+                f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: 0")
+
             battle_object["log"].append(
                 f"{nombre_rival.capitalize()} se ha debilitado. HAS GANADO")
 
             acabar_batalla = True
 
-            return acabar_batalla
+            return acabar_batalla, battle_object
+
+        battle_object["log"].append(
+            f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object['vida_rival']}")
     else:
         battle_object["log"].append(
             f"{pokemon_name.capitalize()} falla su ataque...")
 
-    session["battle"] = battle_object
-
-    return acabar_batalla
+    return acabar_batalla, battle_object
 
 
 def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> bool:
@@ -83,11 +84,14 @@ def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> 
 
         if battle_object["vida_jugador"] <= 0:
             battle_object["log"].append(
+                f"{nombre_rival.capitalize()} utilizó {ataque_name.upper()}. {pokemon_name.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: 0")
+
+            battle_object["log"].append(
                 f"{pokemon_name.capitalize()} se ha debilitado. HAS PERDIDO")
 
             acabar_batalla = True
 
-            return acabar_batalla
+            return acabar_batalla, battle_object
 
         battle_object["log"].append(
             f"{nombre_rival.capitalize()} utilizó {ataque_name.upper()}. {pokemon_name.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object['vida_jugador']}")
@@ -95,6 +99,21 @@ def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> 
         battle_object["log"].append(
             f"{nombre_rival.capitalize()} falla su ataque...")
 
-    session["battle"] = battle_object
+    return acabar_batalla, battle_object
 
-    return acabar_batalla
+
+def inicializar_batalla(pokemon_elegido):
+    pokemon_rival = random_pokemon()
+    moves_elegido = random_moves(pokemon_elegido)
+    moves_rival = random_moves(pokemon_rival)
+
+    battle = Battle(
+        datos_pokemon_jugador=pokemon_elegido,
+        datos_pokemon_rival=pokemon_rival,
+        vida_jugador=get_stat_value(pokemon_elegido, "hp"),
+        vida_rival=get_stat_value(pokemon_rival, "hp"),
+        ataques_jugador=moves_elegido,
+        ataques_rival=moves_rival
+    )
+
+    return battle
