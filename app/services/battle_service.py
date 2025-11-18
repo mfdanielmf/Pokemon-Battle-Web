@@ -32,7 +32,7 @@ def get_stat_value(pokemon, stat_name):
             return stat["value"]
 
 
-def atacar(damage, accuracy, battle_object, pokemon_name, ataque_name, atacante_jugador) -> bool:
+def atacar_turno(damage, accuracy, battle_object, pokemon_name, ataque_name, atacante_jugador) -> bool:
     # Serperior tiene un ataque con accuracy null
     if not accuracy:
             accuracy = 100
@@ -45,16 +45,18 @@ def atacar(damage, accuracy, battle_object, pokemon_name, ataque_name, atacante_
 
     nombre_pokemon_rival = battle_object["datos_pokemon_rival"].name
 
-    if atacante_jugador:
+    if atacante_jugador == True:
         nombre_pokemon_atacante = pokemon_name
         nombre_pokemon_defensor = nombre_pokemon_rival
         vida_pokemon_rival = "vida_rival"   #para bajarle la vida al pokemon rival
         #es para hacer  battle_object["vida_rival"] o battle_object["vida_jugador"]
+        resultado = "HAS GANADO"
 
     if atacante_jugador == False:
         nombre_pokemon_atacante = nombre_pokemon_rival
         nombre_pokemon_defensor = pokemon_name
         vida_pokemon_rival = "vida_jugador" 
+        resultado = "HAS PERDIDO"
         
     if acierta:
         battle_object[vida_pokemon_rival] = round(
@@ -65,7 +67,7 @@ def atacar(damage, accuracy, battle_object, pokemon_name, ataque_name, atacante_
                 f"{nombre_pokemon_atacante.capitalize()} utilizó {ataque_name.upper()}. {nombre_pokemon_defensor.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: 0")
 
             battle_object["log"].append(
-                f"{nombre_pokemon_defensor.capitalize()} se ha debilitado. HAS GANADO")
+                f"{nombre_pokemon_defensor.capitalize()} se ha debilitado. {resultado}")
 
             acabar_batalla = True
 

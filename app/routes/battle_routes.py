@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.services.pokemon_service import obtener_pokemon_por_nombre
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_atacar, atacar, inicializar_batalla
+from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -52,7 +52,7 @@ def atacar():
     for ataque in pokemon.moves:
         if ataque["name"] == ataque_name:
             # TURNO JUGADOR
-            acabar_batalla, battle_object_service = atacar(damage=ataque["power"],
+            acabar_batalla, battle_object_service = atacar_turno(damage=ataque["power"],
                                                                    accuracy=ataque["accuracy"],
                                                                    battle_object=battle_object,
                                                                    pokemon_name=pokemon_name,
@@ -69,7 +69,7 @@ def atacar():
             ataque_rival = random_atacar(
                 battle_object.get("ataques_rival"))
 
-            acabar_batalla, battle_object_service = atacar(damage=ataque_rival["power"],
+            acabar_batalla, battle_object_service = atacar_turno(damage=ataque_rival["power"],
                                                                  accuracy=ataque_rival["accuracy"],
                                                                  battle_object=battle_object,
                                                                  pokemon_name=pokemon_name,
