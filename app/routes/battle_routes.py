@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.services.pokemon_service import obtener_pokemon_por_nombre
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_atacar, atacar_jugador, atacar_rival, inicializar_batalla
+from app.services.battle_service import random_atacar, atacar, inicializar_batalla
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -52,11 +52,12 @@ def atacar():
     for ataque in pokemon.moves:
         if ataque["name"] == ataque_name:
             # TURNO JUGADOR
-            acabar_batalla, battle_object_service = atacar_jugador(damage=ataque["power"],
+            acabar_batalla, battle_object_service = atacar(damage=ataque["power"],
                                                                    accuracy=ataque["accuracy"],
                                                                    battle_object=battle_object,
                                                                    pokemon_name=pokemon_name,
-                                                                   ataque_name=ataque_name)
+                                                                   ataque_name=ataque_name,
+                                                                   atacante_jugador = True) #para controlar si el personaje que ataca es el jugador en el service
 
             session["battle"] = battle_object_service
 
@@ -68,11 +69,12 @@ def atacar():
             ataque_rival = random_atacar(
                 battle_object.get("ataques_rival"))
 
-            acabar_batalla, battle_object_service = atacar_rival(damage=ataque_rival["power"],
+            acabar_batalla, battle_object_service = atacar(damage=ataque_rival["power"],
                                                                  accuracy=ataque_rival["accuracy"],
                                                                  battle_object=battle_object,
                                                                  pokemon_name=pokemon_name,
-                                                                 ataque_name=ataque_rival["name"])
+                                                                 ataque_name=ataque_rival["name"],
+                                                                 atacante_jugador = False)
 
             session["battle"] = battle_object_service
 
