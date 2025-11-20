@@ -32,10 +32,10 @@ def get_stat_value(pokemon, stat_name):
             return stat["value"]
 
 
-def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name) -> bool:
+def atacar_turno(damage, accuracy, battle_object, pokemon_name, ataque_name, atacante_jugador) -> bool:
     # Serperior tiene un ataque con accuracy null
     if not accuracy:
-        accuracy = 100
+            accuracy = 100
 
     acierta = random.randint(1, 100) <= accuracy
     nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
@@ -43,64 +43,43 @@ def atacar_jugador(damage, accuracy, battle_object, pokemon_name, ataque_name) -
 
     acabar_batalla = False
 
+    nombre_pokemon_rival = battle_object["datos_pokemon_rival"].name
+
+    if atacante_jugador == True:
+        nombre_pokemon_atacante = pokemon_name
+        nombre_pokemon_defensor = nombre_pokemon_rival
+        vida_pokemon_rival = "vida_rival"   #para bajarle la vida al pokemon rival
+        #es para hacer  battle_object["vida_rival"] o battle_object["vida_jugador"]
+        resultado = "HAS GANADO"
+
+    if atacante_jugador == False:
+        nombre_pokemon_atacante = nombre_pokemon_rival
+        nombre_pokemon_defensor = pokemon_name
+        vida_pokemon_rival = "vida_jugador" 
+        resultado = "HAS PERDIDO"
+        
     if acierta:
-        battle_object["vida_rival"] = round(
-            battle_object["vida_rival"] - (damage * MULTIPLICADOR_DAÑO), 2)
+        battle_object[vida_pokemon_rival] = round(
+            battle_object[vida_pokemon_rival] - (damage * MULTIPLICADOR_DAÑO), 2)
 
-        if battle_object["vida_rival"] <= 0:
+        if battle_object[vida_pokemon_rival] <= 0:
             battle_object["log"].append(
-                f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: 0")
+                f"{nombre_pokemon_atacante.capitalize()} utilizó {ataque_name.upper()}. {nombre_pokemon_defensor.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: 0")
 
             battle_object["log"].append(
-                f"{nombre_rival.capitalize()} se ha debilitado. HAS GANADO")
+                f"{nombre_pokemon_defensor.capitalize()} se ha debilitado. {resultado}")
 
             acabar_batalla = True
 
             return acabar_batalla, battle_object
 
         battle_object["log"].append(
-            f"{pokemon_name.capitalize()} utilizó {ataque_name.upper()}. {nombre_rival.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object['vida_rival']}")
+            f"{nombre_pokemon_defensor.capitalize()} utilizó {ataque_name.upper()}. {nombre_pokemon_defensor.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object[vida_pokemon_rival]}")
     else:
         battle_object["log"].append(
-            f"{pokemon_name.capitalize()} falla su ataque...")
+            f"{nombre_pokemon_defensor.capitalize()} falla su ataque...")
 
     return acabar_batalla, battle_object
-
-
-def atacar_rival(damage, accuracy, battle_object, pokemon_name, ataque_name) -> bool:
-    # Serperior tiene un ataque con accuracy null
-    if not accuracy:
-        accuracy = 100
-
-    acierta = random.randint(1, 100) <= accuracy
-    nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
-    )
-
-    acabar_batalla = False
-
-    if acierta:
-        battle_object["vida_jugador"] = round(
-            battle_object["vida_jugador"] - (damage*MULTIPLICADOR_DAÑO), 2)
-
-        if battle_object["vida_jugador"] <= 0:
-            battle_object["log"].append(
-                f"{nombre_rival.capitalize()} utilizó {ataque_name.upper()}. {pokemon_name.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: 0")
-
-            battle_object["log"].append(
-                f"{pokemon_name.capitalize()} se ha debilitado. HAS PERDIDO")
-
-            acabar_batalla = True
-
-            return acabar_batalla, battle_object
-
-        battle_object["log"].append(
-            f"{nombre_rival.capitalize()} utilizó {ataque_name.upper()}. {pokemon_name.capitalize()} pierde {damage*MULTIPLICADOR_DAÑO} puntos de salud. PS restantes: {battle_object['vida_jugador']}")
-    else:
-        battle_object["log"].append(
-            f"{nombre_rival.capitalize()} falla su ataque...")
-
-    return acabar_batalla, battle_object
-
 
 def inicializar_batalla(pokemon_elegido):
     pokemon_rival = random_pokemon()

@@ -31,10 +31,16 @@ def formulario():
         session["entrenador"] = entrenador
         pokemon = session.get("pokemon_elegido")
 
+        if (session.get("battle")):
+            session.pop("pokemon_elegido")
+            session.pop("battle")
         if entrenador and pokemon:
             return redirect(url_for("battle.battle"))
 
+        
+        
         return redirect(url_for("pokemon.lista"))
+       
 
     # GET
     return render_template("formulario.html", year=year, form=form)
