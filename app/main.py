@@ -1,4 +1,4 @@
-import sqlite3
+import os
 from flask import Flask
 from flask_session import Session
 
@@ -18,10 +18,21 @@ app.secret_key = "no se me ocurre que poner"
 Session(app)
 
 # SQLAlchemy config
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data/pokemons.db"
+base_dir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(base_dir, "data", "pokemons.db")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+
+@app.cli.command("crear-tablas")
+def crear_tablas():
+    db.drop_all()
+    db.create_all()
+    print("Base de datos creada correctamente.")
+
 
 app.register_blueprint(home_bp, url_prefix="/")
 app.register_blueprint(pokemon_bp, url_prefix="/pokemons")
