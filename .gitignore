@@ -30,3 +30,6 @@ htmlcov/
 
 # Flask-Session
 .flask_session/
+
+#Database
+data/pokemons.db
