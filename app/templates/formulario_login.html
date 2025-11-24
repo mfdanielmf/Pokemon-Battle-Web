@@ -10,7 +10,7 @@ bg-no-repeat{% endblock %}
 {% set logout_text_color = "text-cyan-200"%}
 
 {% block link %}
-<link rel="stylesheet" href="{{  url_for('static', filename = 'css/formulario.css')}}">
+<link rel="stylesheet" href="{{  url_for('static', filename = 'css/login.css')}}">
 {% endblock %}
 
 {% block main %}
@@ -25,6 +25,15 @@ bg-no-repeat{% endblock %}
             </span>
             {{form.entrenador()}}
         </div>
+
+        {{form.contraseña.label(title="contraseña")}}
+        <div class="icon-item-container">
+            <span class="material-symbols-outlined">
+                key
+            </span>
+            {{form.contraseña()}}
+        </div>
+
         {{form.enviar()}}
         <div class="errores-container">
             {% for error in form.entrenador.errors%}

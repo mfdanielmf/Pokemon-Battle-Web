@@ -30,7 +30,7 @@ def lista():
         session["pokemon_elegido"] = pokemon_name
 
         if not entrenador:
-            return redirect(url_for("home.formulario"))
+            return redirect(url_for("home.login"))
 
         # Si pasamos las validaciones anteriores, vamos a la batalla
         return redirect(url_for("battle.battle"))

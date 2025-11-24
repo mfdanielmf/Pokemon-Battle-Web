@@ -29,7 +29,8 @@ form label {
     color: lightyellow;
 }
 
-form #entrenador {
+form #entrenador,
+form #contraseña {
     border: none;
     border-radius: 8px;
     margin-bottom: 20px;
