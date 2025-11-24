@@ -7,6 +7,8 @@ from app.routes.pokemon_routes import pokemon_bp
 from app.routes.home_routes import home_bp
 from app.database.db import db
 
+from app.models.entrenador import Entrenador
+
 app = Flask(__name__, static_folder="static")
 
 app.config["SESSION_TYPE"] = "filesystem"
@@ -18,7 +20,7 @@ app.secret_key = "no se me ocurre que poner"
 Session(app)
 
 # SQLAlchemy config
-base_dir = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.abspath(os.path.dirname(__file__)) + "\\.."
 db_path = os.path.join(base_dir, "data", "pokemons.db")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
