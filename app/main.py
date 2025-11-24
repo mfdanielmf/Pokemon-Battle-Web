@@ -9,6 +9,8 @@ from app.database.db import db
 
 from app.models.entrenador import Entrenador
 
+
+
 app = Flask(__name__, static_folder="static")
 
 app.config["SESSION_TYPE"] = "filesystem"
