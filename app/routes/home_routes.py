@@ -31,15 +31,22 @@ def login():
     if form.validate_on_submit():
         entrenador = form.entrenador.data
         contraseña = form.contraseña.data
+        id_antigua = session.get("entrenador_id")
 
         entrenador_existe = autenticar_entrenador(entrenador, contraseña)
 
         if not entrenador_existe:
-            return "error"
-        else:
-            return "test"
+            form.entrenador.errors.append("Credenciales incorrectas")
 
-        session["entrenador"] = entrenador
+            return render_template("formulario_login.html", form=form, year=year)
+
+        # Si inicia sesión en la misma cuenta, no reiniciamos la batalla ni nada
+        if id_antigua == entrenador_existe.id:
+            return redirect(url_for("pokemon.lista"))
+
+        session["entrenador"] = entrenador_existe.nombre
+        session["entrenador_id"] = entrenador_existe.id
+
         pokemon = session.get("pokemon_elegido")
 
         if session.get("battle"):
@@ -66,8 +73,10 @@ def register():
         # Devuelve el entreandor si lo ha creado bien
         entrenador_creado = registrar_entrenador(entrenador, contraseña)
 
-        if not entrenador:
-            return redirect(url_for("register"), form=form)
+        if not entrenador_creado:
+            form.entrenador.errors.append(f"El usuario {entrenador} ya existe")
+
+            return render_template("formulario_register.html", year=year, form=form)
 
         session.clear()
 

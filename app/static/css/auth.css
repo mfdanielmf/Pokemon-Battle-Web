@@ -45,7 +45,7 @@ form #entrenador:focus {
 }
 
 form .errores-container .error {
-    color: red;
+    color: #ccccf7;
     font-weight: bold;
 }
 

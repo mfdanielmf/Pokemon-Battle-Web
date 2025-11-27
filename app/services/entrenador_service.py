@@ -3,9 +3,15 @@ from app.repositories.entrenador_repo import crear_entrenador, obtener_entrenado
 
 def registrar_entrenador(nombre, contraseña):
     if nombre and contraseña:
-        entrenador = crear_entrenador(nombre, contraseña)
+        entrenador_existente = obtener_entrenador_por_nombre(nombre)
 
-    return entrenador
+        # Si no está en la base, lo creamos
+        if not entrenador_existente:
+            entrenador = crear_entrenador(nombre, contraseña)
+
+            return entrenador
+
+    return None
 
 
 def autenticar_entrenador(nombre, contraseña):

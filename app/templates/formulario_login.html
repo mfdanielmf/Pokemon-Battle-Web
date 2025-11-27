@@ -36,6 +36,10 @@ bg-no-repeat{% endblock %}
         </div>
 
         {{form.enviar()}}
+
+        <p>¿No tienes una cuenta? Créala <a href="{{ url_for('home.register') }}"
+                class="underline text-blue-200 font-semibold">aquí</a></p>
+
         <div class="errores-container">
             {% for error in form.entrenador.errors%}
             <div class="error">{{error}}</div>
