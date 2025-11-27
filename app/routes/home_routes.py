@@ -4,7 +4,7 @@ from app.services.pokemon_service import listar_pokemon
 from app.services.current_year_service import get_current_year
 from app.forms.trainer_login_form import TrainerLoginForm
 from app.forms.trainer_register_form import TrainerRegisterForm
-from app.services.entrenador_service import autenticar_entrenador, crear_entrenador
+from app.services.entrenador_service import autenticar_entrenador, registrar_entrenador
 
 home_bp = Blueprint('home', __name__)
 
@@ -63,19 +63,16 @@ def register():
         entrenador = form.entrenador.data
         contraseña = form.contraseña.data
 
-        if entrenador and contraseña:
-            entrenador = crear_entrenador(entrenador, contraseña)
-        else:
-            return "test"
+        # Devuelve el entreandor si lo ha creado bien
+        entrenador_creado = registrar_entrenador(entrenador, contraseña)
 
-        session["entrenador"] = entrenador
-        pokemon = session.get("pokemon_elegido")
+        if not entrenador:
+            return redirect(url_for("register"), form=form)
 
-        if session.get("battle"):
-            session.pop("pokemon_elegido")
-            session.pop("battle")
-        if entrenador and pokemon:
-            return redirect(url_for("battle.battle"))
+        session.clear()
+
+        session["entrenador"] = entrenador_creado.nombre
+        session["entrenador_id"] = entrenador_creado.id
 
         return redirect(url_for("pokemon.lista"))
 
