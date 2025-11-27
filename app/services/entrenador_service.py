@@ -1,12 +1,18 @@
-import app.repositories.entrenador_repo as entrenador_repo
+from app.repositories.entrenador_repo import crear_entrenador, obtener_entrenador_por_nombre, check_pass
+
 
 def registrar_entrenador():
-    entrenador_repo.crear_entrenador()
-    return "Se ha creado el entrenador"
+    entrenador = crear_entrenador()
+    return entrenador
+
 
 def autenticar_entrenador(nombre, contraseña):
-    entrenador_aut = entrenador_repo.obtener_entrenador_por_nombre(nombre)
-    contraseña = entrenador_repo.Entrenador.check_Password(contraseña)
+    entrenador_aut = obtener_entrenador_por_nombre(nombre)
+
+    if entrenador_aut:
+        contraseña = check_pass(entrenador_aut, contraseña)
+
     if entrenador_aut and contraseña:
         return entrenador_aut
+
     return None
