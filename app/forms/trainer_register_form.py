@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Regexp
 
 
-class TrainerLoginForm(FlaskForm):
+class TrainerRegisterForm(FlaskForm):
     entrenador = StringField("Entrenador", validators=[
                              DataRequired(
                                  message="No has introducido un entrenador"),
@@ -18,7 +18,7 @@ class TrainerLoginForm(FlaskForm):
 
     contraseña = PasswordField("Contraseña", validators=[
         DataRequired(message="No has introducido una contraseña"),
-        Length(min=4, max=20, message="Contraseña incorrecta")],
+        Length(min=4, max=20, message="La contraseña debe tener entre 4 y 20 caracteres")],
         render_kw={
             "placeholder": "Introduce contraseña"
     })
