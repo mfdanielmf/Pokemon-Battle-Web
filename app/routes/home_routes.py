@@ -78,10 +78,15 @@ def register():
 
             return render_template("formulario_register.html", year=year, form=form)
 
-        session.clear()
-
         session["entrenador"] = entrenador_creado.nombre
         session["entrenador_id"] = entrenador_creado.id
+
+        if session.get("battle"):
+            session.pop("battle")
+            session.pop("pokemon_elegido")
+
+        if session.get("pokemon_elegido"):
+            return redirect(url_for("battle.battle"))
 
         return redirect(url_for("pokemon.lista"))
 
