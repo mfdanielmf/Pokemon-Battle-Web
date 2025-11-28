@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, redirect, render_template, session, url_for
 
+from app.models.exceptions import EntrenadorExistenteException, EntrenadorNoCreadoException, EntrenadorNotFoundException, ContraseñaIncorrectaException
 from app.services.pokemon_service import listar_pokemon
 from app.services.current_year_service import get_current_year
 from app.forms.trainer_login_form import TrainerLoginForm
@@ -33,9 +34,14 @@ def login():
         contraseña = form.contraseña.data
         id_antigua = session.get("entrenador_id")
 
-        entrenador_existe = autenticar_entrenador(entrenador, contraseña)
+        try:
+            entrenador_existe = autenticar_entrenador(entrenador, contraseña)
+        except ContraseñaIncorrectaException:
+            form.entrenador.errors.append("Contraseña incorrecta")
 
-        if not entrenador_existe:
+            return render_template("formulario_login.html", form=form, year=year)
+            
+        except EntrenadorNotFoundException:
             form.entrenador.errors.append("Credenciales incorrectas")
 
             return render_template("formulario_login.html", form=form, year=year)
@@ -71,9 +77,15 @@ def register():
         contraseña = form.contraseña.data
 
         # Devuelve el entreandor si lo ha creado bien
-        entrenador_creado = registrar_entrenador(entrenador, contraseña)
+        try:
+            entrenador_creado = registrar_entrenador(entrenador, contraseña)
 
-        if not entrenador_creado:
+        except EntrenadorNoCreadoException:
+            form.entrenador.errors.append(f"Error al insertar datos")
+
+            return render_template("formulario_register.html", year=year, form=form)
+        
+        except EntrenadorExistenteException:
             form.entrenador.errors.append(f"El usuario {entrenador} ya existe")
 
             return render_template("formulario_register.html", year=year, form=form)

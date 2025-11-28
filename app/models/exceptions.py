@@ -9,4 +9,3 @@ class EntrenadorNoCreadoException(Exception):
 
 class EntrenadorExistenteException(Exception):
     pass
-
