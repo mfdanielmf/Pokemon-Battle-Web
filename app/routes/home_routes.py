@@ -40,7 +40,7 @@ def login():
             form.entrenador.errors.append("Contraseña incorrecta")
 
             return render_template("formulario_login.html", form=form, year=year)
-            
+
         except EntrenadorNotFoundException:
             form.entrenador.errors.append("Credenciales incorrectas")
 
@@ -84,7 +84,7 @@ def register():
             form.entrenador.errors.append(f"Error al insertar datos")
 
             return render_template("formulario_register.html", year=year, form=form)
-        
+
         except EntrenadorExistenteException:
             form.entrenador.errors.append(f"El usuario {entrenador} ya existe")
 
@@ -93,10 +93,12 @@ def register():
         session["entrenador"] = entrenador_creado.nombre
         session["entrenador_id"] = entrenador_creado.id
 
+        # Si teníamos una batalla en curso y nos registramos, eliminamos la batalla y el pokemon que había elegido
         if session.get("battle"):
             session.pop("battle")
             session.pop("pokemon_elegido")
 
+        # Si venimos de la lista y elegimos pokemon, lo llevmaos a la batalla directamente
         if session.get("pokemon_elegido"):
             return redirect(url_for("battle.battle"))
 

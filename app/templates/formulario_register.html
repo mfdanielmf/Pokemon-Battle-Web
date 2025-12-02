@@ -36,11 +36,15 @@ bg-no-repeat{% endblock %}
         </div>
 
         {{form.enviar()}}
+
+        {% if form.errors %}
+        {% set primer_error_clave = form.errors.keys() | list | first %}
+        {% set primer_error = form.errors[primer_error_clave][0] %}
+
         <div class="errores-container">
-            {% for error in form.entrenador.errors%}
-            <div class="error">{{error}}</div>
-            {% endfor %}
+            <div class="error">{{ primer_error }}</div>
         </div>
+        {% endif %}
     </form>
 </section>
 
