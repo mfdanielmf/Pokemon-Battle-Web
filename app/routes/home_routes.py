@@ -37,12 +37,12 @@ def login():
         try:
             entrenador_existe = autenticar_entrenador(entrenador, contraseña)
         except ContraseñaIncorrectaException:
-            form.entrenador.errors.append("Contraseña incorrecta")
+            form.form_errors.append("Contraseña incorrecta")
 
             return render_template("formulario_login.html", form=form, year=year)
 
         except EntrenadorNotFoundException:
-            form.entrenador.errors.append("Credenciales incorrectas")
+            form.form_errors.append("Credenciales incorrectas")
 
             return render_template("formulario_login.html", form=form, year=year)
 
@@ -81,12 +81,12 @@ def register():
             entrenador_creado = registrar_entrenador(entrenador, contraseña)
 
         except EntrenadorNoCreadoException:
-            form.entrenador.errors.append(f"Error al insertar datos")
+            form.form_errors.append("Error al insertar los datos")
 
             return render_template("formulario_register.html", year=year, form=form)
 
         except EntrenadorExistenteException:
-            form.entrenador.errors.append(f"El usuario {entrenador} ya existe")
+            form.form_errors.append(f"El usuario {entrenador} ya existe")
 
             return render_template("formulario_register.html", year=year, form=form)
 
