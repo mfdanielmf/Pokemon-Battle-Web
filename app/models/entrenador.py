@@ -9,7 +9,7 @@ class Entrenador(db.Model):
     id = Column(Integer, primary_key=True)
     nombre = Column(String(100), unique=True, nullable=False)
     contraseña = Column(String, nullable=False)
-    battles = relationship("Battle_db", back_populates="entrenador")
+    battles = relationship("Battle_db", secondary= "participar", back_populates="entrenador", passive_deletes=True)
 
     def __init__(self, nombre, contraseña):
         self.nombre = nombre
