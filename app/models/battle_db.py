@@ -1,6 +1,6 @@
-import datetime
+from datetime import datetime
 from sqlalchemy import Column, DateTime, Integer, String
-from app.database import db
+from app.database.db import db
 from sqlalchemy.orm import relationship
 
 
@@ -13,7 +13,7 @@ class Battle_db(db.Model):
     entrenador_defensor = Column(Integer, nullable=False)
     pokemon_atacante = Column(Integer, nullable=False)
     pokemon_defensor = Column(Integer, nullable=False)
-    creada_en = Column(DateTime, default= datetime.now(), nullable=False)
+    creada_en = Column(DateTime, default= datetime.now, nullable=False)
     resultado = Column(String, nullable=False)
     entrenador = relationship("Entrenador", secondary= "participar", back_populates="battles", passive_deletes=True)
 

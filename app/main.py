@@ -8,7 +8,8 @@ from app.routes.home_routes import home_bp
 from app.database.db import db
 
 from app.models.entrenador import Entrenador
-
+from app.models.battle_db import Battle_db
+from app.models.participar import Participar
 
 
 app = Flask(__name__, static_folder="static")

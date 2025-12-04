@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer
-from app.database import db
+from app.database.db import db
 
 
 class Participar(db.Model):
