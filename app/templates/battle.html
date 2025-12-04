@@ -19,7 +19,8 @@ transition-all duration-300 ease-in-out" %}
     <!-- Entrenador Rival -->
     <div class="rival-trainer">
         <img src="{{url_for('static', filename='media/img/team_rocket.webp')}}" alt="Entrenador rival">
-        <p>Team Rocket</p>
+        <p>{{ session.get("entrenador_rival") }}</p>
+
     </div>
 
     <!-- Pokémon Rival -->

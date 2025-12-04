@@ -11,7 +11,7 @@ def crear_entrenador(nombre, contraseña):
     return entrenador_nuevo
 
 
-def obtener_entrenador_por_nombre(nombre):
+def obtener_entrenador_por_nombre(nombre) -> Entrenador | None:
     entrenador = Entrenador.query.filter_by(nombre=nombre).first()
 
     return entrenador
@@ -19,7 +19,7 @@ def obtener_entrenador_por_nombre(nombre):
 
 def obtener_todos_los_entrenadores():
     entrenadores = Entrenador.query.all()
-    # lista de objetos Entenador for p in productos: print(p.id, p.nombre, ...)
+
     return entrenadores
 
 
