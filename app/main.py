@@ -36,6 +36,13 @@ db.init_app(app)
 def crear_tablas():
     db.drop_all()
     db.create_all()
+    entrenador_aleatorio_1 = Entrenador(nombre="TheGrefg", contraseña="1234")
+    db.session.add(entrenador_aleatorio_1)
+    entrenador_aleatorio_2 = Entrenador(nombre="Plex", contraseña="1234")
+    db.session.add(entrenador_aleatorio_2)
+    entrenador_aleatorio_3 = Entrenador(nombre="Aitana", contraseña="1234")
+    db.session.add(entrenador_aleatorio_3)
+    db.session.commit()
     print("Base de datos creada correctamente.")
 
 
