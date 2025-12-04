@@ -18,4 +18,10 @@ class Battle_db(db.Model):
     log = Column(String, nullable=False )
     entrenador = relationship("Entrenador", secondary= "participar", back_populates="battles", passive_deletes=True)
 
-    
+    def __init__(self, entrenador_atacante, entrenador_defensor, pokemon_atacante, pokemon_defensor, resultado, log):
+        self.entrenador_atacante = entrenador_atacante
+        self.entrenador_defensor = entrenador_defensor
+        self.pokemon_atacante = pokemon_atacante
+        self.pokemon_defensor = pokemon_defensor
+        self.resultado = resultado
+        self.log = log
