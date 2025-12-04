@@ -9,10 +9,10 @@ def registrar_entrenador(nombre, contraseña):
         # Si no está en la base, lo creamos
         if not entrenador_existente:
             entrenador = crear_entrenador(nombre, contraseña)
-            
+
             if entrenador:
                 return entrenador
-        
+
         raise EntrenadorExistenteException()
 
     raise EntrenadorNoCreadoException()

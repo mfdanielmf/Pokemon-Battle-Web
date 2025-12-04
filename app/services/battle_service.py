@@ -1,7 +1,10 @@
 import random
 
+from app.repositories.entrenador_repo import obtener_todos_los_entrenadores
 from app.services.pokemon_service import listar_pokemon
 from app.models.battle import Battle
+from app.models.entrenador import Entrenador
+from app.models.exceptions import NoHayEntrenadoresException
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
 MULTIPLICADOR_DAÑO = 0.20
@@ -35,29 +38,28 @@ def get_stat_value(pokemon, stat_name):
 def atacar_turno(damage, accuracy, battle_object, pokemon_name, ataque_name, atacante_jugador) -> bool:
     # Serperior tiene un ataque con accuracy null
     if not accuracy:
-            accuracy = 100
+        accuracy = 100
 
     acierta = random.randint(1, 100) <= accuracy
-    nombre_rival = battle_object["datos_pokemon_rival"].name.capitalize(
-    )
 
     acabar_batalla = False
 
-    nombre_pokemon_rival = battle_object["datos_pokemon_rival"].name
+    nombre_pokemon_rival = battle_object["datos_pokemon_rival"].name.capitalize(
+    )
 
     if atacante_jugador == True:
         nombre_pokemon_atacante = pokemon_name
         nombre_pokemon_defensor = nombre_pokemon_rival
-        vida_pokemon_rival = "vida_rival"   #para bajarle la vida al pokemon rival
-        #es para hacer  battle_object["vida_rival"] o battle_object["vida_jugador"]
+        vida_pokemon_rival = "vida_rival"  # para bajarle la vida al pokemon rival
+        # es para hacer  battle_object["vida_rival"] o battle_object["vida_jugador"]
         resultado = "HAS GANADO"
 
     if atacante_jugador == False:
         nombre_pokemon_atacante = nombre_pokemon_rival
         nombre_pokemon_defensor = pokemon_name
-        vida_pokemon_rival = "vida_jugador" 
+        vida_pokemon_rival = "vida_jugador"
         resultado = "HAS PERDIDO"
-        
+
     if acierta:
         battle_object[vida_pokemon_rival] = round(
             battle_object[vida_pokemon_rival] - (damage * MULTIPLICADOR_DAÑO), 2)
@@ -81,6 +83,7 @@ def atacar_turno(damage, accuracy, battle_object, pokemon_name, ataque_name, ata
 
     return acabar_batalla, battle_object
 
+
 def inicializar_batalla(pokemon_elegido):
     pokemon_rival = random_pokemon()
     moves_elegido = random_moves(pokemon_elegido)
@@ -96,3 +99,22 @@ def inicializar_batalla(pokemon_elegido):
     )
 
     return battle
+
+
+def elegir_rival_aleatorio(nombre_jugador: str) -> Entrenador | NoHayEntrenadoresException:
+    lista_entrenadores = obtener_todos_los_entrenadores()
+
+    if not lista_entrenadores:
+        raise NoHayEntrenadoresException()
+
+    entrenadores_filtrados = []
+
+    # Filtramos para que no salga de rival tu propio usuario
+    for entrenador in lista_entrenadores:
+        if entrenador.nombre != nombre_jugador:
+            entrenadores_filtrados.append(entrenador)
+
+    if not entrenadores_filtrados:
+        raise NoHayEntrenadoresException()
+
+    return random.choice(entrenadores_filtrados)

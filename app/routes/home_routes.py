@@ -58,6 +58,11 @@ def login():
         if session.get("battle"):
             session.pop("pokemon_elegido")
             session.pop("battle")
+
+        # Si elegimos otro usuario reiniciamos el rival
+        if session.get("entrenador_rival"):
+            session.pop("entrenador_rival")
+
         if entrenador and pokemon:
             return redirect(url_for("battle.battle"))
 
@@ -97,6 +102,9 @@ def register():
         if session.get("battle"):
             session.pop("battle")
             session.pop("pokemon_elegido")
+
+        if session.get("entrenador_rival"):
+            session.pop("entrenador_rival")
 
         # Si venimos de la lista y elegimos pokemon, lo llevmaos a la batalla directamente
         if session.get("pokemon_elegido"):

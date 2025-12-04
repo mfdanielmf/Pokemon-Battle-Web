@@ -2,7 +2,8 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 
 from app.services.pokemon_service import obtener_pokemon_por_nombre
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla
+from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio
+from app.models.exceptions import NoHayEntrenadoresException
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -23,6 +24,15 @@ def battle():
     # Por si a pesar de validar en lista consiguen llegar aquí
     if not pokemon_elegido:
         return redirect(url_for("pokemon.lista"))
+
+    # Si no hay pokemon rival, lo generamos
+    if not session.get("entrenador_rival"):
+        try:
+            pokemon_rival = elegir_rival_aleatorio(entrenador)
+
+            session["entrenador_rival"] = pokemon_rival.nombre
+        except NoHayEntrenadoresException:
+            return redirect(url_for("pokemon.lista"))
 
     # Creamos una nueva batalla si no lo habíamos hecho
     if not session.get("battle"):
@@ -53,11 +63,12 @@ def atacar():
         if ataque["name"] == ataque_name:
             # TURNO JUGADOR
             acabar_batalla, battle_object_service = atacar_turno(damage=ataque["power"],
-                                                                   accuracy=ataque["accuracy"],
-                                                                   battle_object=battle_object,
-                                                                   pokemon_name=pokemon_name,
-                                                                   ataque_name=ataque_name,
-                                                                   atacante_jugador = True) #para controlar si el personaje que ataca es el jugador en el service
+                                                                 accuracy=ataque["accuracy"],
+                                                                 battle_object=battle_object,
+                                                                 pokemon_name=pokemon_name,
+                                                                 ataque_name=ataque_name,
+                                                                 # para controlar si el personaje que ataca es el jugador en el service
+                                                                 atacante_jugador=True)
 
             session["battle"] = battle_object_service
 
@@ -74,7 +85,7 @@ def atacar():
                                                                  battle_object=battle_object,
                                                                  pokemon_name=pokemon_name,
                                                                  ataque_name=ataque_rival["name"],
-                                                                 atacante_jugador = False)
+                                                                 atacante_jugador=False)
 
             session["battle"] = battle_object_service
 
@@ -98,5 +109,6 @@ def resultado():
 
     session.pop("battle")
     session.pop("pokemon_elegido")
+    session.pop("entrenador_rival")
 
     return render_template("resultado.html", year=current_year, battle=battle_object)
