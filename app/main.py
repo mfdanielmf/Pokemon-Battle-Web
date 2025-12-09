@@ -5,6 +5,7 @@ from flask_session import Session
 from app.routes.battle_routes import battle_bp
 from app.routes.pokemon_routes import pokemon_bp
 from app.routes.home_routes import home_bp
+from app.routes.entrenador_routes import entrenador_bp
 from app.database.db import db
 
 from app.models.entrenador import Entrenador
@@ -49,6 +50,7 @@ def crear_tablas():
 app.register_blueprint(home_bp, url_prefix="/")
 app.register_blueprint(pokemon_bp, url_prefix="/pokemons")
 app.register_blueprint(battle_bp, url_prefix="/battle")
+app.register_blueprint(entrenador_bp, url_prefix="/entrenador")
 
 
 if __name__ == "__main__":

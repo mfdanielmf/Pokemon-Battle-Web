@@ -1,4 +1,5 @@
 from app.models.entrenador import Entrenador
+from app.models.battle_db import Battle_db
 from app.database.db import db
 
 
@@ -25,3 +26,9 @@ def obtener_todos_los_entrenadores():
 
 def check_pass(entrenador: Entrenador, contraseña) -> bool:
     return entrenador.check_Password(contraseña)
+
+
+def obtener_batallas_entrenador(id_entrenador: int) -> Battle_db:
+    entrenador = db.session.get(Entrenador, id_entrenador)
+
+    return entrenador.battles

@@ -7,9 +7,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class Entrenador(db.Model):
     __tablename__ = "entrenador"
     id = Column(Integer, primary_key=True, autoincrement=True)
+
     nombre = Column(String(100), unique=True, nullable=False)
     contraseña = Column(String, nullable=False)
-    battles = relationship("Battle_db", secondary= "participar", back_populates="entrenador", passive_deletes=True)
+
+    battles = relationship("Battle_db", secondary="participar",
+                           back_populates="entrenador", passive_deletes=True)
 
     def __init__(self, nombre, contraseña):
         self.nombre = nombre
