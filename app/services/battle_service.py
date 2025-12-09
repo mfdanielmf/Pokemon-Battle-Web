@@ -1,10 +1,12 @@
 import random
 
+from app.models.battle_db import Battle_db
 from app.repositories.entrenador_repo import obtener_todos_los_entrenadores
+from app.repositories.battle_repo import crear_batalla, obtener_batallas_por_entrenador
 from app.services.pokemon_service import listar_pokemon
 from app.models.battle import Battle
 from app.models.entrenador import Entrenador
-from app.models.exceptions import NoHayEntrenadoresException
+from app.models.exceptions import EntrenadorNotFoundException, JugadorSinBatallasException, NoHayEntrenadoresException, BatallaIncompletaException
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
 MULTIPLICADOR_DAÑO = 0.20
@@ -118,3 +120,28 @@ def elegir_rival_aleatorio(nombre_jugador: str) -> Entrenador | NoHayEntrenadore
         raise NoHayEntrenadoresException()
 
     return random.choice(entrenadores_filtrados)
+
+
+def insertar_batalla_base(entrenador_atacante, entrenador_defensor, pokemon_atacante, pokemon_defensor, resultado, log) -> BatallaIncompletaException | Battle_db:
+
+    batalla = Battle_db(entrenador_atacante=entrenador_atacante, entrenador_defensor=entrenador_defensor,
+                        pokemon_atacante=pokemon_atacante, pokemon_defensor=pokemon_defensor, resultado=resultado, log=log)
+
+    if not batalla:
+        raise BatallaIncompletaException()
+
+    batalla_creada = crear_batalla(batalla)
+
+    return batalla_creada
+
+
+def obtener_todas_batallas_entrenador(id_entrenador) -> list[Battle_db] | EntrenadorNotFoundException | JugadorSinBatallasException:
+    batallas: list[Battle_db] = obtener_batallas_por_entrenador(id_entrenador)
+
+    if not batallas:
+        raise EntrenadorNotFoundException()
+
+    if len(batallas) <= 0:
+        raise JugadorSinBatallasException()
+
+    return batallas

@@ -1,8 +1,9 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
+from app.models.battle_db import Battle_db
 from app.services.pokemon_service import obtener_pokemon_por_nombre
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio
+from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio, crear_batalla
 from app.models.exceptions import NoHayEntrenadoresException
 
 current_year = get_current_year()

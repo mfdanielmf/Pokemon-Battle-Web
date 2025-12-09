@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String, Text
 from app.database.db import db
 from sqlalchemy.orm import relationship
 
@@ -13,7 +13,7 @@ class Battle_db(db.Model):
     pokemon_defensor = Column(String, nullable=False)
     fecha_creacion = Column(DateTime, default=datetime.now, nullable=False)
     id_ganador = Column(String, nullable=False)
-    log = Column(String, nullable=False)
+    log = Column(Text, nullable=False)
 
     entrenadores = relationship("Entrenador", secondary="participar",
                                 back_populates="battles", passive_deletes=True)

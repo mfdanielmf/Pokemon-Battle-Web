@@ -16,3 +16,11 @@ class EntrenadorExistenteException(Exception):
 
 class NoHayEntrenadoresException(Exception):
     pass
+
+
+class BatallaIncompletaException(Exception):
+    pass
+
+
+class JugadorSinBatallasException(Exception):
+    pass
