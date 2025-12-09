@@ -9,21 +9,17 @@ class Battle_db(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 
-    entrenador_atacante = Column(Integer, nullable=False)
-    entrenador_defensor = Column(Integer, nullable=False)
-    pokemon_atacante = Column(Integer, nullable=False)
-    pokemon_defensor = Column(Integer, nullable=False)
-    creada_en = Column(DateTime, default=datetime.now, nullable=False)
-    resultado = Column(String, nullable=False)
+    pokemon_atacante = Column(String, nullable=False)
+    pokemon_defensor = Column(String, nullable=False)
+    fecha_creacion = Column(DateTime, default=datetime.now, nullable=False)
+    id_ganador = Column(String, nullable=False)
     log = Column(String, nullable=False)
 
-    entrenador = relationship("Entrenador", secondary="participar",
-                              back_populates="battles", passive_deletes=True)
+    entrenadores = relationship("Entrenador", secondary="participar",
+                                back_populates="battles", passive_deletes=True)
 
-    def __init__(self, entrenador_atacante, entrenador_defensor, pokemon_atacante, pokemon_defensor, resultado, log):
-        self.entrenador_atacante = entrenador_atacante
-        self.entrenador_defensor = entrenador_defensor
+    def __init__(self, pokemon_atacante, pokemon_defensor, id_ganador, log):
         self.pokemon_atacante = pokemon_atacante
         self.pokemon_defensor = pokemon_defensor
-        self.resultado = resultado
+        self.id_ganador = id_ganador
         self.log = log

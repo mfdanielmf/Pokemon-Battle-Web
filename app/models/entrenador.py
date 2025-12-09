@@ -12,7 +12,7 @@ class Entrenador(db.Model):
     contraseña = Column(String, nullable=False)
 
     battles = relationship("Battle_db", secondary="participar",
-                           back_populates="entrenador", passive_deletes=True)
+                           back_populates="entrenadores", passive_deletes=True)
 
     def __init__(self, nombre, contraseña):
         self.nombre = nombre
