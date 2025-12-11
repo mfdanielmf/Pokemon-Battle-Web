@@ -1,10 +1,9 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
-from app.models.battle_db import Battle_db
 from app.services.pokemon_service import obtener_pokemon_por_nombre
 from app.services.current_year_service import get_current_year
-from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio, crear_batalla
-from app.models.exceptions import NoHayEntrenadoresException
+from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio, insertar_batalla_base
+from app.models.exceptions import BatallaIncompletaException, NoHayEntrenadoresException
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -75,6 +74,16 @@ def atacar():
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
+                try:
+                    batalla_sesion = session.get("battle")
+
+                    pokemon_jugador = batalla_sesion["datos_pokemon_jugador"].name
+                    pokemon_rival = batalla_sesion["datos_pokemon_rival"].name
+                    id_ganador = session.get("entrenador_id")
+
+                except BatallaIncompletaException:
+                    return redirect("pokemon.lista")
+
                 return redirect(url_for("battle.resultado"))
 
             # TURNO RIVAL
@@ -92,6 +101,17 @@ def atacar():
 
             # Si el pokemon tiene 0 de vida, acabamos
             if acabar_batalla:
+                try:
+                    batalla_sesion = session.get("battle")
+
+                    pokemon_jugador = batalla_sesion["datos_pokemon_jugador"].name
+                    pokemon_rival = batalla_sesion["datos_pokemon_rival"].name
+
+                    # batalla = insertar_batalla_base()
+
+                except BatallaIncompletaException:
+                    return redirect("pokemon.lista")
+
                 return redirect(url_for("battle.resultado"))
 
             return redirect(url_for("battle.battle"))

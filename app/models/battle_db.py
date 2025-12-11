@@ -17,7 +17,7 @@ class Battle_db(db.Model):
     entrenadores = relationship("Entrenador", secondary="participar",
                                 back_populates="battles", passive_deletes=True)
 
-    def __init__(self, pokemon_atacante, pokemon_defensor, id_ganador, log):
+    def __init__(self, pokemon_atacante, pokemon_defensor, id_ganador):
         self.pokemon_atacante = pokemon_atacante
         self.pokemon_defensor = pokemon_defensor
         self.id_ganador = id_ganador

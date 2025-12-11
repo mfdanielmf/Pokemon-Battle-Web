@@ -122,10 +122,10 @@ def elegir_rival_aleatorio(nombre_jugador: str) -> Entrenador | NoHayEntrenadore
     return random.choice(entrenadores_filtrados)
 
 
-def insertar_batalla_base(entrenador_atacante, entrenador_defensor, pokemon_atacante, pokemon_defensor, resultado, log) -> BatallaIncompletaException | Battle_db:
+def insertar_batalla_base(id_ganador, pokemon_atacante, pokemon_defensor) -> BatallaIncompletaException | Battle_db:
 
-    batalla = Battle_db(entrenador_atacante=entrenador_atacante, entrenador_defensor=entrenador_defensor,
-                        pokemon_atacante=pokemon_atacante, pokemon_defensor=pokemon_defensor, resultado=resultado, log=log)
+    batalla = Battle_db(id_ganador=id_ganador,
+                        pokemon_atacante=pokemon_atacante, pokemon_defensor=pokemon_defensor)
 
     if not batalla:
         raise BatallaIncompletaException()
