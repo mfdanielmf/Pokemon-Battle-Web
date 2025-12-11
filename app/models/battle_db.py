@@ -13,7 +13,6 @@ class Battle_db(db.Model):
     pokemon_defensor = Column(String, nullable=False)
     fecha_creacion = Column(DateTime, default=datetime.now, nullable=False)
     id_ganador = Column(String, nullable=False)
-    log = Column(Text, nullable=False)
 
     entrenadores = relationship("Entrenador", secondary="participar",
                                 back_populates="battles", passive_deletes=True)
@@ -22,4 +21,3 @@ class Battle_db(db.Model):
         self.pokemon_atacante = pokemon_atacante
         self.pokemon_defensor = pokemon_defensor
         self.id_ganador = id_ganador
-        self.log = log
