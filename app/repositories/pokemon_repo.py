@@ -2,7 +2,10 @@ import json
 from app.models.pokemon import Pokemon
 from pathlib import Path
 
-with open(Path("data/pokemon.json"), encoding="utf-8") as fichero:
+DIRECTORIO_BASE = Path(__file__).resolve().parent.parent.parent
+DATA_POKEMON = DIRECTORIO_BASE.joinpath("data", "pokemon.json")
+
+with open(DATA_POKEMON, encoding="utf-8") as fichero:
     _POKEMONS = json.load(fichero)
 
 
