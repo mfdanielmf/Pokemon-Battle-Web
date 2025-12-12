@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 
 class Battle_db(db.Model):
-    __tablename__ = "battles"
+    __tablename__ = "battle"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 
