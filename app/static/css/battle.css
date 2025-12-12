@@ -271,3 +271,71 @@ button.fight:active {
   background-color: rgb(255, 198, 198);
   color: red;
 }
+
+@media (max-width: 450px) {
+
+  header {
+    position: static;
+    top: 0;
+  }
+
+  header nav ul {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  main{
+    display: flex;
+    flex-direction: column;
+  }
+
+   .battle-screen {
+    height: 850px;
+    display: grid;
+    grid-template-areas:
+    "rivalTrainer rivalArea"
+    "playerArea playerTrainer"
+    "battle battle";
+  }
+
+  /* Ajuste de posiciones internas para que no se solapen */
+  .rival-trainer {
+    grid-area: rivalTrainer;
+    position: static;
+    margin-top: 20px;
+  }
+
+  .player-trainer {
+    grid-area: playerTrainer;
+    position: static;
+    margin-top: 20px;
+  }
+
+  .rival-area {
+    grid-area: rivalArea;
+    position: static;
+    margin-top: 20px;
+  }
+
+  .player-area {
+    grid-area: playerArea;
+    position: static;
+    margin-top: 20px;
+  }
+
+  /* Ajuste del cuadro de texto y opciones */
+  .battle-options {
+    height: 250px;
+    margin-top: 20px;
+    grid-area: battle;
+    position: relative; 
+  }
+
+  .container-log {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 80px;
+  }
+
+}

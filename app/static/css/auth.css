@@ -75,7 +75,7 @@ form .errores-container .error {
 
 @media (max-width: 450px) {
 
-    form #entrenador,
+    form #entrenador, #contraseña,
     .icon-item-container span {
         width: 90%;
         margin: 0 auto;
