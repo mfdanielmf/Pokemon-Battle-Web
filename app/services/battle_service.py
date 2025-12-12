@@ -145,7 +145,7 @@ def insertar_batalla_base(id_ganador, pokemon_atacante, pokemon_defensor, id_per
     return batalla_creada
 
 
-def obtener_todas_batallas_entrenador(id_entrenador) -> list[Battle_db] | EntrenadorNotFoundException | JugadorSinBatallasException:
+def obtener_todas_batallas_id_entrenador(id_entrenador) -> list[Battle_db] | EntrenadorNotFoundException | JugadorSinBatallasException:
     batallas: list[Battle_db] = obtener_batallas_por_entrenador(id_entrenador)
 
     if not batallas:
