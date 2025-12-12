@@ -1,5 +1,6 @@
+from app.models.entrenador import Entrenador
 from app.models.exceptions import EntrenadorExistenteException, EntrenadorNoCreadoException, EntrenadorNotFoundException, ContraseñaIncorrectaException
-from app.repositories.entrenador_repo import crear_entrenador, obtener_entrenador_por_nombre, check_pass
+from app.repositories.entrenador_repo import crear_entrenador, obtener_entrenador_por_nombre, check_pass, obtener_entrenador_por_id
 
 
 def registrar_entrenador(nombre, contraseña):
@@ -30,3 +31,21 @@ def autenticar_entrenador(nombre, contraseña):
         return entrenador_aut
 
     raise EntrenadorNotFoundException()
+
+
+def obtener_entrenador_nombre_base(nombre) -> Entrenador | EntrenadorNotFoundException:
+    entrenador = obtener_entrenador_por_nombre(nombre)
+
+    if not entrenador:
+        raise EntrenadorNotFoundException()
+
+    return entrenador
+
+
+def obtener_entrenador_id_base(id) -> Entrenador | EntrenadorNotFoundException:
+    entrenador = obtener_entrenador_por_id(id)
+
+    if not entrenador:
+        raise EntrenadorNotFoundException()
+
+    return entrenador

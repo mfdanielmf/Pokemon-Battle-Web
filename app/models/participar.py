@@ -8,4 +8,4 @@ class Participar(db.Model):
     entrenador_id = Column(Integer, ForeignKey(
         "entrenador.id", ondelete="RESTRICT"), primary_key=True)
     battle_id = Column(Integer, ForeignKey(
-        "battles.id", ondelete="RESTRICT"), primary_key=True)
+        "battle.id", ondelete="RESTRICT"), primary_key=True)
