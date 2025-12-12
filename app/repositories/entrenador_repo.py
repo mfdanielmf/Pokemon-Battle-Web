@@ -25,3 +25,9 @@ def obtener_todos_los_entrenadores():
 
 def check_pass(entrenador: Entrenador, contraseña) -> bool:
     return entrenador.check_Password(contraseña)
+
+
+def obtener_entrenador_por_id(id) -> Entrenador | None:
+    entrenador = db.session.get(Entrenador, id)
+
+    return entrenador

@@ -3,7 +3,7 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 from app.services.pokemon_service import obtener_pokemon_por_nombre
 from app.services.current_year_service import get_current_year
 from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio, insertar_batalla_base
-from app.models.exceptions import BatallaIncompletaException, NoHayEntrenadoresException
+from app.models.exceptions import BatallaIncompletaException, EntrenadorNotFoundException, NoHayEntrenadoresException
 
 current_year = get_current_year()
 battle_bp = Blueprint('battle', __name__)
@@ -28,9 +28,10 @@ def battle():
     # Si no hay pokemon rival, lo generamos
     if not session.get("entrenador_rival"):
         try:
-            pokemon_rival = elegir_rival_aleatorio(entrenador)
+            entrenador_rival = elegir_rival_aleatorio(entrenador)
 
-            session["entrenador_rival"] = pokemon_rival.nombre
+            session["entrenador_rival"] = entrenador_rival.nombre
+            session["entrenador_rival_id"] = entrenador_rival.id
         except NoHayEntrenadoresException:
             return redirect(url_for("pokemon.lista"))
 
@@ -80,8 +81,12 @@ def atacar():
                     pokemon_jugador = batalla_sesion["datos_pokemon_jugador"].name
                     pokemon_rival = batalla_sesion["datos_pokemon_rival"].name
                     id_ganador = session.get("entrenador_id")
+                    id_perdedor = session.get("entrenador_rival_id")
 
-                except BatallaIncompletaException:
+                    insertar_batalla_base(
+                        id_ganador=id_ganador, pokemon_atacante=pokemon_jugador, pokemon_defensor=pokemon_rival, id_perdedor=id_perdedor)
+
+                except BatallaIncompletaException or EntrenadorNotFoundException:
                     return redirect("pokemon.lista")
 
                 return redirect(url_for("battle.resultado"))
@@ -106,6 +111,11 @@ def atacar():
 
                     pokemon_jugador = batalla_sesion["datos_pokemon_jugador"].name
                     pokemon_rival = batalla_sesion["datos_pokemon_rival"].name
+                    id_ganador = session.get("entrenador_rival_id")
+                    id_perdedor = session.get("entrenador_id")
+
+                    insertar_batalla_base(
+                        id_ganador=id_ganador, pokemon_atacante=pokemon_jugador, pokemon_defensor=pokemon_rival, id_perdedor=id_perdedor)
 
                     # batalla = insertar_batalla_base()
 
