@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}PokeWarriors - Historial Batallas{% endblock %}
+{% block link %}
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+{% endblock %}
 
 {% set nav_text_color = "text-indigo-800 drop-shadow-sm" %}
 {% set nav_link_class = "hover:text-yellow-500 transition-all duration-300" %}
@@ -10,24 +13,40 @@ transition-all duration-300 ease-in-out" %}
 {% set footer_text_color = "indigo-800" %}
 
 {% block main %}
-<section>
-    <table>
-        <tr>
-            <td>ID Batalla</td>
-            <td>Pokemon Atacante</td>
-            <td>Pokemon Defensor</td>
-            <td>Fecha Partida</td>
-            <td>ID Ganador</td>
-        </tr>
-    {% for batalla in batallas %}
-    <tr>
-        <td>{{ batalla.id }}</td>
-        <td>{{ batalla.pokemon_atacante }}</td>
-        <td>{{ batalla.pokemon_defensor }}</td>
-        <td>{{ batalla.fecha_creacion }}</td>
-        <td>{{ batalla.id_ganador }}</td>
-    </tr>
-    {% endfor %}
+<div class="overflow-x-auto mx-10">
+    <table class="table">
+        <thead class="text-center text-neutral-700">
+            <th></th>
+            <th>Pokemon Atacante</th>
+            <th>Pokemon defensor</th>
+            <th>Fecha Partida</th>
+            <th>Nombre Ganador</th>
+            <th>Nombre Perdedor</th>
+        </thead>
+        <tbody class="text-center">
+        {% for batalla in batallas %}
+            <tr>
+                <th>{{ batalla.id }}</th>
+                <td>{{ batalla.pokemon_atacante | capitalize }}</td>
+                <td>{{ batalla.pokemon_defensor | capitalize }}</td>
+                <td>{{ batalla.fecha_creacion }}</td>
+                <td>
+                    {% for entrenador in batalla.entrenadores %}
+                        {% if entrenador.id == batalla.id_ganador %}
+                            {{ entrenador.nombre }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for entrenador in batalla.entrenadores %}
+                        {% if entrenador.id != batalla.id_ganador %}
+                            {{ entrenador.nombre }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+        {% endfor%}
+            </tr>
+        </tbody>
     </table>
-</section>
+</div>
 {% endblock %}

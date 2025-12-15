@@ -64,6 +64,16 @@
                         <span
                             class="absolute left-0 -bottom-1 w-0 h-0.5 {{ nav_underline_color | default('bg-yellow-400') }} transition-all duration-300 group-hover:w-full"></span>
                     </li>
+                    {% if session.entrenador_id %}
+                    <li class="relative group p-1 hover:scale-105">
+                        <a href="{{url_for('entrenador.historial_batallas', id_entrenador=session.entrenador_id)}}"
+                            class="{{ nav_link_class | default('hover:text-yellow-400 transition-all duration-300') }}">
+                            Batallas
+                        </a>
+                        <span
+                            class="absolute left-0 -bottom-1 w-0 h-0.5 {{ nav_underline_color | default('bg-yellow-400') }} transition-all duration-300 group-hover:w-full"></span>
+                    </li>
+                    {% endif %}
 
                     <li class="p-1 hover:scale-105">
                         <a href="{{url_for('home.login')}}"
