@@ -272,7 +272,7 @@ button.fight:active {
   color: red;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 1050px) {
 
   header {
     position: static;
@@ -290,7 +290,9 @@ button.fight:active {
     flex-direction: column;
   }
 
-   .battle-screen {
+  .battle-screen {
+    width: 100%;
+    max-width: 400px;
     height: 850px;
     display: grid;
     grid-template-areas:
@@ -330,6 +332,7 @@ button.fight:active {
     margin-top: 20px;
     grid-area: battle;
     position: relative; 
+    width: 100%;
   }
 
   .container-log {
