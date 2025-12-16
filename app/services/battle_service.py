@@ -6,7 +6,7 @@ from app.repositories.battle_repo import crear_batalla, obtener_batallas_por_ent
 from app.services.pokemon_service import listar_pokemon
 from app.models.battle import Battle
 from app.models.entrenador import Entrenador
-from app.models.exceptions import EntrenadorNotFoundException, JugadorSinBatallasException, NoHayEntrenadoresException, BatallaIncompletaException
+from app.models.exceptions import EntrenadorNotFoundException, NoHayEntrenadoresException, BatallaIncompletaException
 from app.services.entrenador_service import obtener_entrenador_id_base
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
@@ -145,13 +145,13 @@ def insertar_batalla_base(id_ganador, pokemon_atacante, pokemon_defensor, id_per
     return batalla_creada
 
 
-def obtener_todas_batallas_id_entrenador(id_entrenador) -> list[Battle_db] | EntrenadorNotFoundException | JugadorSinBatallasException:
-    batallas: list[Battle_db] = obtener_batallas_por_entrenador(id_entrenador)
+def obtener_todas_batallas_id_entrenador(id_entrenador) -> list[Battle_db] | EntrenadorNotFoundException | None:
+    try:
+        obtener_entrenador_id_base(id_entrenador)
 
-    if not batallas:
+    except EntrenadorNotFoundException:
         raise EntrenadorNotFoundException()
-
-    if len(batallas) <= 0:
-        raise JugadorSinBatallasException()
+    
+    batallas: list[Battle_db] = obtener_batallas_por_entrenador(id_entrenador)
 
     return batallas

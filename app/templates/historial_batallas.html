@@ -14,39 +14,43 @@ transition-all duration-300 ease-in-out" %}
 
 {% block main %}
 <div class="overflow-x-auto mx-10">
-    <table class="table text-center">
-        <thead class="text-neutral-700">
-            <th></th>
-            <th>Pokemon Atacante</th>
-            <th>Pokemon defensor</th>
-            <th>Fecha Partida</th>
-            <th>Nombre Ganador</th>
-            <th>Nombre Perdedor</th>
-        </thead>
-        <tbody>
-        {% for batalla in batallas %}
-            <tr>
-                <th>{{ batalla.id }}</th>
-                <td>{{ batalla.pokemon_atacante | capitalize }}</td>
-                <td>{{ batalla.pokemon_defensor | capitalize }}</td>
-                <td>{{ batalla.fecha_creacion }}</td>
-                <td>
-                    {% for entrenador in batalla.entrenadores %}
-                        {% if entrenador.id == batalla.id_ganador %}
-                            {{ entrenador.nombre }}
-                        {% endif %}
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for entrenador in batalla.entrenadores %}
-                        {% if entrenador.id != batalla.id_ganador %}
-                            {{ entrenador.nombre }}
-                        {% endif %}
-                    {% endfor %}
-                </td>
-        {% endfor%}
-            </tr>
-        </tbody>
-    </table>
+    {% if batallas%}
+        <table class="table text-center">
+            <thead class="text-neutral-700">
+                <th></th>
+                <th>Pokemon Atacante</th>
+                <th>Pokemon defensor</th>
+                <th>Fecha Partida</th>
+                <th>Nombre Ganador</th>
+                <th>Nombre Perdedor</th>
+            </thead>
+            <tbody>
+            {% for batalla in batallas %}
+                <tr>
+                    <th>{{ batalla.id }}</th>
+                    <td>{{ batalla.pokemon_atacante | capitalize }}</td>
+                    <td>{{ batalla.pokemon_defensor | capitalize }}</td>
+                    <td>{{ batalla.fecha_creacion.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>
+                        {% for entrenador in batalla.entrenadores %}
+                            {% if entrenador.id == batalla.id_ganador %}
+                                {{ entrenador.nombre }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for entrenador in batalla.entrenadores %}
+                            {% if entrenador.id != batalla.id_ganador %}
+                                {{ entrenador.nombre }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+            {% endfor%}
+                </tr>
+            </tbody>
+        </table>
+    {%else%}
+        <p class="flex items-center justify-center text-red-500 font-bold text-xl">No tienes Batallas</p>
+    {% endif%}
 </div>
 {% endblock %}

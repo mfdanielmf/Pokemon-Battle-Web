@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, session, url_for
 
-from app.models.exceptions import EntrenadorNotFoundException, JugadorSinBatallasException
+from app.models.exceptions import EntrenadorNotFoundException
 from app.services.battle_service import obtener_todas_batallas_id_entrenador
 from app.services.current_year_service import get_current_year
 
@@ -14,7 +14,7 @@ def historial_batallas():
 
     try:
         batallas = obtener_todas_batallas_id_entrenador(id_entrenador)
-    except EntrenadorNotFoundException or JugadorSinBatallasException:
+    except EntrenadorNotFoundException:
         return redirect(url_for("home.index"))
 
     return render_template("historial_batallas.html", batallas=batallas, year=get_current_year())

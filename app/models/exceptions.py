@@ -20,7 +20,3 @@ class NoHayEntrenadoresException(Exception):
 
 class BatallaIncompletaException(Exception):
     pass
-
-
-class JugadorSinBatallasException(Exception):
-    pass
