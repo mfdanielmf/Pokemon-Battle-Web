@@ -41,7 +41,7 @@ Ejecutar el siguiente comando para descar los requirements:
 .\.venv\Scripts\pip.exe install -r requirements.txt
 ```
 
-**4. Instalar las dependencias necesarias:**
+**4. Crear la base de datos y las tablas:**
 
 Ahora hay que crear las tablas de la base de datos.  
 Para ello, hay que ejecutar el siguiente comando:
