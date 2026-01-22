@@ -26,7 +26,7 @@ def lista():
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
             # Para que no se quede el valor introducido en el input
             form.pokemon.data = ""
-            return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), form=form, year=current_year)
+            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), form=form, year=current_year)
 
         session["pokemon_elegido"] = pokemon_name
 
@@ -37,7 +37,7 @@ def lista():
         return redirect(url_for("battle.battle"))
 
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
-    return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, form=form)
+    return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), year=current_year, form=form)
 
 
 @pokemon_bp.route("/<int:id>")

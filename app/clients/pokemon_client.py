@@ -1,13 +1,6 @@
 import requests
 from concurrent.futures import ThreadPoolExecutor
 
-urls = [
-    "https://pokeapi.co/api/v2/pokemon/383",
-    "https://pokeapi.co/api/v2/pokemon/382",
-    "https://pokeapi.co/api/v2/pokemon/483",
-    "https://pokeapi.co/api/v2/pokemon/487",
-    "https://pokeapi.co/api/v2/pokemon/484"
-]
 
 def fetch_pokemon_detail(url):
     try:
@@ -17,10 +10,12 @@ def fetch_pokemon_detail(url):
         print(f"Error desconocido: {e}")
         return None
 
+
 def fetch_pokemon_parallel(urls):
     with ThreadPoolExecutor(max_workers=4) as executor:
         return list(executor.map(fetch_pokemon_detail, urls))
-    
+
+
 def fetch_moves_detail(url):
     try:
         response = requests.get(url)
@@ -28,10 +23,11 @@ def fetch_moves_detail(url):
     except Exception as e:
         print(f"Error desconocido: {e}")
         return None
-    
-def fetch_moves_parallel(urls):
+
+
+def fetch_moves_parallel(urls_moves):
     with ThreadPoolExecutor(max_workers=4) as executor:
-        return list(executor.map(fetch_moves_detail, urls))
+        return list(executor.map(fetch_moves_detail, urls_moves))
 
 # if __name__ == "__main__":
 #     pokemons = fetch_products_parallel(urls)
