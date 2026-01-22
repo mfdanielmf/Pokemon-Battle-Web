@@ -42,7 +42,7 @@ def lista():
 
 @pokemon_bp.route("/<int:id>")
 def pokemon_detalles(id):
-    pokemon = pokemon_service.obtener_pokemon_por_id(id)
+    pokemon = pokemon_service.obtener_pokemon_por_id_client(id)
     if pokemon is None:
         abort(404)
     return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year)

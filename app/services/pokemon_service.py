@@ -1,5 +1,5 @@
 import app.repositories.pokemon_repo as pokemon_repo
-from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel
+from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, fetch_pokemon_detail
 
 urls = [
     "https://pokeapi.co/api/v2/pokemon/383",
@@ -139,3 +139,8 @@ def obtener_pokemon_adaptado():
     pokemon = adaptar_pokemon(data)
 
     return pokemon
+
+def obtener_pokemon_por_id_client(id):
+    data = fetch_pokemon_detail(f"https://pokeapi.co/api/v2/pokemon/{id}")
+    pokemon = adaptar_pokemon([data])
+    return pokemon[0]
