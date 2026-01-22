@@ -4,6 +4,7 @@ from app.services import pokemon_service
 from app.services.current_year_service import get_current_year
 from app.forms.pokemon_select_form import PokemonSelectForm
 
+
 current_year = get_current_year()
 pokemon_bp = Blueprint('pokemon', __name__)
 
