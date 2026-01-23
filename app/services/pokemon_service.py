@@ -1,14 +1,7 @@
 import app.repositories.pokemon_repo as pokemon_repo
-from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, fetch_pokemon_detail
+from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, PokemonClient
 
-urls = [
-    "https://pokeapi.co/api/v2/pokemon/383",
-    "https://pokeapi.co/api/v2/pokemon/382",
-    "https://pokeapi.co/api/v2/pokemon/483",
-    "https://pokeapi.co/api/v2/pokemon/487",
-    "https://pokeapi.co/api/v2/pokemon/484"
-]
-
+pokemon_client = PokemonClient()
 
 def listar_pokemon():
     return pokemon_repo.obtener_pokemons()
@@ -78,33 +71,7 @@ def adaptar_pokemon(data):
 
         weight = pokemon["weight"]
 
-        linkMoves = []
-        for move_actual in pokemon["moves"]:
-            linkMoves.append(move_actual["move"]["url"])
-            if (len(linkMoves) > 9):
-                break
-
-        movesPokemon = fetch_moves_parallel(linkMoves)
-        moves = []
-        for move in movesPokemon:
-            nombreMovimiento = move["name"]
-            accuracyMovimiento = move["accuracy"]
-            powerMovimiento = move["power"]
-            typeMovimiento = move["type"]["name"]
-
-            if (accuracyMovimiento is None):
-                accuracyMovimiento = 100
-
-            if powerMovimiento is None:
-                powerMovimiento = 50
-
-            moves.append({
-                "name": nombreMovimiento,
-                "accuracy": accuracyMovimiento,
-                "power": powerMovimiento,
-                "type": typeMovimiento
-            })
-
+       
         data_pokemon = {
             "height": height,
             "id": id,
@@ -113,12 +80,46 @@ def adaptar_pokemon(data):
             "sprites": sprites,
             "types": types,
             "weight": weight,
-            "moves": moves
         }
 
         data_return.append(data_pokemon)
 
     return data_return
+
+def adaptar_moves(data, pokemonSinMove):
+    linkMoves = []
+    for move_actual in data["moves"]:
+        linkMoves.append(move_actual["move"]["url"])
+        if (len(linkMoves) > 9):
+            break
+
+
+    movesPokemon = fetch_moves_parallel(linkMoves, pokemon_client)
+        
+    moves = []
+    for move in movesPokemon:
+        nombreMovimiento = move["name"]
+        accuracyMovimiento = move["accuracy"]
+        powerMovimiento = move["power"]
+        typeMovimiento = move["type"]["name"]
+
+        if (accuracyMovimiento is None):
+            accuracyMovimiento = 100
+
+        if powerMovimiento is None:
+            powerMovimiento = 50
+
+        moves.append({
+            "name": nombreMovimiento,
+            "accuracy": accuracyMovimiento,
+            "power": powerMovimiento,
+            "type": typeMovimiento
+        })
+    
+    
+    pokemonSinMove[0]["moves"] = moves
+    
+    return pokemonSinMove
 
 
 # def validar_pokemon(data):
@@ -127,8 +128,17 @@ def adaptar_pokemon(data):
 #     return True
 
 
+
+urls = [
+    383,
+    382,
+    483,
+    487,
+    484
+]
+
 def obtener_pokemon_adaptado():
-    data = fetch_pokemon_parallel(urls)
+    data = fetch_pokemon_parallel(urls, pokemon_client)
 
     if data is None:
         return None
@@ -141,6 +151,8 @@ def obtener_pokemon_adaptado():
     return pokemon
 
 def obtener_pokemon_por_id_client(id):
-    data = fetch_pokemon_detail(f"https://pokeapi.co/api/v2/pokemon/{id}")
-    pokemon = adaptar_pokemon([data])
+    data = pokemon_client.fetch_pokemon_detail(id)
+    
+    pokemonSinMove = adaptar_pokemon([data])
+    pokemon = adaptar_moves(data, pokemonSinMove)
     return pokemon[0]
