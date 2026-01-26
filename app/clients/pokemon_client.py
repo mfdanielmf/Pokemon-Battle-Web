@@ -6,8 +6,7 @@ class PokemonClient:
         self._cache = {}
         self._cacheMoves = {}
 
-    def fetch_pokemon_detail(self, id):
-    
+    def fetch_pokemon_detail(self, id): #id o nombre    
         if id in self._cache:
             data = self._cache[id]
             return data
@@ -31,9 +30,10 @@ class PokemonClient:
             return data
         
         try:
-            print("hola")
             response = requests.get(url)
-            return response.json()
+            data = response.json()
+            self._cacheMoves[url] = data
+            return data
         except Exception as e:
             print(f"Error desconocido: {e}")
             return None

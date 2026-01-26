@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
-from app.services.pokemon_service import obtener_pokemon_por_nombre
+from app.services.pokemon_service import obtener_pokemon_por_nombre_cliente
 from app.services.current_year_service import get_current_year
 from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio, insertar_batalla_base
 from app.models.exceptions import BatallaIncompletaException, EntrenadorNotFoundException, NoHayEntrenadoresException
@@ -19,7 +19,7 @@ def battle():
         return redirect(url_for("pokemon.lista"))
 
     # Obtenemos el pokemon
-    pokemon_elegido = obtener_pokemon_por_nombre(pokemon_name)
+    pokemon_elegido = obtener_pokemon_por_nombre_cliente(pokemon_name)
 
     # Por si a pesar de validar en lista consiguen llegar aquí
     if not pokemon_elegido:
@@ -52,7 +52,7 @@ def atacar():
     # POST (seleccionamos ataque en battle)
     # Obtenemos el pokemon para acceder a sus ataques
     pokemon_name = session.get("pokemon_elegido")
-    pokemon = obtener_pokemon_por_nombre(pokemon_name)
+    pokemon = obtener_pokemon_por_nombre_cliente(pokemon_name)
 
     if not pokemon:
         return redirect(url_for("pokemon.lista"))
@@ -60,7 +60,7 @@ def atacar():
     ataque_name = request.form.get("ataque_name")
     battle_object = session.get("battle")
 
-    for ataque in pokemon.moves:
+    for ataque in pokemon["moves"]:
         if ataque["name"] == ataque_name:
             # TURNO JUGADOR
             acabar_batalla, battle_object_service = atacar_turno(damage=ataque["power"],
