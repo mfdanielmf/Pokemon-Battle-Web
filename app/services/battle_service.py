@@ -14,6 +14,7 @@ MULTIPLICADOR_DAÑO = 0.20
 
 
 def random_moves(pokemon):
+    pokemon["moves"]
     movimientos = random.sample(pokemon["moves"], min(4, len(pokemon["moves"])))
     
     return movimientos
@@ -35,9 +36,6 @@ def random_atacar(ataques):
 def get_stat_value(pokemon, stat_name):
     for stat in pokemon["stats"]:
         
-        print(pokemon["stats"])
-        
-        print(stat["name"])
         if stat["name"] == stat_name:
             return stat["value"]
 

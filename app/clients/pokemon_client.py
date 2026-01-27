@@ -10,7 +10,7 @@ class PokemonClient:
         if id in self._cache:
             data = self._cache[id]
             return data
-        
+          
         url = f"https://pokeapi.co/api/v2/pokemon/{id}"
         
         try:
