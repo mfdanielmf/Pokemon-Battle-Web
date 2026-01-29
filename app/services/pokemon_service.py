@@ -12,6 +12,8 @@ urls = [
     484
 ]
 
+LIMIT = 10
+
 
 def listar_pokemon():
     return pokemon_repo.obtener_pokemons()
@@ -144,6 +146,25 @@ def obtener_pokemon_adaptado():
     pokemon = adaptar_pokemon(data)
 
     return pokemon
+
+# BORRAR EL MÉTODO DE ARRIBA CUANDO ACABEMOS (REEMPLAZARLO POR ESTE)
+
+
+def obtener_pokemon_adaptado2(num_pagina: int):
+    offset = num_pagina * LIMIT
+
+    data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
+
+    nombres = []
+    for result in data["results"]:
+        nombres.append(result["name"])
+
+    pokemons = fetch_pokemon_parallel(
+        urls=nombres, pokemon_client=pokemon_client)
+
+    pokemons_adaptados = adaptar_pokemon(pokemons)
+
+    return pokemons_adaptados
 
 
 def obtener_pokemon_por_id_client(id):
