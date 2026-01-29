@@ -1,3 +1,4 @@
+import random
 import app.repositories.pokemon_repo as pokemon_repo
 from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, PokemonClient
 
@@ -10,6 +11,7 @@ urls = [
     487,
     484
 ]
+
 
 def listar_pokemon():
     return pokemon_repo.obtener_pokemons()
@@ -79,7 +81,6 @@ def adaptar_pokemon(data):
 
         weight = pokemon["weight"]
 
-       
         data_pokemon = {
             "height": height,
             "id": id,
@@ -94,14 +95,14 @@ def adaptar_pokemon(data):
 
     return data_return
 
+
 def adaptar_moves(data):
     linkMoves = []
-   
+
     for move_actual in data["moves"]:
         linkMoves.append(move_actual["move"]["url"])
         if (len(linkMoves) > 9):
             break
-
 
     movesPokemon = fetch_moves_parallel(linkMoves, pokemon_client)
     moves = []
@@ -124,8 +125,9 @@ def adaptar_moves(data):
             "power": powerMovimiento,
             "type": typeMovimiento
         })
-    
+
     return moves
+
 
 def pokemonTotal(moves, pokemonSinMove):
     for pokemon in pokemonSinMove:
@@ -143,36 +145,49 @@ def obtener_pokemon_adaptado():
 
     return pokemon
 
+
 def obtener_pokemon_por_id_client(id):
     data = pokemon_client.fetch_pokemon_detail(id)
-    
+
     pokemonSinMove = adaptar_pokemon([data])
     moves = adaptar_moves(data)
     pokemon = pokemonTotal(moves, pokemonSinMove)
     return pokemon[0]
 
+
 def listar_pokemon_client():
     data = fetch_pokemon_parallel(urls, pokemon_client)
-  
+
     pokemons = []
 
     for pokemon in data:
-       
+
         pokemonSinMove = adaptar_pokemon([pokemon])
-       
+
         moves = adaptar_moves(pokemon)
         pokemonSinMove[0]["moves"] = moves
         pokemons.append(pokemonSinMove[0])
 
     return pokemons
 
+
 def obtener_pokemon_por_nombre_cliente(nombre):
     data = pokemon_client.fetch_pokemon_detail(nombre)
-    
+
     pokemonSinMove = adaptar_pokemon([data])
 
-    
     moves = adaptar_moves(data)
 
     pokemon = pokemonTotal(moves, pokemonSinMove)
     return pokemon[0]
+
+
+def random_pokemon_rival():
+    data = pokemon_client.fetch_pokemon_random()
+    max_pokemons = data["count"]
+
+    id = random.randint(1, max_pokemons)
+
+    pokemon = pokemon_client.fetch_pokemon_detail(id=id)
+
+    return pokemon

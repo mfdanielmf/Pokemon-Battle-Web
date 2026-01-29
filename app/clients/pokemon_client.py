@@ -40,7 +40,7 @@ class PokemonClient:
             print(f"Error desconocido: {e}")
             return None
 
-    def fetch_pokemon_random():
+    def fetch_pokemon_random(self):
         url = f"https://pokeapi.co/api/v2/pokemon?limit=10000"
 
         try:
@@ -50,6 +50,7 @@ class PokemonClient:
         except Exception as e:
             print(f"Error desconocido: {e}")
             return None
+
 
 def fetch_pokemon_parallel(urls, pokemon_client: PokemonClient):
     with ThreadPoolExecutor(max_workers=4) as executor:

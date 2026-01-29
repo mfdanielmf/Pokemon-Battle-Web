@@ -3,26 +3,27 @@ import random
 from app.models.battle_db import Battle_db
 from app.repositories.entrenador_repo import obtener_todos_los_entrenadores
 from app.repositories.battle_repo import crear_batalla, obtener_batallas_por_entrenador
-from app.services.pokemon_service import listar_pokemon_client
+from app.services.pokemon_service import listar_pokemon_client, random_pokemon_rival
 from app.models.battle import Battle
 from app.models.entrenador import Entrenador
 from app.models.exceptions import EntrenadorNotFoundException, NoHayEntrenadoresException, BatallaIncompletaException
 from app.services.entrenador_service import obtener_entrenador_id_base
+from app.clients.pokemon_client import PokemonClient
 
 # Para no tener que ir cambiando las variables 1 a 1 cuando toquemos el daño
 MULTIPLICADOR_DAÑO = 0.20
 
 
 def random_moves(pokemon):
-    
-    movimientos = random.sample(pokemon["moves"], min(4, len(pokemon["moves"])))
-    
+    movimientos = random.sample(
+        pokemon["moves"], min(4, len(pokemon["moves"])))
+
     return movimientos
 
 
 def random_pokemon():
     lista_pokemons = listar_pokemon_client()
-    
+
     pokemon = random.choice(lista_pokemons)
 
     return pokemon
@@ -35,7 +36,6 @@ def random_atacar(ataques):
 # para poder conseguir el atributo hp en el json data
 def get_stat_value(pokemon, stat_name):
     for stat in pokemon["stats"]:
-        
         if stat["name"] == stat_name:
             return stat["value"]
 
@@ -90,7 +90,7 @@ def atacar_turno(damage, accuracy, battle_object, pokemon_name, ataque_name, ata
 
 
 def inicializar_batalla(pokemon_elegido):
-    pokemon_rival = random_pokemon()
+    pokemon_rival = random_pokemon_rival()
     moves_elegido = random_moves(pokemon_elegido)
     moves_rival = random_moves(pokemon_rival)
 
@@ -153,7 +153,7 @@ def obtener_todas_batallas_id_entrenador(id_entrenador) -> list[Battle_db] | Ent
 
     except EntrenadorNotFoundException:
         raise EntrenadorNotFoundException()
-    
+
     batallas: list[Battle_db] = obtener_batallas_por_entrenador(id_entrenador)
 
     return batallas
