@@ -183,11 +183,16 @@ def obtener_pokemon_por_nombre_cliente(nombre):
 
 
 def random_pokemon_rival():
-    data = pokemon_client.fetch_pokemon_random()
-    max_pokemons = data["count"]
+    data_max = pokemon_client.fetch_pokemon_random()
+    max_pokemons = data_max["count"]
 
     id = random.randint(1, max_pokemons)
+    data_pokemon = pokemon_client.fetch_pokemon_detail(id=id)
 
-    pokemon = pokemon_client.fetch_pokemon_detail(id=id)
+    pokemonSinMove = adaptar_pokemon([data_pokemon])
 
-    return pokemon
+    moves = adaptar_moves(data_pokemon)
+
+    pokemon = pokemonTotal(moves, pokemonSinMove)
+
+    return pokemon[0]

@@ -6,7 +6,6 @@ class PokemonClient:
     def __init__(self):
         self._cache = {}
         self._cacheMoves = {}
-        self._cacheRandomPokemon = {}
 
     def fetch_pokemon_detail(self, id):  # id o nombre
         if id in self._cache:
