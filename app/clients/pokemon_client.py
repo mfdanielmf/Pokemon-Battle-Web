@@ -6,6 +6,7 @@ class PokemonClient:
     def __init__(self):
         self._cache = {}
         self._cacheMoves = {}
+        self._cacheRandomPokemon = {}
 
     def fetch_pokemon_detail(self, id):  # id o nombre
         if id in self._cache:
@@ -39,6 +40,16 @@ class PokemonClient:
             print(f"Error desconocido: {e}")
             return None
 
+    def fetch_pokemon_random():
+        url = f"https://pokeapi.co/api/v2/pokemon?limit=10000"
+
+        try:
+            response = requests.get(url)
+            data = response.json()
+            return data
+        except Exception as e:
+            print(f"Error desconocido: {e}")
+            return None
 
 def fetch_pokemon_parallel(urls, pokemon_client: PokemonClient):
     with ThreadPoolExecutor(max_workers=4) as executor:
