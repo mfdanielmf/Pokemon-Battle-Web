@@ -162,7 +162,7 @@ def listar_pokemon_client():
        
         moves = adaptar_moves(pokemon)
         pokemonSinMove[0]["moves"] = moves
-        pokemons.append(pokemonSinMove)
+        pokemons.append(pokemonSinMove[0])
 
     return pokemons
 

@@ -14,7 +14,7 @@ MULTIPLICADOR_DAÑO = 0.20
 
 
 def random_moves(pokemon):
-    pokemon["moves"]
+    
     movimientos = random.sample(pokemon["moves"], min(4, len(pokemon["moves"])))
     
     return movimientos

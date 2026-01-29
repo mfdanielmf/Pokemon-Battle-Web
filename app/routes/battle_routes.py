@@ -78,8 +78,8 @@ def atacar():
                 try:
                     batalla_sesion = session.get("battle")
 
-                    pokemon_jugador = batalla_sesion["datos_pokemon_jugador"].name
-                    pokemon_rival = batalla_sesion["datos_pokemon_rival"].name
+                    pokemon_jugador = batalla_sesion["datos_pokemon_jugador"]["name"]
+                    pokemon_rival = batalla_sesion["datos_pokemon_rival"]["name"]
                     id_ganador = session.get("entrenador_id")
                     id_perdedor = session.get("entrenador_rival_id")
 
@@ -109,8 +109,8 @@ def atacar():
                 try:
                     batalla_sesion = session.get("battle")
 
-                    pokemon_jugador = batalla_sesion["datos_pokemon_jugador"].name
-                    pokemon_rival = batalla_sesion["datos_pokemon_rival"].name
+                    pokemon_jugador = batalla_sesion["datos_pokemon_jugador"]["name"]
+                    pokemon_rival = batalla_sesion["datos_pokemon_rival"]["name"]
                     id_ganador = session.get("entrenador_rival_id")
                     id_perdedor = session.get("entrenador_id")
 
