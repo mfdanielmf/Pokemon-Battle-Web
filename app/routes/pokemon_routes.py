@@ -4,6 +4,7 @@ from app.services import pokemon_service
 from app.services.current_year_service import get_current_year
 from app.forms.pokemon_select_form import PokemonSelectForm
 
+
 current_year = get_current_year()
 pokemon_bp = Blueprint('pokemon', __name__)
 
@@ -17,7 +18,7 @@ def lista():
         entrenador = session.get("entrenador")
         pokemon_name = form.pokemon.data
 
-        pokemon_elegido = pokemon_service.obtener_pokemon_por_nombre(
+        pokemon_elegido = pokemon_service.obtener_pokemon_por_nombre_cliente(
             pokemon_name)
 
         if pokemon_elegido is None:
@@ -25,7 +26,7 @@ def lista():
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
             # Para que no se quede el valor introducido en el input
             form.pokemon.data = ""
-            return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), form=form, year=current_year)
+            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), form=form, year=current_year)
 
         session["pokemon_elegido"] = pokemon_name
 
@@ -36,12 +37,12 @@ def lista():
         return redirect(url_for("battle.battle"))
 
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
-    return render_template("lista_pokemon.html", pokemons=pokemon_service.listar_pokemon(), year=current_year, form=form)
+    return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), year=current_year, form=form)
 
 
 @pokemon_bp.route("/<int:id>")
 def pokemon_detalles(id):
-    pokemon = pokemon_service.obtener_pokemon_por_id(id)
+    pokemon = pokemon_service.obtener_pokemon_por_id_client(id)
     if pokemon is None:
         abort(404)
     return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year)

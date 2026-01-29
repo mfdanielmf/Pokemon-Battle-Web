@@ -3,7 +3,7 @@ import random
 from app.models.battle_db import Battle_db
 from app.repositories.entrenador_repo import obtener_todos_los_entrenadores
 from app.repositories.battle_repo import crear_batalla, obtener_batallas_por_entrenador
-from app.services.pokemon_service import listar_pokemon
+from app.services.pokemon_service import listar_pokemon_client
 from app.models.battle import Battle
 from app.models.entrenador import Entrenador
 from app.models.exceptions import EntrenadorNotFoundException, NoHayEntrenadoresException, BatallaIncompletaException
@@ -14,14 +14,15 @@ MULTIPLICADOR_DAÑO = 0.20
 
 
 def random_moves(pokemon):
-    movimientos = random.sample(pokemon.moves, min(4, len(pokemon.moves)))
-
+    
+    movimientos = random.sample(pokemon["moves"], min(4, len(pokemon["moves"])))
+    
     return movimientos
 
 
 def random_pokemon():
-    lista_pokemons = listar_pokemon()
-
+    lista_pokemons = listar_pokemon_client()
+    
     pokemon = random.choice(lista_pokemons)
 
     return pokemon
@@ -33,7 +34,8 @@ def random_atacar(ataques):
 
 # para poder conseguir el atributo hp en el json data
 def get_stat_value(pokemon, stat_name):
-    for stat in pokemon.stats:
+    for stat in pokemon["stats"]:
+        
         if stat["name"] == stat_name:
             return stat["value"]
 
@@ -47,7 +49,7 @@ def atacar_turno(damage, accuracy, battle_object, pokemon_name, ataque_name, ata
 
     acabar_batalla = False
 
-    nombre_pokemon_rival = battle_object["datos_pokemon_rival"].name.capitalize(
+    nombre_pokemon_rival = battle_object["datos_pokemon_rival"]["name"].capitalize(
     )
 
     if atacante_jugador == True:
