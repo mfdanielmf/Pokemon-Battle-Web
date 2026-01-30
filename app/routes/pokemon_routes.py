@@ -11,6 +11,12 @@ pokemon_bp = Blueprint('pokemon', __name__)
 
 @pokemon_bp.route("/", methods=["GET", "POST"])
 def lista():
+    page = request.args.get("pagina")
+
+    if not page:
+        page = 1
+    else:
+        page = int(page)
 
     # ADAPTAR POST (CUANDO ESTAMOS POR EJEMPLO EN LA PÁGINA 2 E INTRODUCIMOS EL NOMBRE DE USUARIO, QUE VUELVA A LA PÁGINA EN LA QUE ESTABA)
 
@@ -29,7 +35,7 @@ def lista():
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
             # Para que no se quede el valor introducido en el input
             form.pokemon.data = ""
-            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), form=form, year=current_year)
+            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado2(page), form=form, year=current_year)
 
         session["pokemon_elegido"] = pokemon_name
 
@@ -40,13 +46,6 @@ def lista():
         return redirect(url_for("battle.battle"))
 
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
-    page = request.args.get("pagina")
-
-    if not page:
-        page = 1
-    else:
-        page = int(page)
-
     return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado2(page), year=current_year, form=form)
 
 
