@@ -137,21 +137,21 @@ def pokemonTotal(moves, pokemonSinMove):
     return pokemonSinMove
 
 
-def obtener_pokemon_adaptado():
-    data = fetch_pokemon_parallel(urls, pokemon_client)
+# def obtener_pokemon_adaptado():
+#     data = fetch_pokemon_parallel(urls, pokemon_client)
 
-    if data is None:
-        return None
+#     if data is None:
+#         return None
 
-    pokemon = adaptar_pokemon(data)
+#     pokemon = adaptar_pokemon(data)
 
-    return pokemon
+#     return pokemon
 
 # BORRAR EL MÉTODO DE ARRIBA CUANDO ACABEMOS (REEMPLAZARLO POR ESTE)
 
 
 def obtener_pokemon_adaptado2(num_pagina: int):
-    offset = num_pagina * LIMIT
+    offset = (num_pagina - 1) * LIMIT
 
     data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
 

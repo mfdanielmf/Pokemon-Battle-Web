@@ -18,8 +18,6 @@ def lista():
     else:
         page = int(page)
 
-    # ADAPTAR POST (CUANDO ESTAMOS POR EJEMPLO EN LA PÁGINA 2 E INTRODUCIMOS EL NOMBRE DE USUARIO, QUE VUELVA A LA PÁGINA EN LA QUE ESTABA)
-
     form = PokemonSelectForm()
 
     # POST (formulario seleccionar)
@@ -35,7 +33,7 @@ def lista():
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
             # Para que no se quede el valor introducido en el input
             form.pokemon.data = ""
-            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado2(page), form=form, year=current_year)
+            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado2(page), form=form, year=current_year, pagina_actual=page)
 
         session["pokemon_elegido"] = pokemon_name
 
@@ -46,7 +44,7 @@ def lista():
         return redirect(url_for("battle.battle"))
 
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
-    return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado2(page), year=current_year, form=form)
+    return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado2(page), year=current_year, form=form, pagina_actual=page)
 
 
 @pokemon_bp.route("/<int:id>")
