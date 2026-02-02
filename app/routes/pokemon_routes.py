@@ -39,7 +39,7 @@ def lista():
 
             data = pokemon_service.obtener_pokemon_adaptado2(page)
 
-            return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], form=form, year=current_year, pagina_actual=page)
+            return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], form=form, year=current_year, pagina_actual=data["pagina"])
 
         session["pokemon_elegido"] = pokemon_name
 
@@ -52,7 +52,7 @@ def lista():
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
     data = pokemon_service.obtener_pokemon_adaptado2(page)
 
-    return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], year=current_year, form=form, pagina_actual=page, previous=data["previous"], next=data["next"])
+    return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], year=current_year, form=form, pagina_actual=data["pagina"], previous=data["previous"], next=data["next"])
 
 
 @pokemon_bp.route("/<int:id>")

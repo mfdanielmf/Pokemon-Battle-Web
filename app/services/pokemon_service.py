@@ -153,7 +153,16 @@ def pokemonTotal(moves, pokemonSinMove):
 def obtener_pokemon_adaptado2(num_pagina: int):
     offset = (num_pagina - 1) * LIMIT
 
+    pagina = num_pagina
+
     data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
+
+    if data["next"] is None:
+        # Si la página es mayor de las que hay, le enseñamos a la última
+        offset = data["count"] - 1
+        data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
+
+        pagina = int(data["count"] / 10)
 
     nombres = []
     for result in data["results"]:
@@ -167,7 +176,8 @@ def obtener_pokemon_adaptado2(num_pagina: int):
     return {
         "pokemons_adaptados": pokemons_adaptados,
         "next": data["next"],
-        "previous": data["previous"]
+        "previous": data["previous"],
+        "pagina": pagina
     }
 
 
