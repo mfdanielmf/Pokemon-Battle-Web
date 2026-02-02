@@ -22,7 +22,7 @@ class PokemonClient:
 
             return data
         except Exception as e:
-            print(f"Error desconocido: {e}")
+            print(f"Error desconocido: {str(e)}")
             return None
 
     def fetch_moves_detail(self, url):
