@@ -164,7 +164,11 @@ def obtener_pokemon_adaptado2(num_pagina: int):
 
     pokemons_adaptados = adaptar_pokemon(pokemons)
 
-    return pokemons_adaptados
+    return {
+        "pokemons_adaptados": pokemons_adaptados,
+        "next": data["next"],
+        "previous": data["previous"]
+    }
 
 
 def obtener_pokemon_por_id_client(id):
