@@ -35,15 +35,21 @@ class PokemonClient:
     def fetch_moves_detail(self, url):
         if url in self._cacheMoves:
             data = self._cacheMoves[url]
-            return data
+
+            if time.time() - data["expiracion"] < 10:
+                return data
 
         try:
             response = requests.get(url)
             data = response.json()
+            data["expiracion"] = time.time()
+
             self._cacheMoves[url] = data
+
             return data
         except Exception as e:
             print(f"Error desconocido: {e}")
+
             return None
 
     def fetch_pokemon_random(self):
