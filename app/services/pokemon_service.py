@@ -1,6 +1,7 @@
 import random
 import app.repositories.pokemon_repo as pokemon_repo
 from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, PokemonClient
+from app.models.exceptions import NoHayDataException
 
 pokemon_client = PokemonClient()
 
@@ -30,8 +31,18 @@ def obtener_pokemon_por_nombre(nombre):
 
 
 def adaptar_pokemon(data):
+    """
+    NoHayDataException
+    """
     data_return = []
+
+    if data is None:
+        raise NoHayDataException()
+
     for pokemon in data:
+        if pokemon is None:
+            raise NoHayDataException()
+
         height = pokemon["height"]
         id = pokemon["id"]
         name = pokemon["name"]

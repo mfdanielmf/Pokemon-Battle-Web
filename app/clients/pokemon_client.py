@@ -40,8 +40,6 @@ class PokemonClient:
             return None
 
     def fetch_moves_detail(self, url):
-        print(len(self._cacheMoves))
-
         if url in self._cacheMoves:
             data = self._cacheMoves[url]
 

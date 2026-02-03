@@ -3,6 +3,7 @@ from flask import Blueprint, abort, redirect, render_template, request, session,
 from app.services import pokemon_service
 from app.services.current_year_service import get_current_year
 from app.forms.pokemon_select_form import PokemonSelectForm
+from app.models.exceptions import NoHayDataException
 
 
 current_year = get_current_year()
@@ -28,10 +29,10 @@ def lista():
         entrenador = session.get("entrenador")
         pokemon_name = form.pokemon.data
 
-        pokemon_elegido = pokemon_service.obtener_pokemon_por_nombre_cliente(
-            pokemon_name)
-
-        if pokemon_elegido is None:
+        try:
+            pokemon_service.obtener_pokemon_por_nombre_cliente(
+                pokemon_name)
+        except NoHayDataException:
             form.pokemon.errors.append(
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
             # Para que no se quede el valor introducido en el input
