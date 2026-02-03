@@ -1,5 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
 
+from app.forms.pokemon_select_form import PokemonSelectForm
+from app.services import pokemon_service
 from app.services.pokemon_service import obtener_pokemon_por_nombre_cliente
 from app.services.current_year_service import get_current_year
 from app.services.battle_service import random_atacar, atacar_turno, inicializar_batalla, elegir_rival_aleatorio, insertar_batalla_base
@@ -37,8 +39,11 @@ def battle():
 
     # Creamos una nueva batalla si no lo habíamos hecho
     if not session.get("battle"):
-        battle = inicializar_batalla(pokemon_elegido)
-        session["battle"] = battle.__dict__
+        try:
+            battle = inicializar_batalla(pokemon_elegido)
+            session["battle"] = battle.__dict__
+        except Exception:
+            return redirect(url_for("pokemon.lista"))
 
     return render_template("battle.html", year=current_year)
 

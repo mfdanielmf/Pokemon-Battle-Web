@@ -1,5 +1,7 @@
+import random
 import app.repositories.pokemon_repo as pokemon_repo
 from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, PokemonClient
+from app.models.exceptions import NoHayDataException
 
 pokemon_client = PokemonClient()
 
@@ -10,6 +12,9 @@ urls = [
     487,
     484
 ]
+
+LIMIT = 10
+
 
 def listar_pokemon():
     return pokemon_repo.obtener_pokemons()
@@ -26,8 +31,18 @@ def obtener_pokemon_por_nombre(nombre):
 
 
 def adaptar_pokemon(data):
+    """
+    NoHayDataException
+    """
     data_return = []
+
+    if data is None:
+        raise NoHayDataException()
+
     for pokemon in data:
+        if pokemon is None:
+            raise NoHayDataException()
+
         height = pokemon["height"]
         id = pokemon["id"]
         name = pokemon["name"]
@@ -79,7 +94,6 @@ def adaptar_pokemon(data):
 
         weight = pokemon["weight"]
 
-       
         data_pokemon = {
             "height": height,
             "id": id,
@@ -94,14 +108,14 @@ def adaptar_pokemon(data):
 
     return data_return
 
+
 def adaptar_moves(data):
     linkMoves = []
-   
+
     for move_actual in data["moves"]:
         linkMoves.append(move_actual["move"]["url"])
         if (len(linkMoves) > 9):
             break
-
 
     movesPokemon = fetch_moves_parallel(linkMoves, pokemon_client)
     moves = []
@@ -124,8 +138,9 @@ def adaptar_moves(data):
             "power": powerMovimiento,
             "type": typeMovimiento
         })
-    
+
     return moves
+
 
 def pokemonTotal(moves, pokemonSinMove):
     for pokemon in pokemonSinMove:
@@ -133,46 +148,97 @@ def pokemonTotal(moves, pokemonSinMove):
     return pokemonSinMove
 
 
-def obtener_pokemon_adaptado():
-    data = fetch_pokemon_parallel(urls, pokemon_client)
+# def obtener_pokemon_adaptado():
+#     data = fetch_pokemon_parallel(urls, pokemon_client)
 
-    if data is None:
-        return None
+#     if data is None:
+#         return None
 
-    pokemon = adaptar_pokemon(data)
+#     pokemon = adaptar_pokemon(data)
 
-    return pokemon
+#     return pokemon
+
+# BORRAR EL MÉTODO DE ARRIBA CUANDO ACABEMOS (REEMPLAZARLO POR ESTE)
+
+
+def obtener_pokemon_adaptado2(num_pagina: int):
+    offset = (num_pagina - 1) * LIMIT
+
+    pagina = num_pagina
+
+    data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
+
+    if data["next"] is None:
+        # Si la página es mayor de las que hay, le enseñamos a la última
+        offset = data["count"] - 1
+        data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
+
+        pagina = int(data["count"] / 10)
+
+    nombres = []
+    for result in data["results"]:
+        nombres.append(result["name"])
+
+    pokemons = fetch_pokemon_parallel(
+        urls=nombres, pokemon_client=pokemon_client)
+
+    pokemons_adaptados = adaptar_pokemon(pokemons)
+
+    return {
+        "pokemons_adaptados": pokemons_adaptados,
+        "next": data["next"],
+        "previous": data["previous"],
+        "pagina": pagina
+    }
+
 
 def obtener_pokemon_por_id_client(id):
     data = pokemon_client.fetch_pokemon_detail(id)
-    
+
     pokemonSinMove = adaptar_pokemon([data])
     moves = adaptar_moves(data)
     pokemon = pokemonTotal(moves, pokemonSinMove)
     return pokemon[0]
 
+
 def listar_pokemon_client():
     data = fetch_pokemon_parallel(urls, pokemon_client)
-  
+
     pokemons = []
 
     for pokemon in data:
-       
+
         pokemonSinMove = adaptar_pokemon([pokemon])
-       
+
         moves = adaptar_moves(pokemon)
         pokemonSinMove[0]["moves"] = moves
         pokemons.append(pokemonSinMove[0])
 
     return pokemons
 
+
 def obtener_pokemon_por_nombre_cliente(nombre):
     data = pokemon_client.fetch_pokemon_detail(nombre)
-    
+
     pokemonSinMove = adaptar_pokemon([data])
 
-    
     moves = adaptar_moves(data)
 
     pokemon = pokemonTotal(moves, pokemonSinMove)
+    return pokemon[0]
+
+
+def random_pokemon_rival():
+    data_max = pokemon_client.fetch_pokemon_random()
+    max_pokemons = data_max["count"]
+
+    id = random.randint(1, max_pokemons)
+    data_pokemon = pokemon_client.fetch_pokemon_detail(id=id)
+
+    pokemonSinMove = adaptar_pokemon([data_pokemon])
+
+    moves = adaptar_moves(data_pokemon)
+
+    pokemon = pokemonTotal(moves, pokemonSinMove)
+
     return pokemon[0]

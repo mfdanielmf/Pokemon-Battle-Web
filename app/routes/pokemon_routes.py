@@ -1,8 +1,9 @@
-from flask import Blueprint, abort, redirect, render_template, session, url_for
+from flask import Blueprint, abort, redirect, render_template, request, session, url_for
 
 from app.services import pokemon_service
 from app.services.current_year_service import get_current_year
 from app.forms.pokemon_select_form import PokemonSelectForm
+from app.models.exceptions import NoHayDataException
 
 
 current_year = get_current_year()
@@ -11,6 +12,16 @@ pokemon_bp = Blueprint('pokemon', __name__)
 
 @pokemon_bp.route("/", methods=["GET", "POST"])
 def lista():
+    page = request.args.get("pagina")
+
+    try:
+        if not page or int(page) < 1:
+            page = 1
+        else:
+            page = int(page)
+    except Exception:
+        page = 1
+
     form = PokemonSelectForm()
 
     # POST (formulario seleccionar)
@@ -18,15 +29,18 @@ def lista():
         entrenador = session.get("entrenador")
         pokemon_name = form.pokemon.data
 
-        pokemon_elegido = pokemon_service.obtener_pokemon_por_nombre_cliente(
-            pokemon_name)
-
-        if pokemon_elegido is None:
+        try:
+            pokemon_service.obtener_pokemon_por_nombre_cliente(
+                pokemon_name)
+        except NoHayDataException:
             form.pokemon.errors.append(
                 f"El pokemon '{pokemon_name}' no existe. Elige uno válido")
             # Para que no se quede el valor introducido en el input
             form.pokemon.data = ""
-            return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), form=form, year=current_year)
+
+            data = pokemon_service.obtener_pokemon_adaptado2(page)
+
+            return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], form=form, year=current_year, pagina_actual=data["pagina"], previous=data["previous"], next=data["next"])
 
         session["pokemon_elegido"] = pokemon_name
 
@@ -37,12 +51,16 @@ def lista():
         return redirect(url_for("battle.battle"))
 
     # GET (cargamos la lista directamente o venimos de elegir entrenador)
-    return render_template("lista_pokemon.html", pokemons=pokemon_service.obtener_pokemon_adaptado(), year=current_year, form=form)
+    data = pokemon_service.obtener_pokemon_adaptado2(page)
+
+    return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], year=current_year, form=form, pagina_actual=data["pagina"], previous=data["previous"], next=data["next"])
 
 
 @pokemon_bp.route("/<int:id>")
 def pokemon_detalles(id):
-    pokemon = pokemon_service.obtener_pokemon_por_id_client(id)
-    if pokemon is None:
+    try:
+        pokemon = pokemon_service.obtener_pokemon_por_id_client(id)
+    except NoHayDataException:
         abort(404)
+
     return render_template("pokemon_detallado.html", pokemon_recibir=pokemon, year=current_year)

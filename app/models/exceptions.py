@@ -20,3 +20,7 @@ class NoHayEntrenadoresException(Exception):
 
 class BatallaIncompletaException(Exception):
     pass
+
+
+class NoHayDataException(Exception):
+    pass
