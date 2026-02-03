@@ -40,7 +40,7 @@ def lista():
 
             data = pokemon_service.obtener_pokemon_adaptado2(page)
 
-            return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], form=form, year=current_year, pagina_actual=data["pagina"])
+            return render_template("lista_pokemon.html", pokemons=data["pokemons_adaptados"], form=form, year=current_year, pagina_actual=data["pagina"], previous=data["previous"], next=data["next"])
 
         session["pokemon_elegido"] = pokemon_name
 
