@@ -36,7 +36,7 @@ class PokemonClient:
         if url in self._cacheMoves:
             data = self._cacheMoves[url]
 
-            if time.time() - data["expiracion"] < 10:
+            if time.time() - data["expiracion"] < TIEMPO_LIMITE:
                 return data
 
         try:
