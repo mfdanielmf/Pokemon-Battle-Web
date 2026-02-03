@@ -1,5 +1,8 @@
+import time
 import requests
 from concurrent.futures import ThreadPoolExecutor
+
+TIEMPO_LIMITE = 300  # 5 min máximo para el cache
 
 
 class PokemonClient:
@@ -10,13 +13,17 @@ class PokemonClient:
     def fetch_pokemon_detail(self, id):  # id o nombre
         if id in self._cache:
             data = self._cache[id]
-            return data
+
+            # Si pasó el tiempo límite, devolvemo data, si no hace el req
+            if time.time() - data["expiracion"] < TIEMPO_LIMITE:
+                return data
 
         url = f"https://pokeapi.co/api/v2/pokemon/{id}"
 
         try:
             response = requests.get(url)
             data = response.json()
+            data["expiracion"] = time.time()
 
             self._cache[id] = data
 
@@ -49,8 +56,8 @@ class PokemonClient:
         except Exception as e:
             print(f"Error desconocido: {e}")
             return None
-        
-    def fetch_pokemon_list(self,limit, offset):
+
+    def fetch_pokemon_list(self, limit, offset):
         url = f"https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}"
 
         try:
@@ -60,7 +67,6 @@ class PokemonClient:
         except Exception as e:
             print(f"Error desconocido: {e}")
             return None
-
 
 
 def fetch_pokemon_parallel(urls, pokemon_client: PokemonClient):
