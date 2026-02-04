@@ -38,7 +38,7 @@ python -m venv .venv
 Ejecutar el siguiente comando para descar los requirements:
 
 ```
-.\.venv\Scripts\pip.exe install -r requirements.txt
+./.venv/Scripts/pip.exe install -r requirements.txt
 ```
 
 **4. Crear la base de datos y las tablas:**
@@ -47,7 +47,7 @@ Ahora hay que crear las tablas de la base de datos.
 Para ello, hay que ejecutar el siguiente comando:
 
 ```
-.\.venv\Scripts\flask.exe --app app.main crear-tablas
+./.venv/Scripts/flask.exe --app app.main crear-tablas
 ```
 
 **5. Lanzar main.py**
@@ -55,7 +55,7 @@ Para ello, hay que ejecutar el siguiente comando:
 Ejecutar el siguiente comando para lanzar el servidor local:
 
 ```
-.\.venv\Scripts\python.exe -m app.main
+./.venv/Scripts/python.exe -m app.main
 ```
 
 **6. Abrir en el navegador**
@@ -65,3 +65,9 @@ Esto abrirá el servidor en la siguiente dirección:
 ```
 http://127.0.0.1:8080
 ```
+
+# Sobre la API
+
+Hemos usado la [PokeAPI](https://pokeapi.co/) para obtener la información de los pokemons.  
+El manejo de la API está en la carpeta clients (donde hacemos las peticiones) y la lógica de negocio y la adaptación de los datos de la api está en pokemon service.  
+Los datos se guardan en caché durante 5 minutos (podría ser más tiempo porque es raro que cambie la info de los pokemons) y se mantienen hasta 4 páginas y 10 detalles de pokemons. Cuando no queda espacio, borramos los datos más antiguos.
