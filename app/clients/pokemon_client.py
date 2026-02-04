@@ -4,8 +4,8 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 
 TIEMPO_LIMITE = 300  # 5 min máximo para el cache
-MAX_CACHE = 40
-MAX_CACHE_MOVES = 40
+MAX_CACHE = 32
+MAX_CACHE_MOVES = 32
 
 
 class PokemonClient:

@@ -1,3 +1,4 @@
+import math
 import random
 import app.repositories.pokemon_repo as pokemon_repo
 from app.clients.pokemon_client import fetch_pokemon_parallel, fetch_moves_parallel, PokemonClient
@@ -13,7 +14,7 @@ urls = [
     484
 ]
 
-LIMIT = 10
+LIMIT = 8
 
 
 def listar_pokemon():
@@ -170,10 +171,11 @@ def obtener_pokemon_adaptado2(num_pagina: int):
 
     if data["next"] is None:
         # Si la página es mayor de las que hay, le enseñamos a la última
-        offset = data["count"] - 1
+        paginas = math.ceil(data["count"] / LIMIT)
+        offset = (paginas - 1) * LIMIT
         data = pokemon_client.fetch_pokemon_list(limit=LIMIT, offset=offset)
 
-        pagina = int(data["count"] / 10)
+        pagina = paginas
 
     nombres = []
     for result in data["results"]:
